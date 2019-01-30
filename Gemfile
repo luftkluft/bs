@@ -35,23 +35,24 @@ gem 'jbuilder', '~> 2.5'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'byebug'
   gem 'capybara', '~> 2.13.0'
   gem 'rspec-rails'
-  gem 'selenium-webdriver'
   gem 'rspec_junit_formatter'
+  gem 'selenium-webdriver'
   gem 'simplecov', require: false, group: :test
 end
 
 group :development do
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'fasterer'
+  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rubocop-rspec'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console', '>= 3.3.0'
 end
 
 group :production do
@@ -59,5 +60,4 @@ group :production do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
