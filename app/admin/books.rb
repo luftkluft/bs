@@ -8,14 +8,12 @@ ActiveAdmin.register Book do
     id_column
     column 'Image' do |book|
       image_tag book.image.url, width: 80, height: 100
-      # image_tag book.image.variant(resize: '80x100')
-      # image_tag book.image.url, class: "thumbnail"
     end
     column :title
     column :author
-    # column 'Category' do |book|
-    #   Category.find_by(id: book.category_id).type_of
-    # end
+    column 'Category' do |book|
+      Category.find_by(id: book.category_id).type_of
+    end
     column :description
     column :year
     column :in_stock

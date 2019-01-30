@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_30_204722) do
+ActiveRecord::Schema.define(version: 2019_01_30_233325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,9 @@ ActiveRecord::Schema.define(version: 2019_01_30_204722) do
     t.string "author"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "visible", default: true
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_books_on_category_id"
   end
 
   create_table "carrierwave_files", force: :cascade do |t|
@@ -77,4 +80,11 @@ ActiveRecord::Schema.define(version: 2019_01_30_204722) do
     t.index ["path"], name: "index_carrierwave_files_on_path", unique: true
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "type_of"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "books", "categories"
 end
