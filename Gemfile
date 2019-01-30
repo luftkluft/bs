@@ -38,6 +38,10 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jquery-rails'
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin'
 gem 'devise'
+gem 'carrierwave', '~> 1.0'
+gem 'mini_magick'
+gem 'country_select', '~> 4.0'
+gem 'carrierwave-postgresql-table'
 
 group :development, :test do
   gem 'byebug'

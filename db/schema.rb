@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_30_175856) do
+ActiveRecord::Schema.define(version: 2019_01_30_204722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,32 @@ ActiveRecord::Schema.define(version: 2019_01_30_175856) do
     t.index ["confirmation_token"], name: "index_admin_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "books", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "image"
+    t.string "materials"
+    t.decimal "price", precision: 8, scale: 2
+    t.decimal "height"
+    t.decimal "width"
+    t.decimal "depth"
+    t.integer "year"
+    t.integer "in_stock"
+    t.string "author"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "carrierwave_files", force: :cascade do |t|
+    t.string "path", null: false
+    t.oid "pg_largeobject_oid", null: false
+    t.integer "size", null: false
+    t.string "content_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["path"], name: "index_carrierwave_files_on_path", unique: true
   end
 
 end
