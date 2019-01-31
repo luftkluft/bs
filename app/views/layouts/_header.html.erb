@@ -59,7 +59,30 @@
       </div>
     </div>
   </div>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+
+  <% if user_signed_in? %>
+  <h3>user_signed</h3>
+  <%= current_user.email %><br>
+  <%= current_user.name %><br>
+  <% end %>
+
+  <li><a href="<%= new_user_registration_path %>">
+      <%= t('devise.registrations.new.sign_up') %></a></li>
+  <li><a href="<%= new_user_session_path %>">
+      <%= t('devise.shared.links.sign_in') %></a></li>
+  <li>
+    <%= link_to t('devise.shared.links.account'), edit_user_registration_path %>
+  </li>
+  <li class="divider"></li>
+  <li>
+    <%= link_to t('devise.shared.links.sign_out'), destroy_user_session_path, method: :delete %>
+  </li>
+
+  <p class="notice">
+    <%= notice %>
+  </p>
+  <p class="alert">
+    <%= alert %>
+  </p>
 
 </header>
