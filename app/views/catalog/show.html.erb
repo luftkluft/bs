@@ -1,0 +1,103 @@
+<main class="container">
+  <h1 class="general-title-margin">Сatalog</h1>
+  <div class="hidden-xs clearfix">
+    <div class="dropdowns pull-right">
+      <div class="dropdown width-240">
+        <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle lead small">Newest
+          first
+          <i class="fa fa-angle-down dropdown-icon pull-right"></i></a>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="#">Newest first</a></li>
+          <li>
+            <a href="#">Popular first</a></li>
+          <li>
+            <a href="#">Price: Low to hight</a></li>
+          <li>
+            <a href="#">Price: Hight to low</a></li>
+        </ul>
+      </div>
+    </div>
+    <ul class="list-inline pt-10 mb-25 mr-240">
+      <li class="mr-35">
+        <a href="#" class="filter-link">All
+          <span class="badge general-badge">135</span></a></li>
+      <li class="mr-35">
+        <a href="#" class="filter-link">Mobile Development
+          <span class="badge general-badge">135</span></a></li>
+      <li class="mr-35">
+        <a href="#" class="filter-link">Photo
+          <span class="badge general-badge">135</span></a></li>
+      <li class="mr-35">
+        <a href="#" class="filter-link">Web Design
+          <span class="badge general-badge">135</span></a></li>
+    </ul>
+  </div>
+  <div class="dropdowns mb-25 visible-xs">
+    <p class="lead small mb-10">Filter by category</p>
+    <div class="dropdown">
+      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle lead small">Newest
+        first
+        <i class="fa fa-angle-down dropdown-icon pull-right"></i></a>
+      <ul class="dropdown-menu">
+        <li>
+          <a href="#">Newest first</a></li>
+        <li>
+          <a href="#">Popular first</a></li>
+        <li>
+          <a href="#">Price: Low to hight</a></li>
+        <li>
+          <a href="#">Price: Hight to low</a></li>
+      </ul>
+    </div>
+    <p class="lead small mb-10">Sort by</p>
+    <div class="dropdown">
+      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle lead small">Newest
+        first
+        <i class="fa fa-angle-down dropdown-icon pull-right"></i></a>
+      <ul class="dropdown-menu">
+        <li>
+          <a href="#">Newest first</a></li>
+        <li>
+          <a href="#">Popular first</a></li>
+        <li>
+          <a href="#">Price: Low to hight</a></li>
+        <li>
+          <a href="#">Price: Hight to low</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="mb-120">
+    <div class="row mb-25">
+      <% @books.each do |book| %>
+      <div class="col-xs-6 col-sm-3">
+        <div class="general-thumb-wrap">
+          <div class="thumbnail general-thumbnail">
+            <img src=<%=book.image %> alt="design-book"
+            class="img-shadow general-thumbnail-img" />
+            <div class="thumb-hover">
+              <div class="general-thumb-link-wrap">
+                <a href="#" class="thumb-hover-link">
+                  <i aria-hidden="true" class="fa fa-eye thumb-icon"></i></a>
+                <a href="#" class="thumb-hover-link">
+                  <i class="fa fa-shopping-cart thumb-icon"></i></a></div>
+            </div>
+          </div>
+        </div>
+        <div class="general-thumb-info">
+          <p class="title">
+            <%= book.title %>
+          </p>
+          <p class="font-16 in-gold-500">€
+            <%= book.price %>
+          </p>
+          <span class="divider-sm"></span>
+          <p class="lead small">
+            <%= book.author %>
+          </p>
+        </div>
+      </div>
+      <% end %>
+    </div>
+</main>
+<%= pagy_nav_bootstrap(@pagy).html_safe %>

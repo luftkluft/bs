@@ -1,9 +1,9 @@
 require 'ffaker'
 if Rails.env.development?
-  AdminUser.delete_all
-  User.delete_all
-  Category.delete_all
-  Book.delete_all
+  # AdminUser.delete_all
+  # User.delete_all
+  # Category.delete_all
+  # Book.delete_all
 
   AdminUser.create!(email: 'admin@example.com', password: 'password',
                     password_confirmation: 'password')
@@ -41,17 +41,17 @@ if Rails.env.development?
 end
 
 if Rails.env.production?
-  AdminUser.delete_all
-  User.delete_all
-  Category.delete_all
-  Book.delete_all
+  # AdminUser.delete_all
+  # User.delete_all
+  # Category.delete_all
+  # Book.delete_all
 
   AdminUser.create!(email: 'admin@example.com', password: 'password',
                     password_confirmation: 'password')
 
-  User.create!(email: 'user@example.com',
-               password: 'password',
-               password_confirmation: 'password')
+  # User.create!(email: 'user@example.com',
+  #              password: 'password',
+  #              password_confirmation: 'password')
 
   type_of = ['Web design',
              'Mobile development',
