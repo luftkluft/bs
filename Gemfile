@@ -42,6 +42,7 @@ gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
 gem 'country_select', '~> 4.0'
 gem 'carrierwave-postgresql-table'
+gem 'ffaker'
 
 group :development, :test do
   gem 'byebug'

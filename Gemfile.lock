@@ -115,6 +115,7 @@ GEM
     fasterer (0.4.1)
       colorize (~> 0.7)
       ruby_parser (~> 3.11.0)
+    ffaker (2.10.0)
     ffi (1.10.0)
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
@@ -342,6 +343,7 @@ DEPENDENCIES
   country_select (~> 4.0)
   devise
   fasterer
+  ffaker
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)

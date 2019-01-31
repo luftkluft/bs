@@ -1,9 +1,9 @@
 class HomeController < ApplicationController
   def start_page
-    @books = Book.all || []
-    @last_book = Book.last || []
-    @two_books = Book.take(2) || []
-    @four_books = Book.take(4) || []
+    @books = Book.all || Book.new
+    @last_book = Book.last || Book.new
+    @two_books = Book.take(2) || Book.new
+    @four_books = Book.take(4) || Book.new
   end
 
   private
