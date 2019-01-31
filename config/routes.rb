@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   root to: 'home#start_page'
+  resources :books, only: :show do
+    resources :reviews, shallow: true
+  end
+  resources :reviews, only: [:create]
 end

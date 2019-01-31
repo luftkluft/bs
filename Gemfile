@@ -44,6 +44,7 @@ gem 'country_select', '~> 4.0'
 gem 'carrierwave-postgresql-table'
 gem 'ffaker'
 gem 'pagy'
+gem 'aasm'
 
 group :development, :test do
   gem 'byebug'

@@ -1,33 +1,237 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  header:
+    shop_title: "Bookstore"
+    home_link: "Home"
+    shop_link: "Shop"
+    orders_link: "Orders"
+    settings_link: "Settings"
+    my_account: "My Account"
+    log_in: "Log in"
+    log_out: "Log Out"
+    sign_up: "Sign Up"
+  footer:
+    support_url: "support@bookstore.com"
+    support_phone: "(555)-555-5555"
+  home:
+    invitation: "Welcome to our amazing Bookstore!"
+    shop_description: "We pore through hundreds of new books each month and select the five best we can find to share with our members."
+    get_started: "Get started"
+    bestsellers: "Bestsellers | %{category_title}"
+  category:
+    catalog: "Сatalog"
+    all: "All"
+    filter_by_category: "Filter by category"
+    sort_by: "Sort By"
+    filters:
+      select_filter: "Select filter"
+      popular_first: "Popular first"
+      by_title_asc: "Title: A-Z"
+      by_title_desc: "Title: Z-A"
+      by_date_asc: "Date: Oldest first"
+      by_date_desc: "Date: Newest first"
+      by_price_asc: "Price: Low to high"
+      by_price_desc: "Price: High to low"
+  book:
+    back_to_results: "Back to results"
+    description:
+      title: "Description"
+      read_more: "Read More"
+    year_of_publication: "Year of publication"
+    dimensions: "Dimensions"
+    materials: "Materials"
+  review:
+    count: "Reviews (%{count})"
+    verified_reviewer: "Verified Reviewer"
+    leave_review: "Leave your review"
+    attrs:
+      score:
+        title: "Score"
+        placeholder: "Score book (from 1 to 5)"
+      name:
+        title: "Name"
+        placeholder: "Your name"
+      body:
+        title: "Review"
+        placeholder: "Review text"
+    add_btn: "Add review"
+    create:
+      success: "Thanks for Review. It will be published as soon as Admin will approve it"
+      failure: "An errors occurred while creating review"
+  order_item:
+    add_to_cart: "Add to Cart"
+    already_in_cart: "Already in Cart"
+    buy_now: "Buy Now"
+    create:
+      success: "Book was successfully added to the cart"
+      failure: "An errors occurred while adding book to cart"
+    destroy:
+      non_empty_cart: "Book was successfully deleted from cart"
+      empty_cart: "Your cart is empty now"
+  cart:
+    title: "Cart"
+    empty_cart: "Your cart is empty now"
+    product: "Product"
+    price: "Price"
+    quantity: "Quantity"
+    subtotal: "Subtotal"
+    checkout_btn: "Checkout"
+    update_btn: "Update cart"
+    order_summary:
+      title: "Order Summary"
+      subtotal: "Subtotal:"
+      coupon: "Coupon:"
+      order_total: "Order Total:"
+    coupon:
+      update:
+        success: "Your coupon was successfully applied"
+        failure: "An errors occurred while saving your coupon"
+      info: "You have already applied coupon. Your discount is %{discount}%"
+      placeholder: "Enter your coupon code"
+    order_items:
+      update:
+        success: "Cart items was successfully updated"
+        failure: "An errors occurred while updating cart items"
+  order:
+    list_title: "My Orders"
+    empty_list: "You do not have any orders"
+    empty_scoped_list: "You have not orders with this status"
+    number: "Number"
+    completed_at: "Completed at"
+    status: "Status"
+    total: "Total"
+    invoice: "Order %{invoice}"
+    filters:
+      all: "All"
+      waiting_for_processing: "Waiting For Processing"
+      in_progress: "In Progress"
+      in_delivery: "In Delivery"
+      delivered: "Delivered"
+  shared:
+    order_info:
+      shipping_address: "Shipping Address"
+      billing_address: "Billing Address"
+      shipments: "Shipments"
+      payment: "Payment Information"
+      edit_link: "edit"
+      phone: "Phone"
+    order_items:
+      price: "Price"
+      quantity: "Quantity"
+      subtotal: "Subtotal"
+      book: "Book"
+      total: "Total"
+    order_summary:
+      title: "Order Summary"
+      subtotal: "Subtotal:"
+      coupon_discount: "Coupon:"
+      delivery: "Delivery:"
+      order_total: "Order Total:"
+  user:
+    update:
+      success: "%{type} was successfully updated"
+      failure: "An errors occurred while saving your settings"
+  checkout:
+    title: "Checkout"
+    credit_card: "Credit Card"
+    place_order_btn: "Place Order"
+    thanks_for_order: "Thank You for your Order!"
+    email_confirmation: "An order confirmation has been has been sent to %{email}"
+    back_to_store_btn: "Back to store"
+    save_btn: "Save and Continue"
+    steps:
+      address: "Address"
+      delivery: "Delivery"
+      payment: "Payment"
+      confirm: "Confirm"
+      complete: "Complete"
+    authorize:
+      skip_step: "Sorry, pal, it seems that you jumped over %{step} step"
+      empty_cart: "Sorry, but before checkout you need purchase some books"
+    update:
+      failure: "An errors occurred while saving your data"
+  address:
+    billing: "Billing Address"
+    shipping: "Shipping Address"
+    attrs:
+      first_name:
+        title: "First Name"
+        placeholder: "First Name"
+      last_name:
+        title: "Last Name"
+        placeholder: "Last Name"
+      address:
+        title: "Address"
+        placeholder: "Address"
+      city:
+        title: "City"
+        placeholder: "City"
+      zip_code:
+        title: "Zip code"
+        placeholder: "Zip"
+      country:
+        title: "Country"
+      phone_number:
+        title: "Phone Number"
+        placeholder: "Example: +12213508818"
+    required_fields: "all fields are required"
+    use_billing_address: "Use billing address"
+  delivery:
+    method: "Method"
+    days: "Days"
+    price: "Price"
+  credit_card:
+    attrs:
+      number:
+        title: "Number"
+        placeholder: "Card Number"
+      name:
+        title: "Name"
+        placeholder: "Name on Card"
+      expiration_date:
+        title: "MM / YY"
+        placeholder: "MM / YY"
+      cvv:
+        title: "CVV"
+        placeholder: "CVV"
+    tooltip: "3-digit security code, usually found on the back of your card. American Express cards has 4-digit code, located on the front"
+  settings:
+    title: "Settings"
+    address: "Address"
+    privacy: "Privacy"
+    save_btn: "Save"
+    email_section: "Email"
+    password_section: "Password"
+    remove_account_section: "Remove Account"
+    remove_account_msg: "Please Remove My Account"
+    remove_account_confirm: "I understand that all data will be lost"
+    attrs:
+      email:
+        title: "Enter Email"
+        placeholder: "Enter your email"
+      current_password:
+        title: "Old Password"
+        placeholder: "Old Password"
+      password:
+        title: "New Password"
+        placeholder: "New Password"
+      password_confirmation:
+        title: "Confirm Password"
+        placeholder: "Confirm Password"
+  unauthorized:
+    default: "You are not authorized to access this page"
+  admin:
+    review:
+      approve:
+        notice: "Approved!"
+        link: "Approve Review"
+    order:
+      in_progress:
+        notice: "The current order is being processed"
+        link: "In Progress!"
+      in_delivery:
+        notice: "Current order has been shipped"
+        link: "In Delivery!"
+      delivered:
+        notice: "Current order delivered!"
+        link: "Delivered!"
+            

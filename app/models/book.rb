@@ -1,6 +1,7 @@
 class Book < ApplicationRecord
   mount_uploader :image, ImageUploader
   belongs_to :category
+  has_many :reviews, dependent: :destroy
   validates :title, presence: true,
                     length: { in: 6..80 },
                     uniqueness: false
