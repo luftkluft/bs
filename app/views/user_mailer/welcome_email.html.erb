@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type="text/css" media="screen">
+    h3 {
+      color: #f00;
+    }
+
+    ul {
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Welcome to example.com,
+    <%= @user.email %>
+  </h1>
+  <h3>Your account signup details are below</h3>
+  <ul>
+    <li>Name:
+      <%= @user.name %>
+    </li>
+    <li>E-mail:
+      <%= @user.email %>
+    </li>
+  </ul>
+  <p>
+    To login to the site, just follow this link:
+    <%= @url %>.
+  </p>
+  <p>Thanks for joining and have a great day!</p>
+</body>
+
+</html>
