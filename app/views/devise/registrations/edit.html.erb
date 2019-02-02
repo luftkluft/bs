@@ -1,43 +1,69 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<main class="container general-main-wrap">
+  <div class="text-center">
+    <h3 class="general-login-title">Edit <%= resource_name.to_s.humanize %></h3>
+  </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'general-form' }) do |f| %>
+  <div class="form-group mb-30">
+    <%= devise_error_messages! %>
+  </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="form-group mb-30">
+    <label for="email" class="control-label input-label">Enter Email</label>
+    <input id="email" name="user[email]" type="email" placeholder="Email" class="form-control" , autofocus="true" />
+  </div>
+
+  <div class="form-group mb-30">
+    <label for="name" class="control-label input-label">Enter Name</label>
+    <input id="name" name="user[name]" type="text" placeholder="Your name" class="form-control" />
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <div class="form-group mb-30">
+    Currently waiting confirmation for:
+    <%= resource.unconfirmed_email %>
+  </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+  <div class="form-group mb-30">
+    <label for="password" class="control-label input-label">Password</label>
     <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
+    <label for="password" class="control-label input-label">
+      <em>(
+        <%= @minimum_password_length %> characters minimum)</em>
+    </label>
+    <% end %><br />
+    <input id="password" name="user[password]" type="password" placeholder="Password" class="form-control" />
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="form-group mb-30">
+    <label for="password" class="control-label input-label">Password confirmation</label>
+    <input id="password_confirmation" name="user[password_confirmation]" type="password" placeholder="Password confirmation"
+      class="form-control" />
   </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
+
+  <div class="form-group mb-30">
+    <label for="password" class="control-label input-label">Current password</label>
+    <input id="user_current_password" name="user[current_password]" type="password" placeholder="Current password"
+      class="form-control" />
   </div>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
+  <div class="text-center">
+    <button type="submit" class="btn btn-default mb-20" name="commit" value="Update">Update</button>
   </div>
-<% end %>
+  <% end %>
 
-<h3>Cancel my account</h3>
+  <%= form_tag('/users', :method => :delete) do %>
+  <div class="form-group mb-30">
+    <p class="general-sign-text text-center">Unhappy?
+      <div class="text-center">
+        <button type="submit" class="btn btn-default mb-20" name="commit" value="Cancel my account" data-confirm="Are you sure?">Cancel my account</button>
+      </div>
+    </p>
+  </div>
+  <% end %>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+  <p class="general-sign-text text-center">Don’t want update?
+    <a href="/" class="in-gold-500">Back to Store</a></p>
+</main>
