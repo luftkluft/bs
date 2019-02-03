@@ -45,6 +45,9 @@ gem 'carrierwave-postgresql-table'
 gem 'ffaker'
 gem 'pagy'
 gem 'aasm'
+gem 'therubyracer'
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 group :development, :test do
   gem 'byebug'
