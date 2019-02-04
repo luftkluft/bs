@@ -9,4 +9,6 @@ Rails.application.routes.draw do
     resources :reviews, shallow: true
   end
   resources :reviews, only: [:create]
+  match '/settings', to: 'settings#show', via: 'get'
+  match '/settings', to: 'settings#save', via: 'post'
 end

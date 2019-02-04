@@ -10,12 +10,12 @@
 
   <div class="form-group mb-30">
     <label for="email" class="control-label input-label">Enter Email</label>
-    <input id="email" name="user[email]" type="email" placeholder="Email" class="form-control" , autofocus="true" />
+    <input value="<%= current_user.email %>" id="email" name="user[email]" type="email" placeholder="Email" class="form-control" , autofocus="true" />
   </div>
 
   <div class="form-group mb-30">
     <label for="name" class="control-label input-label">Enter Name</label>
-    <input id="name" name="user[name]" type="text" placeholder="Your name" class="form-control" />
+    <input value="<%= current_user.name %>" id="name" name="user[name]" type="text" placeholder="Your name" class="form-control" />
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
