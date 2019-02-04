@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :email, :password, :password_confirmation, :role, :name
+  permit_params :email, :password, :password_confirmation, :role, :name, :addresses
 
   index do
     selectable_column
@@ -10,6 +10,10 @@ ActiveAdmin.register User do
     column :sign_in_count
     column :created_at
     column :role
+    column :addresses
+    column 'address_type' do |user|
+      Address.where(user_id: user.id).map(&:address_type)
+    end
     actions
   end
 
@@ -25,6 +29,7 @@ ActiveAdmin.register User do
       f.input :password
       f.input :password_confirmation
       f.input :role
+      f.input :addresses
     end
     f.actions
   end

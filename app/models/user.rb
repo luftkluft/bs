@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable,
          :omniauthable, omniauth_providers: [:facebook]
   has_many :reviews, dependent: :destroy
+  has_many :addresses, dependent: :destroy
 
   after_create :send_welcome_email
 
