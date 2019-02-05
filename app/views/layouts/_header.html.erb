@@ -132,12 +132,13 @@
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">Shop</a>
             <ul class="dropdown-menu">
-              <li>
-                <a href="#">Mobile development</a></li>
-              <li>
-                <a href="#">Photo</a></li>
-              <li>
-                <a href="#">Web design</a></li>
+                <li>
+                    <a id="cat_all" href="#" data-remote="true" >All categories</a></li>
+              <% @category.each do |cat| %>
+                <li>
+                  <a id="<%= cat.type_of.delete(' ') %>" href="#" data-remote="true" ><%= cat.type_of %></a></li>
+                <li>
+              <% end %>
             </ul>
           </li>
           <li class="dropdown">

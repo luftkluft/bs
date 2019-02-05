@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def start_page
+    @category = Category.all || []
     @books = Book.all || Book.new
     @last_book = Book.last || Book.new
     @two_books = Book.take(2) || Book.new

@@ -20,17 +20,13 @@
     </div>
     <ul class="list-inline pt-10 mb-25 mr-240">
       <li class="mr-35">
-        <a href="#" class="filter-link">All
-          <span class="badge general-badge">135</span></a></li>
-      <li class="mr-35">
-        <a href="#" class="filter-link">Mobile Development
-          <span class="badge general-badge">135</span></a></li>
-      <li class="mr-35">
-        <a href="#" class="filter-link">Photo
-          <span class="badge general-badge">135</span></a></li>
-      <li class="mr-35">
-        <a href="#" class="filter-link">Web Design
-          <span class="badge general-badge">135</span></a></li>
+        <a id="catalogcat_all" href="#" class="filter-link">All
+          <span class="badge general-badge"><%= @all_books.count %></span></a></li>
+          <% @category.each do |cat| %>
+            <li>
+              <a id="catalog<%= cat.type_of.delete(' ') %>" href="#" class="filter-link" data-remote="true" ><%= cat.type_of %>
+              <span class="badge general-badge"><%= Book.where(category_id: cat.id).count %></span></a></li>
+          <% end %>
     </ul>
   </div>
   <div class="dropdowns mb-25 visible-xs">
@@ -100,4 +96,4 @@
       <% end %>
     </div>
 </main>
-<%= pagy_nav_bootstrap(@pagy).html_safe %>
+<%= pagy_bootstrap_nav(@pagy).html_safe %>
