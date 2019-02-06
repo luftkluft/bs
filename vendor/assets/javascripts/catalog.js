@@ -18,4 +18,20 @@ $(document).ready(function () {
   $('#catalogWebdevelopment').on('click', function () {
     window.location.href = '/catalog?category_type_of=Web development';
   });
+
+  $('#newest-first').on('click', function () {
+    window.location.href = '/catalog?books_sorting=Newest first';
+  });
+
+  $('#popular-first').on('click', function () {
+    window.location.href = '/catalog?books_sorting=Popular first';
+  });
+
+  $('#low-to-hight').on('click', function () {
+    window.location.href = '/catalog?books_sorting=Low to hight';
+  });
+
+  $('#hight-to-low').on('click', function () {
+    window.location.href = '/catalog?books_sorting=Hight to low';
+  });
 });

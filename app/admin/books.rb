@@ -1,7 +1,7 @@
 ActiveAdmin.register Book do
   permit_params :image, :title, :author, :category_id, :description, :year,
                 :in_stock, :type_of, :materials, :price,
-                :height, :width, :depth
+                :height, :width, :depth, :popularity
 
   index do
     selectable_column
@@ -17,6 +17,7 @@ ActiveAdmin.register Book do
     column :description
     column :year
     column :in_stock
+    column :popularity
     column :visible
     actions
   end

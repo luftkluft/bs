@@ -28,4 +28,7 @@ class Book < ApplicationRecord
   validates :year, numericality: { greater_than_or_equal_to: 1990,
                                    less_than_or_equal_to: Time.now.year,
                                    only_integer: true }
+
+  validates :popularity, numericality: { greater_than_or_equal_to: 0,
+                                         only_integer: true }
 end

@@ -7,14 +7,14 @@
           first
           <i class="fa fa-angle-down dropdown-icon pull-right"></i></a>
         <ul class="dropdown-menu">
-          <li>
-            <a href="#">Newest first</a></li>
-          <li>
-            <a href="#">Popular first</a></li>
-          <li>
-            <a href="#">Price: Low to hight</a></li>
-          <li>
-            <a href="#">Price: Hight to low</a></li>
+            <li>
+                <a id="newest-first" href="#">Newest first</a></li>
+              <li>
+                <a id="popular-first" href="#">Popular first</a></li>
+              <li>
+                <a id="low-to-hight" href="#">Price: Low to hight</a></li>
+              <li>
+                <a id="hight-to-low" href="#">Price: Hight to low</a></li>
         </ul>
       </div>
     </div>
@@ -26,6 +26,7 @@
             <li>
               <a id="catalog<%= cat.type_of.delete(' ') %>" href="#" class="filter-link" data-remote="true" ><%= cat.type_of %>
               <span class="badge general-badge"><%= Book.where(category_id: cat.id).count %></span></a></li>
+              <li> </li>
           <% end %>
     </ul>
   </div>
@@ -36,14 +37,12 @@
         first
         <i class="fa fa-angle-down dropdown-icon pull-right"></i></a>
       <ul class="dropdown-menu">
-        <li>
-          <a href="#">Newest first</a></li>
-        <li>
-          <a href="#">Popular first</a></li>
-        <li>
-          <a href="#">Price: Low to hight</a></li>
-        <li>
-          <a href="#">Price: Hight to low</a></li>
+          <% @category.each do |cat| %>
+            <li>
+              <a id="catalog<%= cat.type_of.delete(' ') %>" href="#" class="filter-link" data-remote="true" ><%= cat.type_of %>
+              <span class="badge general-badge"><%= Book.where(category_id: cat.id).count %></span></a></li>
+              <li> </li>
+          <% end %>
       </ul>
     </div>
     <p class="lead small mb-10">Sort by</p>
@@ -52,14 +51,14 @@
         first
         <i class="fa fa-angle-down dropdown-icon pull-right"></i></a>
       <ul class="dropdown-menu">
-        <li>
-          <a href="#">Newest first</a></li>
-        <li>
-          <a href="#">Popular first</a></li>
-        <li>
-          <a href="#">Price: Low to hight</a></li>
-        <li>
-          <a href="#">Price: Hight to low</a></li>
+          <li>
+              <a id="newest-first" href="#">Newest first</a></li>
+            <li>
+              <a id="popular-first" href="#">Popular first</a></li>
+            <li>
+              <a id="low-to-hight" href="#">Price: Low to hight</a></li>
+            <li>
+              <a id="hight-to-low" href="#">Price: Hight to low</a></li>
       </ul>
     </div>
   </div>
