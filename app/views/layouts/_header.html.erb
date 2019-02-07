@@ -25,11 +25,13 @@
             <a type="button" data-toggle="collapse" href="#menu" aria-expanded="false" aria-controls="menu">Shop</a>
             <ul id="menu" aria-expanded="false" class="collapse list-unstyled pl-30 mb-10">
               <li>
-                <a href="#" class="collapse-link">Mobile development</a></li>
+                <a id="header-cat-all" href="#">All categories</a></li>
+              <% @category.each do |cat| %>
               <li>
-                <a href="#" class="collapse-link">Photo</a></li>
+                <a id="header-<%= cat.type_of.delete(' ') %>" href="#">
+                  <%= cat.type_of %></a></li>
               <li>
-                <a href="#" class="collapse-link">Web design</a></li>
+                <% end %>
             </ul>
           </li>
           <li class="dropdown">
@@ -37,7 +39,7 @@
               <%= current_user.email %></a>
             <ul class="dropdown-menu">
               <li>
-                  <a href="<%= settings_path %>">Settings</a>
+                <a href="<%= settings_path %>">Settings</a>
               </li>
               <li>
                 <%= link_to t('devise.shared.links.account'), edit_user_registration_path %>
@@ -58,20 +60,22 @@
             <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">Shop</a>
             <ul class="dropdown-menu">
               <li>
-                <a href="#">Mobile development</a></li>
+                <a id="sm-header-cat-all" href="#">All categories</a></li>
+              <% @category.each do |cat| %>
               <li>
-                <a href="#">Photo</a></li>
+                <a id="sm-header-<%= cat.type_of.delete(' ') %>" href="#">
+                  <%= cat.type_of %></a></li>
               <li>
-                <a href="#">Web design</a></li>
+                <% end %>
             </ul>
           </li>
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
               <%= current_user.email %></a>
             <ul class="dropdown-menu">
-                <li>
-                  <a href="<%= settings_path %>">Settings</a>
-                </li>
+              <li>
+                <a href="<%= settings_path %>">Settings</a>
+              </li>
               <li>
                 <%= link_to t('devise.shared.links.account'), edit_user_registration_path %>
               </li>
@@ -104,11 +108,13 @@
             <a type="button" data-toggle="collapse" href="#menu" aria-expanded="false" aria-controls="menu">Shop</a>
             <ul id="menu" aria-expanded="false" class="collapse list-unstyled pl-30 mb-10">
               <li>
-                <a href="#" class="collapse-link">Mobile development</a></li>
+                <a id="free-header-cat-all" href="#">All categories</a></li>
+              <% @category.each do |cat| %>
               <li>
-                <a href="#" class="collapse-link">Photo</a></li>
+                <a id="free-header-<%= cat.type_of.delete(' ') %>">
+                  <%= cat.type_of %></a></li>
               <li>
-                <a href="#" class="collapse-link">Web design</a></li>
+                <% end %>
             </ul>
           </li>
           <li class="dropdown">
@@ -132,13 +138,14 @@
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">Shop</a>
             <ul class="dropdown-menu">
-                <li>
-                    <a id="cat_all" href="#" data-remote="true" >All categories</a></li>
+              <li>
+                <a id="sm-free-header-cat-all" href="#">All categories</a></li>
               <% @category.each do |cat| %>
-                <li>
-                  <a id="<%= cat.type_of.delete(' ') %>" href="#" data-remote="true" ><%= cat.type_of %></a></li>
-                <li>
-              <% end %>
+              <li>
+                <a id="sm-free-header-<%= cat.type_of.delete(' ') %>">
+                  <%= cat.type_of %></a></li>
+              <li>
+                <% end %>
             </ul>
           </li>
           <li class="dropdown">

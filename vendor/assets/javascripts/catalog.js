@@ -1,21 +1,21 @@
 $(document).ready(function () {
-  $('#catalogcat_all').on('click', function () {
+  $('#catalog-cat-all').on('click', function () {
     window.location.href = '/catalog';
   });
 
-  $('#catalogWebdesign').on('click', function () {
+  $('#catalog-Webdesign').on('click', function () {
     window.location.href = '/catalog?category_type_of=Web design';
   });
 
-  $('#catalogMobiledevelopment').on('click', function () {
+  $('#catalog-Mobiledevelopment').on('click', function () {
     window.location.href = '/catalog?category_type_of=Mobile development';
   });
 
-  $('#catalogDatabases').on('click', function () {
+  $('#catalog-Databases').on('click', function () {
     window.location.href = '/catalog?category_type_of=Databases';
   });
 
-  $('#catalogWebdevelopment').on('click', function () {
+  $('#catalog-Webdevelopment').on('click', function () {
     window.location.href = '/catalog?category_type_of=Web development';
   });
 
@@ -32,6 +32,42 @@ $(document).ready(function () {
   });
 
   $('#hight-to-low').on('click', function () {
+    window.location.href = '/catalog?books_sorting=Hight to low';
+  });
+  // sm
+  $('#sm-catalog-cat-all').on('click', function () {
+    window.location.href = '/catalog';
+  });
+
+  $('#sm-catalog-Webdesign').on('click', function () {
+    window.location.href = '/catalog?category_type_of=Web design';
+  });
+
+  $('#sm-catalog-Mobiledevelopment').on('click', function () {
+    window.location.href = '/catalog?category_type_of=Mobile development';
+  });
+
+  $('#sm-catalog-Databases').on('click', function () {
+    window.location.href = '/catalog?category_type_of=Databases';
+  });
+
+  $('#sm-catalog-Webdevelopment').on('click', function () {
+    window.location.href = '/catalog?category_type_of=Web development';
+  });
+
+  $('#sm-newest-first').on('click', function () {
+    window.location.href = '/catalog?books_sorting=Newest first';
+  });
+
+  $('#sm-popular-first').on('click', function () {
+    window.location.href = '/catalog?books_sorting=Popular first';
+  });
+
+  $('#sm-low-to-hight').on('click', function () {
+    window.location.href = '/catalog?books_sorting=Low to hight';
+  });
+
+  $('#sm-hight-to-low').on('click', function () {
     window.location.href = '/catalog?books_sorting=Hight to low';
   });
 });

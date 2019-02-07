@@ -1,7 +1,6 @@
 class CatalogController < ApplicationController
   def show
-    @category = Category.all || []
-    @all_books = Book.all || []
+    @all_books = Book.all
     sorter ||= Sorter.new
     sorted_books = sorter.sortable(sortable_data)
     @pagy, @books = pagy(sorted_books, items: 8)
