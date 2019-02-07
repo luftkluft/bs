@@ -4,4 +4,6 @@ $(document).ready(function () {
     window.location.pathname = '/catalog';
     return true;
   });
+
+  
 });

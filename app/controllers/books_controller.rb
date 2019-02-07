@@ -5,9 +5,9 @@ class BooksController < ApplicationController
     @review = Review.new
   end
 
-  # private
+  private
 
-  # def book_params
-  #   params.require(:book).permit! # TODO
-  # end
+  def book_params
+    params.permit! # TODO
+  end
 end

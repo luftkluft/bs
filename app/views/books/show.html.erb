@@ -1,5 +1,5 @@
 <main class="container">
-  <a href="#" class="general-back-link">
+  <a href="/catalog" class="general-back-link">
     <i class="fa fa-long-arrow-left mr-15"></i>Back to results</a>
   <div class="row">
     <div class="col-sm-6">
@@ -38,8 +38,13 @@
             <a id="plus_book" href="#" class="input-link">
               <i class="fa fa-plus line-height-40"></i></a></div>
           </div>
-        <div class="col-xs-7 col-md-5">
-          <button class="btn btn-default pull-right general-position">Add to Cart</button></div>
+          <div class="col-xs-7 col-md-5">
+            <% if user_signed_in? %>
+              <button class="btn btn-default pull-right general-position">Add to Cart</button>
+            <% else %>
+            <button class="disabled btn pull-right general-position">Add to Cart</button>
+            <% end %>
+          </div>
       </div>
       <div class="general-info-wrap divider-lg">
         <p>Description</p>

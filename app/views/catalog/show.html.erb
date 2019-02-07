@@ -95,14 +95,14 @@
             class="img-shadow general-thumbnail-img" />
             <div class="thumb-hover">
               <div class="general-thumb-link-wrap">
-                <a href="#" class="thumb-hover-link">
+                <a href="/books/<%= book.id %>" class="thumb-hover-link">
                   <i aria-hidden="true" class="fa fa-eye thumb-icon">
                   </i>
                 </a>
+                <% if user_signed_in? %>
                 <a href="#" class="thumb-hover-link">
-                  <i class="fa fa-shopping-cart thumb-icon">
-                  </i>
-                </a>
+                  <i class="fa fa-shopping-cart thumb-icon"></i></a>
+                <% end %>
               </div>
             </div>
           </div>

@@ -12,7 +12,7 @@
         <div class="row">
           <div class="col-sm-5">
             <div class="general-img-wrap">
-              <img src=<%=@last_three_books.last.image  %> alt="design-book"
+              <img src=<%=@last_three_books.last.image %> alt="design-book"
               class="img-shadow general-thumbnail-img" /></div>
           </div>
           <div class="col-sm-7">
@@ -27,7 +27,11 @@
                 <%= @last_three_books.last.author %>
               </p>
               <div class="general-align">
+                <% if user_signed_in? %>
                 <button class="btn btn-primary">Buy Now</button>
+                <% else %>
+                <button class="disabled btn">Buy Now</button>
+                <% end %>
               </div>
             </div>
           </div>
@@ -55,7 +59,12 @@
                 <%= book.author %>
               </p>
               <div class="general-align">
-                <button class="btn btn-primary">Buy Now</button></div>
+                <% if user_signed_in? %>
+                <button class="btn btn-primary">Buy Now</button>
+                <% else %>
+                <button class="disabled btn">Buy Now</button>
+                <% end %>
+              </div>
             </div>
           </div>
 
@@ -93,8 +102,11 @@
               <div class="general-thumb-link-wrap">
                 <a href="/books/<%= book.id %>" class="thumb-hover-link">
                   <i aria-hidden="true" class="fa fa-eye thumb-icon"></i></a>
+                <% if user_signed_in? %>
                 <a href="#" class="thumb-hover-link">
-                  <i class="fa fa-shopping-cart thumb-icon"></i></a></div>
+                  <i class="fa fa-shopping-cart thumb-icon"></i></a>
+                <% end %>
+                </div>
             </div>
           </div>
         </div>

@@ -14,15 +14,15 @@ class Sorter
   end
 
   def sort_by_books_params(books, books_params)
-    case books_params
-    when 'Popular first'
-      books = books.order(popularity: :desc)
-    when 'Low to hight'
-      books = books.order(price: :asc)
-    when 'Hight to low'
-      books = books.order(price: :desc)
-    else books = books.order(year: :desc)
-    end
+    books = case books_params
+            when 'Popular first'
+              books.order(popularity: :desc)
+            when 'Low to hight'
+              books.order(price: :asc)
+            when 'Hight to low'
+              books.order(price: :desc)
+            else books.order(year: :desc)
+            end
     books
   end
 
