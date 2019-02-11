@@ -17,4 +17,5 @@
 //= require book
 //= require catalog
 //= require home
+//= require cart
 //= require_tree .

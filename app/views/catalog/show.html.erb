@@ -100,7 +100,7 @@
                   </i>
                 </a>
                 <% if user_signed_in? %>
-                <a href="#" class="thumb-hover-link">
+                <a href="/add_item?add_item=<%= book.id %>" class="thumb-hover-link">
                   <i class="fa fa-shopping-cart thumb-icon"></i></a>
                 <% end %>
               </div>

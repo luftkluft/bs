@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_06_151112) do
+ActiveRecord::Schema.define(version: 2019_02_09_004641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,10 +96,37 @@ ActiveRecord::Schema.define(version: 2019_02_06_151112) do
     t.index ["path"], name: "index_carrierwave_files_on_path", unique: true
   end
 
+  create_table "carts", force: :cascade do |t|
+    t.decimal "order_total_price", precision: 8, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.decimal "coupon", default: "0.0"
+    t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "type_of"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.string "code"
+    t.decimal "percent", default: "0.0"
+    t.decimal "value", precision: 8, scale: 2, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.bigint "book_id"
+    t.bigint "cart_id"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_items_on_book_id"
+    t.index ["cart_id"], name: "index_items_on_cart_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -143,6 +170,9 @@ ActiveRecord::Schema.define(version: 2019_02_06_151112) do
 
   add_foreign_key "addresses", "users"
   add_foreign_key "books", "categories"
+  add_foreign_key "carts", "users"
+  add_foreign_key "items", "books"
+  add_foreign_key "items", "carts"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "users"
 end

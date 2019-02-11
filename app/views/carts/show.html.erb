@@ -1,0 +1,144 @@
+<main class="container general-main-wrap">
+  <h1 class="general-title-margin">Cart</h1>
+  <div>
+    <table class="table table-hover">
+      <tr class="no-hover">
+        <th class="col-pic pl-0">
+          <span class="in-grey-600">Product</span></th>
+        <th class="col-title"></th>
+        <th class="col-price">
+          <span class="in-grey-600">Price</span></th>
+        <th class="col-quantity">
+          <span class="in-grey-600">Quantity</span></th>
+        <th class="col-total">
+          <span class="in-grey-600">SubTotal</span></th>
+        <th class="col-close"></th>
+      </tr>
+      <% @cart.items.each do |item| %>
+      <tr>
+        <td>
+          <div class="general-img-wrap-table">
+            <%= image_tag @cart.image(item.id) %>
+          </div>
+        </td>
+        <td>
+          <p class="title">
+            <%= @cart.book_title(item.id) %>
+          </p>
+        </td>
+        <td>
+          <span class="font-16 in-gold-500">€
+            <%= @cart.book_price(item.id) %></span>
+        </td>
+        <td>
+          <div class="input-group">
+            <a id="cart-minus-item-<%= item.id %>" href="#" class="input-link" onclick="change_quantity(id, <%= item.id %>)" data-remote = "true">
+              <i class="fa fa-minus line-hight-40"></i></a>
+            <input id="cart-input-item-<%= item.id %>" type="text" class="form-control quantity-input" min="0" max="15"
+              value="<%= @cart.item_quantity(item.id) %>" />
+            <a id="cart-plus-item-<%= item.id %>" href="#" class="input-link" onclick="change_quantity(id, <%= item.id %>)" data-remote = "true">
+              <i class="fa fa-plus line-hight-40"></i></a></div>
+        </td>
+        <td>
+          <% item_subtotal = @cart.item_subtotal(item.id) %>
+          <span class="font-16 in-gold-500">€
+            <%= item_subtotal %></span>
+          <% @cart.subtotal(item_subtotal) %>
+        </td>
+        <td>
+          <button id="delete-item-<%= item.id %>" type="button" aria-label="Close" class="close general-cart-close" onclick="delete_item(<%= item.id %>)">
+            <span aria-hidden="true">&times;</span></button>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div class="general-order-wrap">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="input-group general-input-group">
+          <label class="input-label">Enter Your Coupon Code</label>
+          <input id="cart-input-coupon-code" type="text" placeholder="Enter Your Coupon Code " class="form-control mb-30" />
+          <div>
+            <button id="cart-btn-coupon" class="btn btn-primary mr-5 mb-15">Update cart</button></div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <div class="res-mr-200 text-center general-text-right">
+          <p class="in-gold-500 font-18">Order Summary</p>
+          <table class="general-summary-table general-summary-table-right general-text-right">
+            <tr>
+              <td>
+                <p class="font-16">Subtotal:</p>
+              </td>
+              <td>
+                <p class="font-16">€
+                  <%= @cart.subtotal %>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p class="font-16">Coupon:</p>
+              </td>
+              <td>
+                <p class="font-16">€
+                  <%= @cart.coupon %>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="font-18">Order Total:</strong></td>
+              <td>
+                <strong class="font-18">€
+                  <%= @cart.subtotal - @cart.coupon %></strong></td>
+            </tr>
+          </table>
+          <button class="btn btn-default mb-20 visible-xs-inline-block">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-default mb-20 hidden-xs center-block">Checkout</button>
+
+  <script type="text/javascript">
+    function delete_item(item_id) {
+      if (confirm("Are you sure?")) {
+        window.location.href = '/delete_item?delete_item=' + item_id;
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
+    function change_quantity(click_id, item_id) {
+      var el = document.getElementById('cart-input-item-' + item_id);
+      if (click_id.includes('plus')) {
+        if (el.value <= 14) {
+          el.value = Number(el.value) + 1;
+          $.ajax({
+            type: "GET",
+            url: '/increment',
+            data: { increment: item_id }
+          })
+        };
+      }
+
+      if (click_id.includes('minus')) {
+        if (el.value >= 1) {
+          el.value = Number(el.value) - 1;
+          $.ajax({
+            type: "GET",
+            url: '/decrement',
+            data: { decrement: item_id }
+          })
+        };
+      }
+      return true;
+    }
+  </script>
+</main>
