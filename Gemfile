@@ -48,6 +48,7 @@ gem 'aasm'
 gem 'therubyracer'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'wicked'
 
 group :development, :test do
   gem 'byebug'

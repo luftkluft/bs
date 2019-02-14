@@ -1,0 +1,156 @@
+<main class="container">
+  <h1 class="general-title-margin">Checkout</h1>
+  <ul class="steps list-inline">
+    <li class="step active">
+      <span class="step-number">1</span>
+      <span class="step-text hidden-xs">Address</span></li>
+    <li class="step-divider"></li>
+    <li class="step">
+      <span class="step-number">2</span>
+      <span class="step-text hidden-xs">Delivery</span></li>
+    <li class="step-divider"></li>
+    <li class="step">
+      <span class="step-number">3</span>
+      <span class="step-text hidden-xs">Payment</span></li>
+    <li class="step-divider"></li>
+    <li class="step">
+      <span class="step-number">4</span>
+      <span class="step-text hidden-xs">Confirm</span></li>
+    <li class="step-divider"></li>
+    <li class="step">
+      <span class="step-number">5</span>
+      <span class="step-text hidden-xs">Complete</span></li>
+  </ul>
+  <div class="tab-content">
+    <div id="address" role="tabpanel" class="tab-pane fade in active general-main-wrap">
+      <%= form_tag('/settings', method: :post) do %>
+      <input type="hidden" name="address_type" value="billing">
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+      <div class="hidden-xs hidden-sm">
+        <div class="row">
+          <div class="col-md-5">
+            <h3 class="general-subtitle mt-0">Billing Address</h3>
+          </div>
+          <div class="col-md-5 col-md-offset-1">
+            <h3 class="general-subtitle mt-0">Shipping Address</h3>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5 mb-40">
+          <div class="visible-xs visible-sm">
+            <h3 class="general-subtitle mt-0">Billing Address</h3>
+          </div>
+          <div class="form-group">
+            <p class="general-info-text">from settings</p>
+            <label for="firstName" class="control-label input-label">First Name</label>
+            <input value="<%= @billing.map(&:first_name).first %>" id="firstName" name="first_name" type="text"
+              placeholder="First Name" class="form-control" />
+            </div>
+          <div class="form-group">
+            <label for="lastName" class="control-label input-label">Last Name</label>
+            <input value="<%= @billing.map(&:last_name).first %>" id="lastName" name="last_name" type="text" placeholder="Last Name"
+              class="form-control" /></div>
+          <div class="form-group">
+            <label for="address" class="control-label input-label">Address</label>
+            <input value="<%= @billing.map(&:address).first %>" id="address" name="address" type="text" placeholder="Address"
+              class="form-control" /></div>
+          <div class="form-group">
+            <label for="city" class="control-label input-label">City</label>
+            <input value="<%= @billing.map(&:city).first %>" id="city" name="city" type="text" placeholder="City" class="form-control" /></div>
+          <div class="form-group">
+            <label for="zip" class="control-label input-label">Zip</label>
+            <input value="<%= @billing.map(&:zip).first %>" id="zip" name="zip" type="text" placeholder="Zip" class="form-control" /></div>
+            <div class="form-group">
+                <label for="сountry" class="control-label input-label">Country</label>
+                <select id="country" name="country" placeholder="Select a country" class="form-control" <%= country_select :country, @shipping.map(&:country).first %>
+                </select>
+            </div>
+          <div class="form-group mb-60">
+            <label for="phone" class="control-label input-label">Phone</label>
+            <input value="<%= @billing.map(&:phone).first %>" id="phone" name="phone" type="tel" placeholder="Example +355 66 123 4567"
+              class="form-control" /></div>
+              <div class="text-center general-text-align">
+                  <button type="submit" class="btn btn-default mb-20" name="commit" value="Save">Save</button></div>
+        </div>
+        <% end %>
+        <%= form_tag('/settings', method: :post) do %>
+        <input type="hidden" name="address_type" value="shipping">
+        <input type="hidden" name="user_id" value="<%= current_user.id %>">
+        <div class="col-md-5 col-md-offset-1 mb-25">
+          <div class="visible-xs visible-sm">
+            <h3 class="general-subtitle mt-0">Shipping Address</h3>
+          </div>
+          <div class="form-group">
+              <p class="general-info-text">all fields are required</p>
+            <label for="firstName" class="control-label input-label">First Name</label>
+            <input value="<%= @shipping.map(&:first_name).first %>" id="firstName" name="first_name" type="text"
+              placeholder="First Name" class="form-control" />
+            </div>
+          <div class="form-group">
+            <label for="lastName" class="control-label input-label">Last Name</label>
+            <input value="<%= @shipping.map(&:last_name).first %>" id="lastName" name="last_name" type="text"
+              placeholder="Last Name" class="form-control" /></div>
+          <div class="form-group">
+            <label for="address" class="control-label input-label">Address</label>
+            <input value="<%= @shipping.map(&:address).first %>" id="address" name="address" type="text" placeholder="Address"
+              class="form-control" /></div>
+          <div class="form-group">
+            <label for="city" class="control-label input-label">City</label>
+            <input value="<%= @shipping.map(&:city).first %>" id="city" name="city" type="text" placeholder="City" class="form-control" /></div>
+          <div class="form-group">
+            <label for="zip" class="control-label input-label">Zip</label>
+            <input value="<%= @shipping.map(&:zip).first %>" id="zip" name="zip" type="text" placeholder="Zip" class="form-control" /></div>
+          <div class="form-group">
+            <label for="сountry" class="control-label input-label">Country</label>
+            <select id="country" name="country" placeholder="Select a country" class="form-control" <%= country_select :country, @shipping.map(&:country).first %>
+            </select></div>
+          <div class="form-group mb-55">
+            <label for="phone" class="control-label input-label">Phone</label>
+            <input value="<%= @shipping.map(&:phone).first %>" id="phone" name="phone" type="tel" placeholder="Example +355 66 123 4567"
+              class="form-control" /></div>
+              <div class="text-center general-text-align">
+                <button type="submit" class="btn btn-default mb-20" name="commit" value="Save">Save</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="general-text-align mb-60">
+          <p class="in-gold-500 font-18">Order Summary</p>
+          <table class="general-summary-table">
+              <tr>
+                <td>
+                  <p class="font-16">Subtotal:</p>
+                </td>
+                <td>
+                  <p class="font-16">€<%= @cart.item_total_price %></p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p class="font-16">Coupon:</p>
+                </td>
+                <td>
+                  <p class="font-16">€<%= @cart.coupon %></p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong class="font-18">Order Total:</strong></td>
+                <td>
+                  <strong class="font-18">€<%= @cart.order_total_price %></strong></td>
+              </tr>
+            </table>
+        </div>
+      <% end %>
+      <a href="<%= url_for(:back) %>" class="general-back-link">
+          <i class="fa fa-long-arrow-left mr-15"></i>Back</a>
+      <button class="btn btn-default center-block mb-20" onclick="next_step('<%= next_wizard_path %>')">Continue</button>
+    </div>
+  </div>
+  <script>
+      function next_step(path){
+        window.location.href = path;
+      }
+  </script>
+</main>

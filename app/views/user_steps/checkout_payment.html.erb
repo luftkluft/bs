@@ -1,0 +1,78 @@
+<main class="container mb-res-50">
+  <h1 class="general-title-margin">Checkout</h1>
+  <ul class="steps list-inline">
+    <li class="step active">
+      <span class="step-number">1</span>
+      <span class="step-text hidden-xs">Address</span></li>
+    <li class="step-divider"></li>
+    <li class="step">
+      <span class="step-number">2</span>
+      <span class="step-text hidden-xs">Delivery</span></li>
+    <li class="step-divider"></li>
+    <li class="step">
+      <span class="step-number">3</span>
+      <span class="step-text hidden-xs">Payment</span></li>
+    <li class="step-divider"></li>
+    <li class="step">
+      <span class="step-number">4</span>
+      <span class="step-text hidden-xs">Confirm</span></li>
+    <li class="step-divider"></li>
+    <li class="step">
+      <span class="step-number">5</span>
+      <span class="step-text hidden-xs">Complete</span></li>
+  </ul>
+  <h3 class="general-subtitle">Credit Card</h3>
+  <form class="max-600 mb-80">
+    <div class="form-group has-error">
+      <label for="cardNumber" class="control-label input-label">Card Number</label>
+      <input id="cardNumber" type="number" name="cardnumber" placeholder="Card Number" class="form-control" />
+      <span class="help-block">Please enter a valid credit card number</span></div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="cardName" class="control-label input-label">Name on Card</label>
+          <input id="cardName" type="text" name="ccname" placeholder="Name on Card" class="form-control" /></div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="firstName" class="control-label input-label">MM / YY</label>
+          <input id="firstName" name="exp-date" type="text" placeholder="MM / YY" class="form-control" /></div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group relative">
+          <label for="firstName" class="control-label input-label">CVV</label>
+          <input id="firstName" name="cvc" type="number" placeholder="CVV" class="form-control" />
+          <i class="fa fa-question-circle general-form-help"></i></div>
+      </div>
+    </div>
+  </form>
+  <div class="general-text-align">
+    <p class="in-gold-500 font-18">Order Summary</p>
+    <table class="general-summary-table">
+      <tr>
+        <td>
+          <p class="font-16">Subtotal:</p>
+        </td>
+        <td>
+          <p class="font-16">€117.69</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p class="font-16">Coupon:</p>
+        </td>
+        <td>
+          <p class="font-16">€0.00</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong class="font-18">Order Total:</strong></td>
+        <td>
+          <strong class="font-18">€117.69</strong></td>
+      </tr>
+    </table>
+  </div>
+  <div class="text-center">
+    <button class="btn btn-default mb-80">Save and Continue</button></div>
+</main>

@@ -12,6 +12,7 @@ ActiveAdmin.register Cart do
     column 'Quantity' do |cart|
       cart.items.map(&:quantity)
     end
+    column :item_total_price
     column :coupon
     column :order_total_price
     actions

@@ -89,4 +89,17 @@ class CartService
   rescue StandardError
     false
   end
+
+  def checkout
+    items.each do |item|
+      item_sub = item_subtotal(item.id)
+      subtotal(item_sub)
+    end
+    @cart.item_total_price = @subtotal
+    @cart.order_total_price = @subtotal - coupon
+    @cart.save
+    true
+  rescue StandardError
+    false
+  end
 end

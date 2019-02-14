@@ -5,4 +5,9 @@ $(document).ready(function () {
     window.location.href = '/coupon?code=' + code;
     return true;
   });
+
+  $('#cart-btn-checkout').on('click', function () {
+    window.location.href = '/checkout';
+    return true;
+  });
 });
