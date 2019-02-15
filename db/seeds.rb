@@ -38,6 +38,11 @@ if Rails.env.development?
   end
 
   Book.create!(books)
+  Coupon.create!(code: '12345', percent: 5.0, value: 6.0)
+  Coupon.create!(code: '54321', percent: 2.0, value: 3.55)
+  Delivery.create!(method: FFaker::Company.name, duration: '5 days', price: 10.30)
+  Delivery.create!(method: FFaker::Company.name, duration: '15 days', price: 25.50)
+  Delivery.create!(method: FFaker::Company.name, duration: '20 days', price: 40.99)
 end
 
 if Rails.env.production?

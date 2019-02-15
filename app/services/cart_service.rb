@@ -102,4 +102,12 @@ class CartService
   rescue StandardError
     false
   end
+
+  def choose_delivery(delivery_id)
+    @cart.delivery_id = delivery_id
+    @cart.save
+    true
+  rescue StandardError
+    false
+  end
 end

@@ -1,5 +1,5 @@
 ActiveAdmin.register Cart do
-  permit_params :user_id, :created_at, :order_total_price, :coupon
+  permit_params :user_id, :created_at, :order_total_price, :coupon, :delivery
 
   index do
     selectable_column
@@ -15,6 +15,7 @@ ActiveAdmin.register Cart do
     column :item_total_price
     column :coupon
     column :order_total_price
+    column 'Delivery', Delivery.all.first
     actions
   end
 

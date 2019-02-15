@@ -5,7 +5,7 @@
       <span class="step-number">1</span>
       <span class="step-text hidden-xs">Address</span></li>
     <li class="step-divider"></li>
-    <li class="step">
+    <li class="step active">
       <span class="step-number">2</span>
       <span class="step-text hidden-xs">Delivery</span></li>
     <li class="step-divider"></li>
@@ -21,64 +21,9 @@
       <span class="step-number">5</span>
       <span class="step-text hidden-xs">Complete</span></li>
   </ul>
-  <h3 class="general-subtitle">Credit Card</h3>
-  <div class="visible-xs">
-    <div class="general-cart-item divider-lg-bottom">
-      <table class="table">
-        <tr>
-          <td class="col-half">
-            <span class="in-grey-600">Method</span></td>
-          <td class="col-half">
-            <div class="form-group radio mt-0 mb-0">
-              <label class="radio-label">
-                <input type="radio" hidden="true" class="radio-input" />
-                <span class="radio-icon"></span>
-                <span class="radio-text">Delivery Next Day!</span></label></div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span class="in-grey-600">Days</span></td>
-          <td>
-            <span class="font-16 fw-300">3 to 7 days</span></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="in-grey-600">Price</span></td>
-          <td>
-            <span class="font-16 in-gold-500">€5.00</span></td>
-        </tr>
-      </table>
-    </div>
-    <div class="general-cart-item divider-lg-bottom mb-30">
-      <table class="table">
-        <tr>
-          <td class="col-half">
-            <span class="in-grey-600">Method</span></td>
-          <td class="col-half">
-            <div class="form-group radio mt-0 mb-0">
-              <label class="radio-label">
-                <input type="radio" hidden="true" class="radio-input" />
-                <span class="radio-icon"></span>
-                <span class="radio-text">Delivery Next Day!</span></label></div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span class="in-grey-600">Days</span></td>
-          <td>
-            <span class="font-16 fw-300">3 to 7 days</span></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="in-grey-600">Price</span></td>
-          <td>
-            <span class="font-16 in-gold-500">€5.00</span></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <div class="hidden-xs mb-res-50">
+
+  <%= form_for @cart, url: next_wizard_path do |f| %>
+  <div class="mb-res-50">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -91,62 +36,56 @@
         </tr>
       </thead>
       <tbody>
+        <% @deliveries.each do |delivery| %>
         <tr>
           <td>
             <div class="form-group radio mt-0 mb-0">
-              <label class="radio-label">
-                <input type="radio" hidden="true" class="radio-input" />
-                <span class="radio-icon"></span>
-                <span class="radio-text">Delivery Next Day!</span></label></div>
+              <label class="radio-label">&nbsp&nbsp&nbsp&nbsp
+              <%= radio_button_tag(:delivery, delivery.id) %>
+              <span class="radio-text"><%= delivery.method %></span>
+              </label>
+            </div>
           </td>
           <td>
-            <span>3 to 7 days</span></td>
+            <span><%= delivery.duration %></span></td>
           <td>
-            <span class="font-16 in-gold-500">€28.50</span></td>
-        </tr>
-        <tr>
-          <td>
-            <div class="form-group radio mt-0 mb-0">
-              <label class="radio-label">
-                <input type="radio" hidden="true" class="radio-input" />
-                <span class="radio-icon"></span>
-                <span class="radio-text">Delivery Next Day!</span></label></div>
+            <span class="font-16 in-gold-500">€<%= delivery.price %></span>
           </td>
-          <td>
-            <span>3 to 7 days</span></td>
-          <td>
-            <span class="font-16 in-gold-500">€28.50</span></td>
         </tr>
+        <% end %>
       </tbody>
     </table>
   </div>
   <div class="general-text-align">
     <p class="in-gold-500 font-18">Order Summary</p>
     <table class="general-summary-table">
-      <tr>
-        <td>
-          <p class="font-16">Subtotal:</p>
-        </td>
-        <td>
-          <p class="font-16">€117.69</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p class="font-16">Coupon:</p>
-        </td>
-        <td>
-          <p class="font-16">€0.00</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong class="font-18">Order Total:</strong></td>
-        <td>
-          <strong class="font-18">€117.69</strong></td>
-      </tr>
-    </table>
+        <tr>
+          <td>
+            <p class="font-16">Subtotal:</p>
+          </td>
+          <td>
+            <p class="font-16">€<%= @cart.item_total_price %></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p class="font-16">Coupon:</p>
+          </td>
+          <td>
+            <p class="font-16">€<%= @cart.coupon %></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong class="font-18">Order Total:</strong></td>
+          <td>
+            <strong class="font-18">€<%= @cart.order_total_price %></strong></td>
+        </tr>
+      </table>
   </div>
   <div class="text-center">
-    <button class="btn btn-default mb-20">Save and Continue</button></div>
+    <button type="submit" class="btn btn-default mb-80">Save and Continue</button></div>
+  <% end %>
+  <a href="<%= url_for(previous_wizard_path) %>" class="general-back-link">
+      <i class="fa fa-long-arrow-left mr-15"></i>Back</a>
 </main>

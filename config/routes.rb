@@ -19,4 +19,7 @@ Rails.application.routes.draw do
   match '/delete_item', to: 'carts#delete_item', via: 'get'
   match '/add_item', to: 'carts#add_item', via: 'get'
   match '/checkout', to: 'carts#checkout', via: 'get'
+  resources :carts do
+    resources :deliveries
+  end
 end
