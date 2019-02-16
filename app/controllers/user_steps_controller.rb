@@ -25,8 +25,8 @@ class UserStepsController < ApplicationController
 
   def update
     @cart = cart
-    # @card = card
-    # @delivery = Delivery.find_by(id: @cart.delivery_id)
+    @card = card
+    @delivery = Delivery.find_by(id: @cart.delivery_id)
     @billing = Address.where(user_id: current_user.id, address_type: 'billing')
     @shipping = Address.where(user_id: current_user.id, address_type: 'shipping')
     case step
@@ -39,20 +39,21 @@ class UserStepsController < ApplicationController
       result = @cart_service.choose_delivery(checkout_params[:delivery])
       flash[:alert] = 'Error add delivery!' unless result
       flash[:notice] = 'Delivery was added!' if result
-    # when :checkout_confirm
-    #   @cart_service = cart_service
-    #   @card_service = card_service
-    #   errors = @card_service.save_card(param = checkout_params)
-    #   @card_number = []
-    #   @exp_date = []
-    #   if errors.nil?
-    #     @card_number = @card.card_number
-    #     @exp_date = @card.expiration_month_year
-    #     flash[:notice] = 'Card saved!'
-    #   else
-    #     flash[:alert] = 'Error save card! ' + errors.to_s
-    #     # redirect_back(fallback_location: root_path)
-    #   end
+    when :checkout_confirm
+      @card = card
+      @cart_service = cart_service
+      @card_service = card_service
+      errors = @card_service.save_card(param = checkout_params)
+      @card_number = []
+      @exp_date = []
+      if errors.nil?
+        @card_number = @card.card_number
+        @exp_date = @card.expiration_month_year
+        flash[:notice] = 'Card saved!'
+      else
+        flash[:alert] = 'Error save card! ' + errors.to_s
+        # redirect_back(fallback_location: root_path)
+      end
     # when :checkout_complete
     #   @order_service = order_service
     #   copied_data = {
@@ -89,6 +90,18 @@ def cart_service
   cart_service ||= CartService.new
   cart_service.load(cart)
   cart_service
+end
+
+def card
+  card = Card.find_by(user_id: current_user.id)
+  card = Card.create(user_id: current_user.id) if card.nil?
+  card
+end
+
+def card_service
+  card_service ||= CardService.new
+  card_service.load(card)
+  card_service
 end
 
   def redirect_to_finish_wizard

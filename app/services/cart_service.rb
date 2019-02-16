@@ -25,6 +25,11 @@ class CartService
     book.title
   end
 
+  def book_description(item_id)
+    book = find_book(item_id)
+    book.description
+  end
+
   def book_price(item_id)
     book = find_book(item_id)
     book.price

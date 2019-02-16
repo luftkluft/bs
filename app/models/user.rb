@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :addresses, dependent: :destroy
   has_one :cart, dependent: :destroy
+  has_one :card, dependent: :destroy
 
   after_create :send_welcome_email
 

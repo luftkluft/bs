@@ -5,15 +5,15 @@
       <span class="step-number">1</span>
       <span class="step-text hidden-xs">Address</span></li>
     <li class="step-divider"></li>
-    <li class="step">
+    <li class="step active">
       <span class="step-number">2</span>
       <span class="step-text hidden-xs">Delivery</span></li>
     <li class="step-divider"></li>
-    <li class="step">
+    <li class="step active">
       <span class="step-number">3</span>
       <span class="step-text hidden-xs">Payment</span></li>
     <li class="step-divider"></li>
-    <li class="step">
+    <li class="step active">
       <span class="step-number">4</span>
       <span class="step-text hidden-xs">Confirm</span></li>
     <li class="step-divider"></li>
@@ -24,98 +24,37 @@
   <div class="row mb-20">
     <div class="col-sm-3">
       <h3 class="general-subtitle">Shipping Address</h3>
-      <p class="general-address">John Doe
-        <span class="general-edit">edit</span>
-        <br />44 Fifth Ave v231
-        <br />New York NY 1001
-        <br />United States
-        <br />Phone +16507599755</p>
+      <p class="general-address"><%= @shipping.map(&:first_name).first %>
+        &nbsp<%= @shipping.map(&:last_name).first %>
+        <br /><%= @shipping.map(&:address).first %>
+        <br /><%= @shipping.map(&:city).first %>
+        <br /><%= @shipping.map(&:zip).first %>
+        <br /><%= @shipping.map(&:country).first %>
+        <br />Phone <%= @shipping.map(&:phone).first %></p>
     </div>
     <div class="col-sm-3">
       <h3 class="general-subtitle">Billing Address</h3>
-      <p class="general-address">John Doe
-        <span class="general-edit">edit</span>
-        <br />44 Fifth Ave v231
-        <br />New York NY 1001
-        <br />United States
-        <br />Phone +16507599755</p>
+      <p class="general-address"><%= @billing.map(&:first_name).first %>
+        &nbsp<%= @billing.map(&:last_name).first %>
+        <br /><%= @billing.map(&:address).first %>
+        <br /><%= @billing.map(&:city).first %>
+        <br /><%= @billing.map(&:zip).first %>
+        <br /><%= @billing.map(&:country).first %>
+        <br />Phone <%= @billing.map(&:phone).first %></p>
     </div>
     <div class="col-sm-3">
       <h3 class="general-subtitle">Shipments</h3>
-      <p class="general-address">Delivery Next Day!
-        <span class="general-edit">edit</span>
-        <br />By train</p>
+      <p class="general-address"><%= @delivery.duration %>
+        <br />by <%= @delivery.method %></p>
     </div>
     <div class="col-sm-3">
       <h3 class="general-subtitle">Payment Information</h3>
-      <p class="general-address">** ** ** 8756
-        <span class="general-edit">edit</span>
-        <br />12/2018</p>
+      <p class="general-address">** ** ** <%= @card_number[-4..@card_number.size] %>
+        <br /><%= @exp_date %></p>
     </div>
   </div>
-  <div class="visible-xs">
-    <div class="general-cart-item divider-lg">
-      <div class="general-img-wrap-table">
-        <img src="http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg" alt="design-book"
-          class="cart-img-shadow" /></div>
-      <p class="title">Android Programming for Beginners</p>
-      <P class="in-grey-600 fw-300">A recipe-based book to help you efficiently create amazing PHP-based applications
-        with Laravel 5.x</P>
-      <table class="table">
-        <tr>
-          <td>
-            <span class="in-grey-600">Price</span></td>
-          <td>
-            <span class="font-16 in-gold-500">€28.50</span></td>
-        </tr>
-        <tr>
-          <td class="vertical-middle">
-            <span class="in-grey-600">Quantity</span></td>
-          <td>
-            <span>1</span></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="in-grey-600">SubTotal</span></td>
-          <td>
-            <span class="font-16 in-gold-500">€32.90</span></td>
-        </tr>
-      </table>
-    </div>
-    <div class="general-cart-item divider-lg mb-55">
-      <div class="general-img-wrap-table">
-        <img src="http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg" alt="design-book"
-          class="cart-img-shadow" /></div>
-      <p class="title">Android Programming for Beginners</p>
-      <table class="table">
-        <tr>
-          <td>
-            <span class="in-grey-600">Price</span></td>
-          <td>
-            <span class="font-16 in-gold-500">€28.50</span></td>
-        </tr>
-        <tr>
-          <td class="vertical-middle">
-            <span class="in-grey-600">Quantity</span></td>
-          <td>
-            <div class="input-group">
-              <a href="#" class="input-link">
-                <i class="fa fa-minus line-heaght-40"></i></a>
-              <input type="text" class="form-control quantity-input" />
-              <a href="#" class="input-link">
-                <i class="fa fa-plus line-heaght-40"></i></a></div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span class="in-grey-600">SubTotal</span></td>
-          <td>
-            <span class="font-16 in-gold-500">€32.90</span></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <div class="hidden-xs divider-lg pt-20">
+
+  <div class="divider-lg pt-20">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -131,54 +70,60 @@
         </tr>
       </thead>
       <tbody>
+        <% @cart_service.items.each do |item| %>
         <tr>
-          <td>
-            <div class="general-img-wrap-table">
-              <img src="http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg" alt="design-book"
-                class="cart-img-shadow pull-left" /></div>
-          </td>
-          <td>
-            <p class="title">Android Programming for Beginners</p>
-            <p class="in-grey-600 fw-300">Maximize the potential of Bootstrap with a collection of real-world site
-              projects for better, faster, more responsive web applications</p>
-          </td>
-          <td>
-            <span class="font-16 in-gold-500">€28.50</span></td>
-          <td>
-            <span class="ml-30">1</span></td>
-          <td>
-            <span class="font-16 in-gold-500">€32.90</span></td>
-        </tr>
+            <td>
+              <div class="general-img-wrap-table">
+                <%= image_tag @cart_service.image(item.id) %>
+              </div>
+            </td>
+            <td>
+              <p class="title"><%= @cart_service.book_title(item.id) %></p>
+              <p class="in-grey-600 fw-300"><%= @cart_service.book_description(item.id) %></p>
+            </td>
+            <td>
+              <span class="font-16 in-gold-500">€<%= @cart_service.book_price(item.id) %></span></td>
+            <td>
+              <span class="ml-30"><%= item.quantity %></span></td>
+            <td>
+              <span class="font-16 in-gold-500">€<%= @cart_service.item_subtotal(item.id) %></span></td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
   </div>
   <div class="text-center general-text-right">
     <p class="in-gold-500 font-18">Order Summary</p>
     <table class="general-summary-table general-summary-table-right general-text-right">
-      <tr>
-        <td>
-          <p class="font-16">Subtotal:</p>
-        </td>
-        <td>
-          <p class="font-16">€117.69</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p class="font-16">Coupon:</p>
-        </td>
-        <td>
-          <p class="font-16">€0.00</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong class="font-18">Order Total:</strong></td>
-        <td>
-          <strong class="font-18">€117.69</strong></td>
-      </tr>
+        <tr>
+          <td>
+            <p class="font-16">Subtotal:</p>
+          </td>
+          <td>
+            <p class="font-16">€<%= @cart.item_total_price %></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p class="font-16">Coupon:</p>
+          </td>
+          <td>
+            <p class="font-16">€<%= @cart.coupon %></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong class="font-18">Order Total:</strong></td>
+          <td>
+            <strong class="font-18">€<%= @cart.order_total_price %></strong></td>
+        </tr>
     </table>
   </div>
   <div class="text-center">
-    <button class="btn btn-default mb-20">Place Order</button></div>
+    <%= form_for @cart, url: next_wizard_path do |f| %>
+      <button type="submit" class="btn btn-default mb-20">Place Order</button>
+    <% end %>
+  </div>
+    <a href="<%= url_for(previous_wizard_path) %>" class="general-back-link">
+      <i class="fa fa-long-arrow-left mr-15"></i>Back</a>
 </main>
