@@ -7,23 +7,34 @@ class CartsController < ApplicationController
   def incrememt_quantity(param = cart_params)
     item_owner(param[:increment])
     @cart_service = cart_service
-    result = @cart_service.increment_quantity(param[:increment])
-    flash[:alert].now = 'Error increment quantity!' unless result
+    errors = @cart_service.increment_quantity(param[:increment])
+    if errors.nil?
+      # TODO
+    else
+      flash[:alert].now = 'Error increment quantity!' + errors.to_s
+    end
   end
 
   def decrememt_quantity(param = cart_params)
     item_owner(param[:decrement])
     @cart_service = cart_service
-    result = @cart_service.decrement_quantity(param[:decrement])
-    flash[:alert].now = 'Error decrement quantity!' unless result
+    errors = @cart_service.decrement_quantity(param[:decrement])
+    if errors.nil?
+      # TODO
+    else
+      flash[:alert].now = 'Error decrement quantity!' + errors.to_s
+    end
   end
 
   def delete_item(param = cart_params)
     item_owner(param[:delete_item])
     @cart_service = cart_service
-    result = @cart_service.delete_item(param[:delete_item])
-    flash[:alert] = 'Error delete item!' unless result
-    flash[:notice] = 'Item was deleted!' if result
+    errors = @cart_service.delete_item(param[:delete_item])
+    if errors.nil?
+      flash[:notice] = 'Item was deleted!'
+    else
+      flash[:alert] = 'Error delete item!' + errors.to_s
+    end
     redirect_back(fallback_location: root_path)
   end
 
@@ -43,19 +54,22 @@ class CartsController < ApplicationController
 
   def add_item(param = cart_params)
     @cart_service = cart_service
-    result = @cart_service.add_item(param[:add_item], param[:quantity])
-    flash[:alert] = 'Error add item!' unless result
-    flash[:notice] = 'Item was added!' if result
+    errors = @cart_service.add_item(param[:add_item], param[:quantity])
+    if errors.nil?
+      flash[:notice] = 'Item was added!'
+    else
+      flash[:alert] = 'Error add item!'
+    end
     redirect_back(fallback_location: root_path)
   end
 
   def checkout
     @cart_service = cart_service
-    result = @cart_service.checkout
-    if result
+    errors = @cart_service.checkout
+    if errors.nil?
       redirect_to user_steps_path
     else
-      flash[:alert] = 'Error checkout!'
+      flash[:alert] = 'Error checkout!' + errors.to_s
       redirect_back(fallback_location: root_path)
     end
   end

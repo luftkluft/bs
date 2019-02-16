@@ -5,6 +5,7 @@ class UserStepsController < ApplicationController
   
   def show
     @cart = cart
+    # @card = card
     @billing = Address.where(user_id: current_user.id, address_type: 'billing')
     @shipping = Address.where(user_id: current_user.id, address_type: 'shipping')
     case step
@@ -16,6 +17,8 @@ class UserStepsController < ApplicationController
     when :checkout_payment
       flash[:alert] = 'show payment!' + checkout_params.to_s
     when :checkout_confirm
+      @card_number = card.card_number
+      @exp_date = card.expiration_month_year
       flash[:alert] = 'show confirm!' + checkout_params.to_s
     when :checkout_complete
       flash[:alert] = 'show complete!' + checkout_params.to_s
@@ -25,8 +28,8 @@ class UserStepsController < ApplicationController
 
   def update
     @cart = cart
-    @card = card
-    @delivery = Delivery.find_by(id: @cart.delivery_id)
+    # @card = card
+    @delivery = Delivery.find_by(id: cart.delivery_id)
     @billing = Address.where(user_id: current_user.id, address_type: 'billing')
     @shipping = Address.where(user_id: current_user.id, address_type: 'shipping')
     case step
@@ -36,40 +39,44 @@ class UserStepsController < ApplicationController
       flash[:alert] = 'update delivery!' + checkout_params.to_s
     when :checkout_payment
       @cart_service = cart_service
-      result = @cart_service.choose_delivery(checkout_params[:delivery])
-      flash[:alert] = 'Error add delivery!' unless result
-      flash[:notice] = 'Delivery was added!' if result
-    when :checkout_confirm
-      @card = card
-      @cart_service = cart_service
-      @card_service = card_service
-      errors = @card_service.save_card(param = checkout_params)
-      @card_number = []
-      @exp_date = []
+      errors = @cart_service.choose_delivery(checkout_params[:delivery])
       if errors.nil?
-        @card_number = @card.card_number
-        @exp_date = @card.expiration_month_year
+        flash[:notice] = 'Delivery was added!'
+      else
+        flash[:alert] = 'Error add delivery!' + errors.to_s
+      end
+    when :checkout_confirm
+      # @card = card
+      @cart_service = cart_service
+      # @card_service = card_service
+      errors = card_service.save_card(param = checkout_params)
+      # @card_number = []
+      # @exp_date = []
+      if errors.nil?
+        @card_number = card.card_number
+        @exp_date = card.expiration_month_year
         flash[:notice] = 'Card saved!'
       else
         flash[:alert] = 'Error save card! ' + errors.to_s
         # redirect_back(fallback_location: root_path)
       end
-    # when :checkout_complete
-    #   @order_service = order_service
-    #   copied_data = {
-    #     billing_address: @billing,
-    #     shipping_address: @shipping,
-    #     delivery: @delivery,
-    #     card: @card,
-    #     cart: @cart
-    #   }
-    #   errors = @order_service.copy_data(copied_data)
-    #   if errors.nil?
-    #     flash[:notice] = 'Order saved!'
-    #   else
-    #     flash[:alert] = 'Error save order! ' + errors.to_s
-    #     # redirect_back(fallback_location: root_path)
-    #   end
+    when :checkout_complete
+      @cart_service = cart_service
+      redirect_to_finish_wizard and return if @cart_service.items.count.zero?
+      @order_service = order_service
+      errors = @order_service.assembling_data
+      if errors.nil?
+        @order_shipping = Address.where(order_id: @order_service.order.id, address_type: 'shipping')
+        errors = @cart_service.clean_cart
+        if errors.nil?
+          flash[:notice] = 'Order saved!'
+        else
+          flash[:alert] = 'Cart not cleaned!' + errors.to_s
+        end
+      else
+        flash[:alert] = 'Error save order! ' + errors.to_s
+        # redirect_back(fallback_location: root_path)
+      end
     end
     render_wizard
   end
@@ -104,7 +111,14 @@ def card_service
   card_service
 end
 
+def order_service
+  order = Order.create(user_id: current_user.id)
+  order_service ||= OrderService.new
+  order_service.load(order)
+  order_service
+end
+
   def redirect_to_finish_wizard
-    redirect_to root_url, notice: "Thank you for signing up."
+    redirect_to root_url, notice: "Thank you!"
   end
 end

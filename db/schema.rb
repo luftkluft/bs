@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_16_001716) do
+ActiveRecord::Schema.define(version: 2019_02_16_152209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,10 @@ ActiveRecord::Schema.define(version: 2019_02_16_001716) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.integer "addressable_id"
+    t.string "addressable_type"
+    t.integer "order_id", default: 0
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
@@ -155,6 +159,27 @@ ActiveRecord::Schema.define(version: 2019_02_16_001716) do
     t.index ["cart_id"], name: "index_items_on_cart_id"
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "book_id"
+    t.bigint "order_id"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_order_items_on_book_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "invoice"
+    t.decimal "item_total_price", precision: 8, scale: 2
+    t.decimal "order_total_price", precision: 8, scale: 2
+    t.decimal "coupon", precision: 8, scale: 2
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer "score"
     t.string "reviewer_name"
@@ -201,6 +226,9 @@ ActiveRecord::Schema.define(version: 2019_02_16_001716) do
   add_foreign_key "deliveries", "carts"
   add_foreign_key "items", "books"
   add_foreign_key "items", "carts"
+  add_foreign_key "order_items", "books"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "users"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "users"
 end

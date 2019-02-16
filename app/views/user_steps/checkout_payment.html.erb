@@ -2,11 +2,13 @@
   <h1 class="general-title-margin">Checkout</h1>
   <ul class="steps list-inline">
     <li class="step active">
-      <span class="step-number">1</span>
+      <span class="step-number">
+        <i class="fa fa-check step-icon"></i></span>
       <span class="step-text hidden-xs">Address</span></li>
     <li class="step-divider"></li>
     <li class="step active">
-      <span class="step-number">2</span>
+      <span class="step-number">
+        <i class="fa fa-check step-icon"></i></span>
       <span class="step-text hidden-xs">Delivery</span></li>
     <li class="step-divider"></li>
     <li class="step active">
@@ -22,7 +24,7 @@
       <span class="step-text hidden-xs">Complete</span></li>
   </ul>
   <h3 class="general-subtitle">Credit Card</h3>
-  <%= form_for @card, url: next_wizard_path, html: { class: 'max-600 mb-80' } do |f| %>
+  <%= form_for @cart, url: next_wizard_path, html: { class: 'max-600 mb-80' } do |f| %>
     <div>
       <label for="cardNumber" class="control-label input-label">Card Number</label>
       <input id="cardNumber" type="number" name="card_number" placeholder="Card Number" class="form-control" />

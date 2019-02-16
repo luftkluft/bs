@@ -1,5 +1,5 @@
 ActiveAdmin.register Cart do
-  permit_params :user_id, :created_at, :order_total_price, :coupon, :delivery
+  permit_params :user_id, :created_at, :order_total_price, :coupon, :delivery_id
 
   index do
     selectable_column
@@ -15,7 +15,11 @@ ActiveAdmin.register Cart do
     column :item_total_price
     column :coupon
     column :order_total_price
-    column 'Delivery', Delivery.all.first
+    column :delivery_id do |cart|
+      delivery = Delivery.find_by(id: cart.delivery_id)
+      next if delivery.nil?
+      delivery.duration
+      end
     actions
   end
 

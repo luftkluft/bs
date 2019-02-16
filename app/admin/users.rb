@@ -10,7 +10,9 @@ ActiveAdmin.register User do
     column :sign_in_count
     column :created_at
     column :role
-    column :addresses
+    column 'Addresses' do |user|
+      Address.where(user_id: user.id)
+    end
     column 'address_type' do |user|
       Address.where(user_id: user.id).map(&:address_type)
     end

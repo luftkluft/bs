@@ -1,6 +1,7 @@
 class CartService
   def initialize
     @subtotal = 0.0
+    @errors = []
   end
 
   def load(cart)
@@ -15,6 +16,7 @@ class CartService
     @cart.coupon || 0.0
   end
 
+  ############################## TODO
   def image(item_id)
     book = find_book(item_id)
     book.image.url(:size400x300)
@@ -39,7 +41,7 @@ class CartService
     item = find_item(item_id)
     Book.find_by(id: item.book_id)
   end
-
+##################################### TODO
   def subtotal(value = 0)
     @subtotal += value
   end
@@ -63,9 +65,9 @@ class CartService
       item.quantity += 1
       item.save
     end
-    true
+    nil
   rescue StandardError
-    false
+    @errors += 'Cart: Error increment quantity!'
   end
 
   def decrement_quantity(item_id)
@@ -74,25 +76,25 @@ class CartService
       item.quantity -= 1
       item.save
     end
-    true
+    nil
   rescue StandardError
-    false
+    @errors += 'Cart: Error decrement quantity!'
   end
 
   def delete_item(item_id)
     item = find_item(item_id)
     item.delete
-    true
+    nil
   rescue StandardError
-    false
+    @errors += 'Cart: Error delete item!'
   end
 
   def add_item(book_id, quantity)
     quantity = 1 if quantity.nil?
     Item.create(book_id: book_id, cart_id: @cart.id, quantity: quantity)
-    true
+    nil
   rescue StandardError
-    false
+    @errors += 'Cart: Error add item'
   end
 
   def checkout
@@ -103,16 +105,34 @@ class CartService
     @cart.item_total_price = @subtotal
     @cart.order_total_price = @subtotal - coupon
     @cart.save
-    true
+    nil
   rescue StandardError
-    false
+    @errors = 'Cart: Error checkout!'
   end
 
   def choose_delivery(delivery_id)
     @cart.delivery_id = delivery_id
     @cart.save
-    true
+    nil
   rescue StandardError
-    false
+    @errors += 'Cart: Error choose delivery!'
+  end
+
+  def clean_cart
+    puts '%%%%%%%&&&&&&&&&&'
+    puts @cart.inspect
+    items = Item.where(cart_id: @cart.id)
+    items.each do |item|
+      puts '^^^^^^^^^'
+      item.delete
+    end
+    @cart.coupon = 0.0
+    @cart.item_total_price = 0.0
+    @cart.order_total_price = 0.0
+    @cart.delivery_id = nil
+    @cart.save
+    nil
+  rescue StandardError
+    @errors = 'Cart: Error clean cart'
   end
 end
