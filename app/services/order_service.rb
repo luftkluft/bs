@@ -10,7 +10,7 @@ class OrderService
 
   def load_copied_data
     @cart = Cart.find_by(user_id: @order.user_id)
-    @errors << 'Order: Cart not finded!' if @cart.nil?
+    @errors += 'Order: Cart not finded!' if @cart.nil?
   end
 
   def assembling_data
@@ -19,12 +19,20 @@ class OrderService
     add_billing_address
     add_shipping_address
     add_order_items
+    add_delivery
     return nil unless @errors.size.positive?
     @errors
   end
 
   def order
     @order
+  end
+
+  def add_delivery
+    @order.delivery_id = @cart.delivery_id
+    @order.save
+  rescue StandardError
+    @errors.push('Order: Delivery not added!')
   end
 
   def order_items
@@ -41,14 +49,14 @@ class OrderService
       )
     end
   rescue StandardError
-    @errors << 'Order: Items not added!'
+    @errors.push('Order: Items not added!')
   end
 
   def invoice_order
     @order.invoice = generate_invoice
     @order.save
   rescue StandardError
-    @errors << 'Order: Invoice not created!'
+    @errors.push('Order: Invoice not created!')
   end
 
   def add_prices
@@ -57,7 +65,7 @@ class OrderService
     @order.coupon = @cart.coupon
     @order.save
   rescue StandardError
-    @errors << 'Order: Prices not added!'
+    @errors.push('Order: Prices not added!')
   end
 
   def add_shipping_address
@@ -75,7 +83,7 @@ class OrderService
       phone: shipping_address[:phone]
     )
   rescue StandardError
-    @errors << 'Order: Shipping address not added!'
+    @errors.push('Order: Shipping address not added!')
   end
 
   def add_billing_address
@@ -93,7 +101,7 @@ class OrderService
       phone: billing_address[:phone]
     )
   rescue StandardError
-    @errors << 'Order: Billing address not added!'
+    @errors.push('Order: Billing address not added!')
   end
 
 

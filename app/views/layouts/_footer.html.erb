@@ -4,13 +4,15 @@
       <div class="col-sm-9">
         <ul class="list-inline general-align mb-25">
           <li>
-            <a href="#" class="nav-link">Home</a></li>
+            <a href="/" class="nav-link">Home</a></li>
           <li>
-            <a href="#" class="nav-link">Shop</a></li>
+            <a href="/catalog" class="nav-link">Shop</a></li>
+          <% if user_signed_in? %>
           <li>
-            <a href="#" class="nav-link">Orders</a></li>
+            <a href="/orders" class="nav-link">Orders</a></li>
           <li>
-            <a href="#" class="nav-link">Settings</a></li>
+            <a href="/settings" class="nav-link">Settings</a></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-sm-3">

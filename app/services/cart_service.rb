@@ -67,7 +67,7 @@ class CartService
     end
     nil
   rescue StandardError
-    @errors += 'Cart: Error increment quantity!'
+    @errors.push('Cart: Error increment quantity!')
   end
 
   def decrement_quantity(item_id)
@@ -78,7 +78,7 @@ class CartService
     end
     nil
   rescue StandardError
-    @errors += 'Cart: Error decrement quantity!'
+    @errors.push('Cart: Error decrement quantity!')
   end
 
   def delete_item(item_id)
@@ -86,7 +86,7 @@ class CartService
     item.delete
     nil
   rescue StandardError
-    @errors += 'Cart: Error delete item!'
+    @errors.push('Cart: Error delete item!')
   end
 
   def add_item(book_id, quantity)
@@ -94,7 +94,7 @@ class CartService
     Item.create(book_id: book_id, cart_id: @cart.id, quantity: quantity)
     nil
   rescue StandardError
-    @errors += 'Cart: Error add item'
+    @errors.push('Cart: Error add item')
   end
 
   def checkout
@@ -103,27 +103,32 @@ class CartService
       subtotal(item_sub)
     end
     @cart.item_total_price = @subtotal
-    @cart.order_total_price = @subtotal - coupon
+    @cart.order_total_price = @subtotal - coupon + delivery_price
     @cart.save
     nil
   rescue StandardError
-    @errors = 'Cart: Error checkout!'
+    @errors.push('Cart: Error checkout!')
   end
 
   def choose_delivery(delivery_id)
+    @errors += 'Cart: Delivery is nil!' if delivery_id.nil?
     @cart.delivery_id = delivery_id
     @cart.save
     nil
   rescue StandardError
-    @errors += 'Cart: Error choose delivery!'
+    @errors.push('Cart: Error choose delivery!')
+  end
+
+  def delivery_price
+    price = Delivery.find_by(id: @cart.delivery_id).price
+    price
+    rescue StandardError
+      0.0
   end
 
   def clean_cart
-    puts '%%%%%%%&&&&&&&&&&'
-    puts @cart.inspect
     items = Item.where(cart_id: @cart.id)
     items.each do |item|
-      puts '^^^^^^^^^'
       item.delete
     end
     @cart.coupon = 0.0
@@ -133,6 +138,6 @@ class CartService
     @cart.save
     nil
   rescue StandardError
-    @errors = 'Cart: Error clean cart'
+    @errors.push('Cart: Error clean cart')
   end
 end

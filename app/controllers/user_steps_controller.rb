@@ -1,4 +1,5 @@
 class UserStepsController < ApplicationController
+  before_action :authenticate_user!
   include Wicked::Wizard
   steps :checkout_address, :checkout_delivery, :checkout_payment,
         :checkout_confirm, :checkout_complete
@@ -39,11 +40,14 @@ class UserStepsController < ApplicationController
       flash[:alert] = 'update delivery!' + checkout_params.to_s
     when :checkout_payment
       @cart_service = cart_service
+      @cart_service.checkout
       errors = @cart_service.choose_delivery(checkout_params[:delivery])
       if errors.nil?
+        @delivery_price = @cart_service.delivery_price
         flash[:notice] = 'Delivery was added!'
       else
         flash[:alert] = 'Error add delivery!' + errors.to_s
+        redirect_back(fallback_location: root_path) and return
       end
     when :checkout_confirm
       # @card = card
@@ -53,6 +57,7 @@ class UserStepsController < ApplicationController
       # @card_number = []
       # @exp_date = []
       if errors.nil?
+        @delivery_price = @cart_service.delivery_price
         @card_number = card.card_number
         @exp_date = card.expiration_month_year
         flash[:notice] = 'Card saved!'
@@ -69,6 +74,7 @@ class UserStepsController < ApplicationController
         @order_shipping = Address.where(order_id: @order_service.order.id, address_type: 'shipping')
         errors = @cart_service.clean_cart
         if errors.nil?
+          @delivery_price = @cart_service.delivery_price
           flash[:notice] = 'Order saved!'
         else
           flash[:alert] = 'Cart not cleaned!' + errors.to_s
@@ -119,6 +125,6 @@ def order_service
 end
 
   def redirect_to_finish_wizard
-    redirect_to root_url, notice: "Thank you!"
+    redirect_to root_path, notice: "Thank you!"
   end
 end

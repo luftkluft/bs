@@ -27,7 +27,7 @@ ActiveAdmin.register Review do
       f.input :user
       f.input :reviewer_name
       f.input :body
-      f.input :state
+      f.input :state, as: :select, collection: [ 'not_approved', 'approved']
       f.input :score
     end
     f.actions

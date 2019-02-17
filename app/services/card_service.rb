@@ -20,27 +20,27 @@ class CardService
     @card.cvv = card_cvv
     @card.save
   rescue StandardError
-    @errors << 'Card cvv not saved!'
+    @errors.push('Card cvv not saved!')
   end
 
   def save_card_name(card_name)
     @card.name = card_name
     @card.save
   rescue StandardError
-    @errors << 'Card name not saved!'
+    @errors.push('Card name not saved!')
   end
 
   def save_card_number(card_number)
     @card.card_number = card_number
     @card.save
   rescue StandardError
-    @errors << 'Card number not saved!'
+    @errors.push('Card number not saved!')
   end
 
   def save_card_exp_date(card_exp_date)
     @card.expiration_month_year = card_exp_date
     @card.save
   rescue StandardError
-    @errors << 'Card_exp_date not saved!'
+    @errors.push('Card_exp_date not saved!')
   end
 end

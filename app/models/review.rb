@@ -16,9 +16,9 @@ class Review < ApplicationRecord
     state :not_approved, initial: true
     state :approved
 
-    event :approve do
-      transitions from: :not_approved, to: :approved
-    end
+    # event :approve do
+    #   transitions from: :not_approved, to: :approved
+    # end
   end
 
   # def left_by_verified_reviewer?

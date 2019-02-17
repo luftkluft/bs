@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   match '/delete_item', to: 'carts#delete_item', via: 'get'
   match '/add_item', to: 'carts#add_item', via: 'get'
   match '/checkout', to: 'carts#checkout', via: 'get'
-  resources :carts do
-    resources :deliveries
-  end
+  match '/orders', to: 'orders#show', via: 'get'
+  match '/order_state', to: 'orders#set_state', via: 'get'
 end
