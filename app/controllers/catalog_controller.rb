@@ -1,6 +1,6 @@
 class CatalogController < ApplicationController
   def show
-    @all_books = Book.all
+    @all_books = Book.where(visible: true)
     sorter ||= Sorter.new
     sorted_books = sorter.sortable(sortable_data)
     @pagy, @books = pagy(sorted_books, items: 8)

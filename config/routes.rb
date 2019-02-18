@@ -20,5 +20,4 @@ Rails.application.routes.draw do
   match '/add_item', to: 'carts#add_item', via: 'get'
   match '/checkout', to: 'carts#checkout', via: 'get'
   match '/orders', to: 'orders#show', via: 'get'
-  match '/order_state', to: 'orders#set_state', via: 'get'
 end

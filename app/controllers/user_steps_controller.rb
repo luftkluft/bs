@@ -40,9 +40,9 @@ class UserStepsController < ApplicationController
       flash[:alert] = 'update delivery!' + checkout_params.to_s
     when :checkout_payment
       @cart_service = cart_service
-      @cart_service.checkout
       errors = @cart_service.choose_delivery(checkout_params[:delivery])
       if errors.nil?
+        @cart_service.checkout
         @delivery_price = @cart_service.delivery_price
         flash[:notice] = 'Delivery was added!'
       else
@@ -75,6 +75,7 @@ class UserStepsController < ApplicationController
         errors = @cart_service.clean_cart
         if errors.nil?
           @delivery_price = @cart_service.delivery_price
+          UserMailer.order_email(current_user).deliver_now
           flash[:notice] = 'Order saved!'
         else
           flash[:alert] = 'Cart not cleaned!' + errors.to_s
