@@ -11,11 +11,9 @@ class UserStepsController < ApplicationController
     case step
     when :checkout_delivery
       @deliveries = Delivery.all || []
-      flash[:alert] = 'show delivery!' + checkout_params.to_s
     when :checkout_confirm
       @card_number = card.card_number
       @exp_date = card.expiration_month_year
-      flash[:alert] = 'show confirm!' + checkout_params.to_s
     end
     render_wizard
   end
@@ -59,7 +57,7 @@ class UserStepsController < ApplicationController
         errors = @cart_service.clean_cart
         if errors.nil?
           @delivery_price = @order_service.delivery_price
-          UserMailer.order_email(current_user).deliver_now
+          UserMailer.order_email(current_user).deliver_later
           flash[:notice] = 'Order saved!'
         else
           flash[:alert] = 'Cart not cleaned!' + errors.to_s
@@ -84,7 +82,7 @@ class UserStepsController < ApplicationController
   end
 
   def cart_service
-    cart_service ||= CartService.new
+    cart_service = CartService.new
     cart_service.load(cart)
     cart_service
   end
@@ -96,14 +94,14 @@ class UserStepsController < ApplicationController
   end
 
   def card_service
-    card_service ||= CardService.new
+    card_service = CardService.new
     card_service.load(card)
     card_service
   end
 
   def order_service
     order = Order.create(user_id: current_user.id)
-    order_service ||= OrderService.new
+    order_service = OrderService.new
     order_service.load(order)
     order_service
   end

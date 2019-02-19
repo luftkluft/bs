@@ -87,7 +87,7 @@ class CartsController < ApplicationController
   end
 
   def cart_service
-    cart_service ||= CartService.new
+    cart_service = CartService.new
     cart_service.load(cart)
     cart_service
   end
