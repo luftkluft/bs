@@ -37,7 +37,7 @@ ActiveAdmin.register Book do
       f.input :year
       f.input :in_stock
       f.input :popularity
-      f.input :visible, as: :select, collection: [ true, false ]
+      f.input :visible, as: :select, collection: [true, false]
     end
     f.actions
   end

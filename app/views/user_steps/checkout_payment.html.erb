@@ -25,79 +25,79 @@
   </ul>
   <h3 class="general-subtitle">Credit Card</h3>
   <%= form_for @cart, url: next_wizard_path, html: { class: 'max-600 mb-80' } do |f| %>
-    <div>
-      <label for="cardNumber" class="control-label input-label">Card Number</label>
-      <input id="cardNumber" type="text" name="card_number"
-        placeholder="Card Number" class="form-control"
-        required pattern="^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$" maxlength="19" title="Should not be empty,
+  <div>
+    <label for="cardNumber" class="control-label input-label">Card Number</label>
+    <input id="cardNumber" type="text" name="card_number" placeholder="Card Number" class="form-control" required
+      pattern="^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$" maxlength="19" title="Should not be empty,
         Can start with 
         Consist of 0-9 only,
         format: 0000 0000 0000 0000" />
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="cardName" class="control-label input-label">Name on Card</label>
-          <input id="cardName" type="text" name="card_name" 
-            placeholder="Name on Card" class="form-control" 
-            required pattern="^[a-zA-Z\s]+$" maxlength="50" title="Should not be not empty,
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="cardName" class="control-label input-label">Name on Card</label>
+        <input id="cardName" type="text" name="card_name" placeholder="Name on Card" class="form-control" required
+          pattern="^[a-zA-Z\s]+$" maxlength="50" title="Should not be not empty,
             Consist of a-z, A-Z, no special symbols,
             Can contain spaces,
             Must be less than 50 characters." />
-        </div>
       </div>
-      <div class="col-sm-3">
-        <div class="form-group">
-          <label for="firstName" class="control-label input-label">MM / YY</label>
-          <input id="firstName" name="exp_date" type="text" 
-          placeholder="MM / YY" class="form-control" 
-          required pattern="^(0[1-9]|1[0-2])[/][1][0-9]$" maxlength="5" title="Should not be empty,
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="firstName" class="control-label input-label">MM / YY</label>
+        <input id="firstName" name="exp_date" type="text" placeholder="MM / YY" class="form-control" required pattern="^(0[1-9]|1[0-2])[/][1][0-9]$"
+          maxlength="5" title="Should not be empty,
           Has a month on the left of a slash /, the year on the right.
           Month value can be from 01 to 12." />
-        </div>
       </div>
-      <div class="col-sm-3">
-        <div class="form-group relative">
-          <label for="firstName" class="control-label input-label">CVV</label>
-          <input id="firstName" name="cvv" type="password"
-            placeholder="CVV" class="form-control"
-            required pattern="^\d{3,4}$" maxlength="4" title="Should not be empty,
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group relative">
+        <label for="firstName" class="control-label input-label">CVV</label>
+        <input id="firstName" name="cvv" type="password" placeholder="CVV" class="form-control" required pattern="^\d{3,4}$"
+          maxlength="4" title="Should not be empty,
             Should be masked.
             Min Length is 3 digits, or
             Min Length is 4 digits." />
       </div>
     </div>
 
-  <div class="general-text-align">
-    <p class="in-gold-500 font-18">Order Summary</p>
-    <table class="general-summary-table">
+    <div class="general-text-align">
+      <p class="in-gold-500 font-18">Order Summary</p>
+      <table class="general-summary-table">
         <tr>
           <td>
             <p class="font-16">Subtotal:</p>
           </td>
           <td>
-            <p class="font-16">€<%= @cart.item_total_price %></p>
+            <p class="font-16">€
+              <%= @cart.item_total_price %>
+            </p>
           </td>
         </tr>>
-        <tr>
-          <td>
-            <p class="font-16">Coupon:</p>
-          </td>
-          <td>
-            <p class="font-16">€<%= @cart.coupon %></p>
-          </td>
+        <td>
+          <p class="font-16">Coupon:</p>
+        </td>
+        <td>
+          <p class="font-16">€
+            <%= @cart.coupon %>
+          </p>
+        </td>
         </tr>
         <tr>
           <td>
             <strong class="font-18">Order Total:</strong></td>
           <td>
-            <strong class="font-18">€<%= @cart.order_total_price %></strong></td>
+            <strong class="font-18">€
+              <%= @cart.order_total_price %></strong></td>
         </tr>
       </table>
-  </div>
-  <div class="text-center">
-    <button type="submit" class="btn btn-default mb-80">Save and Continue</button></div>
-  <% end %>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-default mb-80">Save and Continue</button></div>
+    <% end %>
     <a href="<%= url_for(previous_wizard_path) %>" class="general-back-link">
-        <i class="fa fa-long-arrow-left mr-15"></i>Back</a>
+      <i class="fa fa-long-arrow-left mr-15"></i>Back</a>
 </main>

@@ -1,33 +1,37 @@
-  <main class="container general-main-wrap">
-    <h1 class="mt-0 mb-25">My Orders</h1>
-    <div class="mb-res-50">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>
-              <span class="in-grey-600">Number</span></th>
-            <th>
-              <span class="in-grey-600">Completed at</span></th>
-            <th>
-              <span class="in-grey-600">Status</span></th>
-            <th>
-              <span class="in-grey-600">Total</span></th>
-          </tr>
-        </thead>
-        <tbody>
+<main class="container general-main-wrap">
+  <h1 class="mt-0 mb-25">My Orders</h1>
+  <div class="mb-res-50">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>
+            <span class="in-grey-600">Number</span></th>
+          <th>
+            <span class="in-grey-600">Completed at</span></th>
+          <th>
+            <span class="in-grey-600">Status</span></th>
+          <th>
+            <span class="in-grey-600">Total</span></th>
+        </tr>
+      </thead>
+      <tbody>
         <% @orders.each do |order| %>
         <tr>
           <td>
-            <span class="general-order-number"><%= order.invoice %></span></td>
+            <span class="general-order-number">
+              <%= order.invoice %></span></td>
           <td>
-            <span class="in-grey-900 font-16 fw-300"><%= order.created_at.strftime('%d-%m-%Y') %></span></td>
+            <span class="in-grey-900 font-16 fw-300">
+              <%= order.created_at.strftime('%d-%m-%Y') %></span></td>
           <td>
-            <span class="font-16 in-grey-900 fw-300"><%= order.state %></span></td>
+            <span class="font-16 in-grey-900 fw-300">
+              <%= order.state %></span></td>
           <td>
-            <strong class="font-16">€<%= order.order_total_price %></strong></td>
+            <strong class="font-16">€
+              <%= order.order_total_price %></strong></td>
         </tr>
         <% end %>
-        </tbody>
-      </table>
-    </div>
-  </main>
+      </tbody>
+    </table>
+  </div>
+</main>

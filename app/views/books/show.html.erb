@@ -34,18 +34,18 @@
           <div class="input-group general-position">
             <a id="minus_book" href="#" class="input-link">
               <i class="fa fa-minus line-height-40"></i></a>
-            <input id="book_count" type="text" class="form-control quantity-input" min="0" max="15" value="1"/>
+            <input id="book_count" type="text" class="form-control quantity-input" min="0" max="15" value="1" />
             <a id="plus_book" href="#" class="input-link">
               <i class="fa fa-plus line-height-40"></i></a></div>
-          </div>
-          <div class="col-xs-7 col-md-5">
-            <% if user_signed_in? %>
-              <input id="book-input-book-id" type="hidden" value="<%= @book.id %>"/>
-              <button id="book-add-to-cart" class="btn btn-default pull-right general-position">Add to Cart</button>
-            <% else %>
-            <button class="disabled btn pull-right general-position">Add to Cart</button>
-            <% end %>
-          </div>
+        </div>
+        <div class="col-xs-7 col-md-5">
+          <% if user_signed_in? %>
+          <input id="book-input-book-id" type="hidden" value="<%= @book.id %>" />
+          <button id="book-add-to-cart" class="btn btn-default pull-right general-position">Add to Cart</button>
+          <% else %>
+          <button class="disabled btn pull-right general-position">Add to Cart</button>
+          <% end %>
+        </div>
       </div>
       <div class="general-info-wrap divider-lg">
         <p>Description</p>
@@ -117,42 +117,46 @@
         <div class="text-right">
           <button id="btn_post" class="btn btn-primary mb-20" type="submit">Post</button></div>
       </div>
-    <% end %>
-  <% end %>
+      <% end %>
+      <% end %>
 
-  <div class="mb-80">
-    <h3 class="in-gold-500 mb-25">Reviews (
-      <%= @approved_reviews.count %>)</h3>
-    <% @approved_reviews.each do |review| %>
-    <div class="general-message-wrap divider-lg">
-      <div class="clearfix">
-        <span class="img-circle logo-size inlide-block pull-left logo-empty"><%= review.user.name.first.upcase %></span>
-        <div class="ml-70">
-          <div>
-            <div class="general-message-date hidden-xs">
-              <%= review.updated_at.strftime('%d/%m/%Y') %>
-            </div>
-            <div class="max-240">
-              <div class="general-message-verified pull-right"><!-- Verified -->
-                <%= review.reviewer_name %>
+      <div class="mb-80">
+        <h3 class="in-gold-500 mb-25">Reviews (
+          <%= @approved_reviews.count %>)</h3>
+        <% @approved_reviews.each do |review| %>
+        <div class="general-message-wrap divider-lg">
+          <div class="clearfix">
+            <span class="img-circle logo-size inlide-block pull-left logo-empty">
+              <%= review.user.name.first.upcase %></span>
+            <div class="ml-70">
+              <div>
+                <div class="general-message-date hidden-xs">
+                  <%= review.updated_at.strftime('%d/%m/%Y') %>
+                </div>
+                <div class="max-240">
+                  <div class="general-message-verified pull-right">
+                    <!-- Verified -->
+                    <%= review.reviewer_name %>
+                  </div>
+                  <div class="general-message-name">
+                    <%= review.user.name %>
+                  </div>
+                </div>
               </div>
-              <div class="general-message-name"><%= review.user.name %></div>
+              <div class="mb-15">
+                <% review.score.times do %>
+                <i class="fa fa-star rate-star"></i>
+                <% end %>
+                <% (5 - review.score).times do %>
+                <i class="fa fa-star rate-star rate-empty"></i>
+                <% end %>
+              </div>
+              <p>
+                <%= review.body %>
+              </p>
             </div>
           </div>
-          <div class="mb-15">
-            <% review.score.times do %>
-            <i class="fa fa-star rate-star"></i>
-            <% end %>
-            <% (5 - review.score).times do %>
-            <i class="fa fa-star rate-star rate-empty"></i>
-            <% end %>
-          </div>
-          <p>
-            <%= review.body %>
-          </p>
         </div>
+        <% end %>
       </div>
-    </div>
-    <% end %>
-  </div>
 </main>

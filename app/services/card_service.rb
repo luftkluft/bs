@@ -13,6 +13,7 @@ class CardService
     save_card_name(param[:card_name])
     save_card_cvv(param[:cvv])
     return nil unless @errors.size.positive?
+
     @errors
   end
 

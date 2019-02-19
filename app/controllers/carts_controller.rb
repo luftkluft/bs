@@ -65,7 +65,7 @@ class CartsController < ApplicationController
 
   def checkout
     @cart_service = cart_service
-    errors = @cart_service.checkout
+    errors = @cart_service.payment
     if errors.nil?
       redirect_to user_steps_path
     else

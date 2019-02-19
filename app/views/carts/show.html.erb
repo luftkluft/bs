@@ -32,11 +32,13 @@
         </td>
         <td>
           <div class="input-group">
-            <a id="cart-minus-item-<%= item.id %>" href="#" class="input-link" onclick="change_quantity(id, <%= item.id %>)" data-remote = "true">
+            <a id="cart-minus-item-<%= item.id %>" href="#" class="input-link" onclick="change_quantity(id, <%= item.id %>)"
+              data-remote="true">
               <i class="fa fa-minus line-hight-40"></i></a>
             <input id="cart-input-item-<%= item.id %>" type="text" class="form-control quantity-input" min="0" max="15"
               value="<%= @cart_service.item_quantity(item.id) %>" />
-            <a id="cart-plus-item-<%= item.id %>" href="#" class="input-link" onclick="change_quantity(id, <%= item.id %>)" data-remote = "true">
+            <a id="cart-plus-item-<%= item.id %>" href="#" class="input-link" onclick="change_quantity(id, <%= item.id %>)"
+              data-remote="true">
               <i class="fa fa-plus line-hight-40"></i></a></div>
         </td>
         <td>
@@ -46,7 +48,8 @@
           <% @cart_service.subtotal(item_subtotal) %>
         </td>
         <td>
-          <button id="delete-item-<%= item.id %>" type="button" aria-label="Close" class="close general-cart-close" onclick="delete_item(<%= item.id %>)">
+          <button id="delete-item-<%= item.id %>" type="button" aria-label="Close" class="close general-cart-close"
+            onclick="delete_item(<%= item.id %>)">
             <span aria-hidden="true">&times;</span></button>
         </td>
       </tr>

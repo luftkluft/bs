@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :email, :password, :password_confirmation, :role, :name, :addresses
+  permit_params :email, :password, :password_confirmation, :role, :name, :addresses, :order_id
 
   index do
     selectable_column
@@ -11,10 +11,10 @@ ActiveAdmin.register User do
     column :created_at
     column :role
     column 'Addresses' do |user|
-      Address.where(user_id: user.id)
+      Address.where(user_id: user.id, order_id: 0)
     end
     column 'address_type' do |user|
-      Address.where(user_id: user.id).map(&:address_type)
+      Address.where(user_id: user.id, order_id: 0).map(&:address_type)
     end
     actions
   end

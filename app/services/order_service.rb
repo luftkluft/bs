@@ -21,12 +21,11 @@ class OrderService
     add_order_items
     add_delivery
     return nil unless @errors.size.positive?
+
     @errors
   end
 
-  def order
-    @order
-  end
+  attr_reader :order
 
   def add_delivery
     @order.delivery_id = @cart.delivery_id
@@ -104,39 +103,43 @@ class OrderService
     @errors.push('Order: Billing address not added!')
   end
 
-
-
   def generate_invoice
     time = Time.now.to_s
     time_zone_offset = -5
     "R##{time.gsub(/[-:\s]/, '')[0...time_zone_offset]}"
   end
 
-    ############################## TODO
-    def image(item)
-      book = find_book(item)
-      book.image.url(:size400x300)
-    end
-  
-    def book_title(item)
-      book = find_book(item)
-      book.title
-    end
-  
-    def book_description(item)
-      book = find_book(item)
-      book.description
-    end
-  
-    def book_price(item)
-      book = find_book(item)
-      book.price
-    end
-  
-    def find_book(item)
-      Book.find_by(id: item.book_id)
-    end
-  ##################################### TODO
+  def image(item)
+    book = find_book(item)
+    book.image.url(:size400x300)
+  end
+
+  def book_title(item)
+    book = find_book(item)
+    book.title
+  end
+
+  def book_description(item)
+    book = find_book(item)
+    book.description
+  end
+
+  def book_price(item)
+    book = find_book(item)
+    book.price
+  end
+
+  def find_book(item)
+    Book.find_by(id: item.book_id)
+  end
+
+  def delivery_price
+    price = Delivery.find_by(id: @order.delivery_id).price
+    price
+  rescue StandardError
+    0.0
+  end
+
   def item_subtotal(item)
     item_quantity(item) * book_price(item)
   end

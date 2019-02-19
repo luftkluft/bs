@@ -52,15 +52,15 @@
       </a>
       <ul class="dropdown-menu">
         <% @category.each do |cat| %>
-          <li>
+        <li>
           <a id="sm-catalog-<%= cat.type_of.delete(' ') %>" href="#" class="filter-link" data-remote="true">
             <%= cat.type_of %>
             <span class="badge general-badge">
               <%= Book.where(category_id: cat.id).count %>
             </span>
           </a>
-          </li>
-          <li> </li>
+        </li>
+        <li> </li>
         <% end %>
       </ul>
     </div>

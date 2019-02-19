@@ -18,8 +18,9 @@ ActiveAdmin.register Cart do
     column :delivery_id do |cart|
       delivery = Delivery.find_by(id: cart.delivery_id)
       next if delivery.nil?
+
       delivery.duration
-      end
+    end
     actions
   end
 

@@ -28,26 +28,44 @@
 
   <div class="text-center mb-40">
     <h3 class="general-subtitle">Thank You for your Order!</h3>
-    <p class="fw-300">An order confirmation has been sent to <%= current_user.email %></p>
+    <p class="fw-300">An order confirmation has been sent to
+      <%= current_user.email %>
+    </p>
   </div>
   <div class="row mb-20">
     <div class="col-sm-6">
       <div class="visible-xs">
-        <p class="general-order-number mb-0">Order <%= @order_service.order.invoice %></p>
-        <p class="general-address mb-30"><%= @order_service.order.created_at.strftime('%d-%m-%Y') %></p>
+        <p class="general-order-number mb-0">Order
+          <%= @order_service.order.invoice %>
+        </p>
+        <p class="general-address mb-30">
+          <%= @order_service.order.created_at.strftime('%d-%m-%Y') %>
+        </p>
       </div>
       <h3 class="general-subtitle">Shipping Address</h3>
-      <p class="general-address"><%= @order_shipping.map(&:first_name).first %>
-        &nbsp<%= @order_shipping.map(&:last_name).first %>
-        <br /><%= @order_shipping.map(&:address).first %>
-        <br /><%= @order_shipping.map(&:city).first %>
-        <br /><%= @order_shipping.map(&:zip).first %>
-        <br /><%= @order_shipping.map(&:country).first %>
-        <br />Phone <%= @order_shipping.map(&:phone).first %></p>
+      <p class="general-address">
+        <%= @order_shipping.map(&:first_name).first %>
+        &nbsp
+        <%= @order_shipping.map(&:last_name).first %>
+        <br />
+        <%= @order_shipping.map(&:address).first %>
+        <br />
+        <%= @order_shipping.map(&:city).first %>
+        <br />
+        <%= @order_shipping.map(&:zip).first %>
+        <br />
+        <%= @order_shipping.map(&:country).first %>
+        <br />Phone
+        <%= @order_shipping.map(&:phone).first %>
+      </p>
     </div>
     <div class="col-sm-6 hidden-xs text-right">
-      <p class="general-order-number mb-0">Order <%= @order_service.order.invoice %></p>
-      <p class="general-address mb-30"><%= @order_service.order.created_at.strftime('%d-%m-%Y') %></p>
+      <p class="general-order-number mb-0">Order
+        <%= @order_service.order.invoice %>
+      </p>
+      <p class="general-address mb-30">
+        <%= @order_service.order.created_at.strftime('%d-%m-%Y') %>
+      </p>
     </div>
   </div>
 
@@ -69,22 +87,29 @@
       <tbody>
         <% @order_service.order_items.each do |item| %>
         <tr>
-            <td>
-              <div class="general-img-wrap-table">
-                <%= image_tag @order_service.image(item) %>
-              </div>
-            </td>
-            <td>
-              <p class="title"><%= @order_service.book_title(item) %></p>
-              <p class="in-grey-600 fw-300"><%= @order_service.book_description(item) %></p>
-            </td>
-            <td>
-              <span class="font-16 in-gold-500">€<%= @order_service.book_price(item) %></span></td>
-            <td>
-              <span class="ml-30"><%= item.quantity %></span></td>
-            <td>
-              <span class="font-16 in-gold-500">€<%= @order_service.item_subtotal(item) %></span></td>
-          </tr>
+          <td>
+            <div class="general-img-wrap-table">
+              <%= image_tag @order_service.image(item) %>
+            </div>
+          </td>
+          <td>
+            <p class="title">
+              <%= @order_service.book_title(item) %>
+            </p>
+            <p class="in-grey-600 fw-300">
+              <%= @order_service.book_description(item) %>
+            </p>
+          </td>
+          <td>
+            <span class="font-16 in-gold-500">€
+              <%= @order_service.book_price(item) %></span></td>
+          <td>
+            <span class="ml-30">
+              <%= item.quantity %></span></td>
+          <td>
+            <span class="font-16 in-gold-500">€
+              <%= @order_service.item_subtotal(item) %></span></td>
+        </tr>
         <% end %>
       </tbody>
     </table>
@@ -92,45 +117,50 @@
   <div class="text-center general-text-right">
     <p class="in-gold-500 font-18">Order Summary</p>
     <table class="general-summary-table general-summary-table-right general-text-right">
-        <tr>
-            <td>
-              <p class="font-16">Subtotal:</p>
-            </td>
-            <td>
-              <p class="font-16">€<%= @order_service.order.item_total_price %></p>
-            </td>
-          </tr>
-          <tr>
-              <td>
-                <p class="font-16">Delivery:</p>
-              </td>
-              <td>
-                <p class="font-16">€
-                  <%= @delivery_price %>
-                </p>
-              </td>
-            </tr>
-          <tr>
-            <td>
-              <p class="font-16">Coupon:</p>
-            </td>
-            <td>
-              <p class="font-16">€<%= @order_service.order.coupon %></p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong class="font-18">Order Total:</strong></td>
-            <td>
-              <strong class="font-18">€<%= @order_service.order.order_total_price %></strong></td>
-          </tr>
+      <tr>
+        <td>
+          <p class="font-16">Subtotal:</p>
+        </td>
+        <td>
+          <p class="font-16">€
+            <%= @order_service.order.item_total_price %>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p class="font-16">Delivery:</p>
+        </td>
+        <td>
+          <p class="font-16">€
+            <%= @delivery_price %>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p class="font-16">Coupon:</p>
+        </td>
+        <td>
+          <p class="font-16">€
+            <%= @order_service.order.coupon %>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong class="font-18">Order Total:</strong></td>
+        <td>
+          <strong class="font-18">€
+            <%= @order_service.order.order_total_price %></strong></td>
+      </tr>
     </table>
   </div>
   <div class="text-center">
     <button class="btn btn-default mb-20" onclick="home('<%= root_path %>')">Back to Store</button></div>
-    <script>
-        function home(path){
-          window.location.href = path;
-        }
-    </script>
+  <script>
+    function home(path) {
+      window.location.href = path;
+    }
+  </script>
 </main>

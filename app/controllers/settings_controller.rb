@@ -7,7 +7,7 @@ class SettingsController < ApplicationController
 
   def save
     if params[:address_type] == 'billing'
-      billing_addr = Address.find_by(user_id: current_user, address_type: 'billing')
+      billing_addr = Address.find_by(user_id: current_user, order_id: 0, address_type: 'billing')
       billing_addr = Address.create(address_params) if billing_addr.nil?
       if billing_addr.update(address_params)
         flash[:notice] = 'Billing address saved!'
@@ -17,7 +17,7 @@ class SettingsController < ApplicationController
         redirect_back(fallback_location: root_path)
       end
     elsif params[:address_type] == 'shipping'
-      shipping_addr = Address.find_by(user_id: current_user, address_type: 'shipping')
+      shipping_addr = Address.find_by(user_id: current_user, order_id: 0, address_type: 'shipping')
       shipping_addr = Address.create(address_params) if shipping_addr.nil?
       if shipping_addr.update(address_params)
         flash[:notice] = 'Shipping address saved!'

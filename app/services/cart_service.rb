@@ -41,7 +41,8 @@ class CartService
     item = find_item(item_id)
     Book.find_by(id: item.book_id)
   end
-##################################### TODO
+
+  ##################################### TODO
   def subtotal(value = 0)
     @subtotal += value
   end
@@ -97,7 +98,7 @@ class CartService
     @errors.push('Cart: Error add item')
   end
 
-  def checkout
+  def payment
     items.each do |item|
       item_sub = item_subtotal(item.id)
       subtotal(item_sub)
@@ -107,7 +108,7 @@ class CartService
     @cart.save
     nil
   rescue StandardError
-    @errors.push('Cart: Error checkout!')
+    @errors.push('Cart: Error payment!')
   end
 
   def choose_delivery(delivery_id)
@@ -122,15 +123,13 @@ class CartService
   def delivery_price
     price = Delivery.find_by(id: @cart.delivery_id).price
     price
-    rescue StandardError
-      0.0
+  rescue StandardError
+    0.0
   end
 
   def clean_cart
     items = Item.where(cart_id: @cart.id)
-    items.each do |item|
-      item.delete
-    end
+    items.each(&:delete)
     @cart.coupon = 0.0
     @cart.item_total_price = 0.0
     @cart.order_total_price = 0.0

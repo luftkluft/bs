@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
-    @approved_reviews = @book.reviews.approved || [] # TODO
+    @approved_reviews = @book.reviews.approved || []
     @review = Review.new
   end
 

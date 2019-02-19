@@ -34,168 +34,178 @@
         </div>
       </div>
       <div class="row">
-          <%= form_tag('/settings', method: :post) do %>
-          <input type="hidden" name="address_type" value="billing">
-          <input type="hidden" name="user_id" value="<%= current_user.id %>">
-          <div class="col-md-5 mb-40">
-            <div class="visible-xs visible-sm">
-              <h3 class="general-subtitle mt-0">Billing Address</h3>
-            </div>
-            <div class="form-group">
-              <label for="firstName" class="control-label input-label">First Name</label>
-              <input value="<%= @billing.map(&:first_name).first %>" id="firstName" name="first_name" type="text"
-                placeholder="First Name" class="form-control" required pattern="^[a-zA-Z]+$" maxlength="50" title="Cannot be not empty,
+        <%= form_tag('/settings', method: :post) do %>
+        <input type="hidden" name="address_type" value="billing">
+        <input type="hidden" name="user_id" value="<%= current_user.id %>">
+        <div class="col-md-5 mb-40">
+          <div class="visible-xs visible-sm">
+            <h3 class="general-subtitle mt-0">Billing Address</h3>
+          </div>
+          <div class="form-group">
+            <label for="firstName" class="control-label input-label">First Name</label>
+            <input value="<%= @billing.where(order_id: 0).map(&:first_name).first %>" id="firstName" name="first_name"
+              type="text" placeholder="First Name" class="form-control" required pattern="^[a-zA-Z]+$" maxlength="50"
+              title="Cannot be not empty,
                 Must consist of only a-z and A-Z characters without special symbols,
                 Must be less than 50 characters." />
-            </div>
-            <div class="form-group">
-              <label for="lastName" class="control-label input-label">Last Name</label>
-              <input value="<%= @billing.map(&:last_name).first %>" id="lastName" name="last_name" type="text"
-                placeholder="Last Name" class="form-control" 
-                required pattern="^[A-Za-z]+$" maxlength="50" title="Cannot be not empty,
+          </div>
+          <div class="form-group">
+            <label for="lastName" class="control-label input-label">Last Name</label>
+            <input value="<%= @billing.where(order_id: 0).map(&:last_name).first %>" id="lastName" name="last_name"
+              type="text" placeholder="Last Name" class="form-control" required pattern="^[A-Za-z]+$" maxlength="50"
+              title="Cannot be not empty,
                 Must consist of only a-z and A-Z characters without special symbols,
                 Must be less than 50 characters." />
-            </div>
-            <div class="form-group">
-              <label for="address" class="control-label input-label">Address</label>
-              <input value="<%= @billing.map(&:address).first %>" id="address" name="address" type="text" placeholder="Address"
-                class="form-control" required pattern="^[a-zA-Z0-9\s,-]+$" maxlength="50" title="Should not be not empty,
+          </div>
+          <div class="form-group">
+            <label for="address" class="control-label input-label">Address</label>
+            <input value="<%= @billing.where(order_id: 0).map(&:address).first %>" id="address" name="address" type="text"
+              placeholder="Address" class="form-control" required pattern="^[a-zA-Z0-9\s,-]+$" maxlength="50" title="Should not be not empty,
                 Consist of a-z, A-Z, 0-9,’,’, ‘-’, ‘ ’ only, no special symbols,
                 Must be less than 50 characters." />
-            </div>
-            <div class="form-group">
-              <label for="city" class="control-label input-label">City</label>
-              <input value="<%= @billing.map(&:city).first %>" id="city" name="city" type="text" placeholder="City" class="form-control"
-                required pattern="^[a-zA-Z]+$" maxlength="50" title="Cannot be not empty,
+          </div>
+          <div class="form-group">
+            <label for="city" class="control-label input-label">City</label>
+            <input value="<%= @billing.where(order_id: 0).map(&:city).first %>" id="city" name="city" type="text"
+              placeholder="City" class="form-control" required pattern="^[a-zA-Z]+$" maxlength="50" title="Cannot be not empty,
                 Must consist of only a-z and A-Z characters without special symbols,
                 Must be less than 50 characters." />
-            </div>
-            <div class="form-group">
-              <label for="zip" class="control-label input-label">Zip</label>
-              <input value="<%= @billing.map(&:zip).first %>" id="zip" name="zip" type="text" placeholder="Zip" class="form-control"
-                required pattern="^[0-9-]+$" maxlength="8" title="Should not be empty,
+          </div>
+          <div class="form-group">
+            <label for="zip" class="control-label input-label">Zip</label>
+            <input value="<%= @billing.where(order_id: 0).map(&:zip).first %>" id="zip" name="zip" type="text"
+              placeholder="Zip" class="form-control" required pattern="^[0-9-]+$" maxlength="8" title="Should not be empty,
                 Consist of 0-9 only,’-’ no special symbols." />
-            </div>
-            <div class="form-group">
-                <label for="сountry" class="control-label input-label">Country</label>
-                <select id="country" name="country" placeholder="Select a country" class="form-control"
-                required pattern="^[A-Za-z]+$" maxlength="50" title="Cannot be not empty,
+          </div>
+          <div class="form-group">
+            <label for="сountry" class="control-label input-label">Country</label>
+            <select id="country" name="country" placeholder="Select a country" class="form-control" required pattern="^[A-Za-z]+$"
+              maxlength="50" title="Cannot be not empty,
                 Must consist of only a-z and A-Z characters without special symbols,
                 Must be less than 50 characters."
-                  <%= country_select :country, @billing.map(&:country).first %>
-                </select></div>
-            <div class="form-group mb-60">
-              <label for="phone" class="control-label input-label">Phone</label>
-              <input value="<%= @billing.map(&:phone).first %>" id="phone" name="phone" type="tel" placeholder="Example +355661234567"
-                class="form-control" required pattern="^\+\d{3,15}$" maxlength="15" title="Should not be empty,
+              <%=country_select :country, @billing.where(order_id: 0).map(&:country).first %>
+            </select></div>
+          <div class="form-group mb-60">
+            <label for="phone" class="control-label input-label">Phone</label>
+            <input value="<%= @billing.where(order_id: 0).map(&:phone).first %>" id="phone" name="phone" type="tel"
+              placeholder="Example +355661234567" class="form-control" required pattern="^\+\d{3,15}$" maxlength="15"
+              title="Should not be empty,
                 Plus (+) at the beginning,
                 After should contain country code of chosen country in Country list
                 Consist of 0-9 only no special symbols.
                 Must be 15 characters or less." />
-            </div>
-            <div class="text-center general-text-align">
-              <button type="submit" class="btn btn-default mb-20" name="commit" value="Save">Save</button></div>
           </div>
-          <% end %>
-  
-          <%= form_tag('/settings', method: :post) do %>
-          <input type="hidden" name="address_type" value="shipping">
-          <input type="hidden" name="user_id" value="<%= current_user.id %>">
-          <div class="col-md-5 col-md-offset-1 mb-25">
-            <div class="visible-xs visible-sm">
-              <h3 class="general-subtitle mt-0">Shipping Address</h3>
-            </div>
-            <div class="form-group">
-              <label for="firstName" class="control-label input-label">First Name</label>
-              <input value="<%= @shipping.map(&:first_name).first %>" id="firstName" name="first_name" type="text"
-                placeholder="First Name" class="form-control" required pattern="^[a-zA-Z]+$" maxlength="50" title="Cannot be not empty,
+          <div class="text-center general-text-align">
+            <button type="submit" class="btn btn-default mb-20" name="commit" value="Save">Save</button></div>
+        </div>
+        <% end %>
+
+        <%= form_tag('/settings', method: :post) do %>
+        <input type="hidden" name="address_type" value="shipping">
+        <input type="hidden" name="user_id" value="<%= current_user.id %>">
+        <div class="col-md-5 col-md-offset-1 mb-25">
+          <div class="visible-xs visible-sm">
+            <h3 class="general-subtitle mt-0">Shipping Address</h3>
+          </div>
+          <div class="form-group">
+            <label for="firstName" class="control-label input-label">First Name</label>
+            <input value="<%= @shipping.where(order_id: 0).map(&:first_name).first %>" id="firstName" name="first_name"
+              type="text" placeholder="First Name" class="form-control" required pattern="^[a-zA-Z]+$" maxlength="50"
+              title="Cannot be not empty,
                 Must consist of only a-z and A-Z characters without special symbols,
                 Must be less than 50 characters." />
-            </div>
-            <div class="form-group">
-              <label for="lastName" class="control-label input-label">Last Name</label>
-              <input value="<%= @shipping.map(&:last_name).first %>" id="lastName" name="last_name" type="text"
-                placeholder="Last Name" class="form-control" required pattern="^[A-Za-z]+$" maxlength="50" title="Cannot be not empty,
+          </div>
+          <div class="form-group">
+            <label for="lastName" class="control-label input-label">Last Name</label>
+            <input value="<%= @shipping.where(order_id: 0).map(&:last_name).first %>" id="lastName" name="last_name"
+              type="text" placeholder="Last Name" class="form-control" required pattern="^[A-Za-z]+$" maxlength="50"
+              title="Cannot be not empty,
                 Must consist of only a-z and A-Z characters without special symbols,
                 Must be less than 50 characters." />
-            </div>
-            <div class="form-group">
-              <label for="address" class="control-label input-label">Address</label>
-              <input value="<%= @shipping.map(&:address).first %>" id="address" name="address" type="text" placeholder="Address"
-                class="form-control" required pattern="^[a-zA-Z0-9\s,-]+$" maxlength="50" title="Should not be not empty,
+          </div>
+          <div class="form-group">
+            <label for="address" class="control-label input-label">Address</label>
+            <input value="<%= @shipping.where(order_id: 0).map(&:address).first %>" id="address" name="address" type="text"
+              placeholder="Address" class="form-control" required pattern="^[a-zA-Z0-9\s,-]+$" maxlength="50" title="Should not be not empty,
                 Consist of a-z, A-Z, 0-9,’,’, ‘-’, ‘ ’ only, no special symbols,
                 Must be less than 50 characters." />
-            </div>
-            <div class="form-group">
-              <label for="city" class="control-label input-label">City</label>
-              <input value="<%= @shipping.map(&:city).first %>" id="city" name="city" type="text" placeholder="City" class="form-control"
-                required pattern="^[a-zA-Z]+$" maxlength="50" title="Cannot be not empty,
+          </div>
+          <div class="form-group">
+            <label for="city" class="control-label input-label">City</label>
+            <input value="<%= @shipping.where(order_id: 0).map(&:city).first %>" id="city" name="city" type="text"
+              placeholder="City" class="form-control" required pattern="^[a-zA-Z]+$" maxlength="50" title="Cannot be not empty,
                 Must consist of only a-z and A-Z characters without special symbols,
                 Must be less than 50 characters." />
-            </div>
-            <div class="form-group">
-              <label for="zip" class="control-label input-label">Zip</label>
-              <input value="<%= @shipping.map(&:zip).first %>" id="zip" name="zip" type="text" placeholder="Zip" class="form-control"
-                required pattern="^[0-9-]+$" maxlength="8" title="Should not be empty,
+          </div>
+          <div class="form-group">
+            <label for="zip" class="control-label input-label">Zip</label>
+            <input value="<%= @shipping.where(order_id: 0).map(&:zip).first %>" id="zip" name="zip" type="text"
+              placeholder="Zip" class="form-control" required pattern="^[0-9-]+$" maxlength="8" title="Should not be empty,
                 Consist of 0-9 only,’-’ no special symbols." />
-            </div>
-            <div class="form-group">
-                <label for="сountry" class="control-label input-label">Country</label>
-                <select id="country" name="country" placeholder="Select a country" class="form-control"
-                required pattern="^[A-Za-z]+$" maxlength="50" title="Cannot be not empty,
+          </div>
+          <div class="form-group">
+            <label for="сountry" class="control-label input-label">Country</label>
+            <select id="country" name="country" placeholder="Select a country" class="form-control" required pattern="^[A-Za-z]+$"
+              maxlength="50" title="Cannot be not empty,
                 Must consist of only a-z and A-Z characters without special symbols,
                 Must be less than 50 characters."
-                  <%= country_select :country, @shipping.map(&:country).first %>
-                </select></div>
-            <div class="form-group mb-60">
-              <label for="phone" class="control-label input-label">Phone</label>
-              <input value="<%= @shipping.map(&:phone).first %>" id="phone" name="phone" type="tel" placeholder="Example +355661234567"
-                class="form-control" required pattern="^\+\d{3,15}$" maxlength="15" title="Should not be empty,
+              <%=country_select :country, @shipping.where(order_id: 0).map(&:country).first %>
+            </select></div>
+          <div class="form-group mb-60">
+            <label for="phone" class="control-label input-label">Phone</label>
+            <input value="<%= @shipping.where(order_id: 0).map(&:phone).first %>" id="phone" name="phone" type="tel"
+              placeholder="Example +355661234567" class="form-control" required pattern="^\+\d{3,15}$" maxlength="15"
+              title="Should not be empty,
                 Plus (+) at the beginning,
                 After should contain country code of chosen country in Country list
                 Consist of 0-9 only no special symbols.
                 Must be 15 characters or less." />
-            </div>
-            <div class="text-center general-text-align">
-              <button type="submit" class="btn btn-default mb-20" name="commit" value="Save">Save</button></div>
           </div>
+          <div class="text-center general-text-align">
+            <button type="submit" class="btn btn-default mb-20" name="commit" value="Save">Save</button></div>
+        </div>
       </div>
       <div class="general-text-align mb-60">
-          <p class="in-gold-500 font-18">Order Summary</p>
-          <table class="general-summary-table">
-              <tr>
-                <td>
-                  <p class="font-16">Subtotal:</p>
-                </td>
-                <td>
-                  <p class="font-16">€<%= @cart.item_total_price %></p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p class="font-16">Coupon:</p>
-                </td>
-                <td>
-                  <p class="font-16">€<%= @cart.coupon %></p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong class="font-18">Order Total:</strong></td>
-                <td>
-                  <strong class="font-18">€<%= @cart.order_total_price %></strong></td>
-              </tr>
-            </table>
-        </div>
+        <p class="in-gold-500 font-18">Order Summary</p>
+        <table class="general-summary-table">
+          <tr>
+            <td>
+              <p class="font-16">Subtotal:</p>
+            </td>
+            <td>
+              <p class="font-16">€
+                <%= @cart.item_total_price %>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="font-16">Coupon:</p>
+            </td>
+            <td>
+              <p class="font-16">€
+                <%= @cart.coupon %>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong class="font-18">Order Total:</strong></td>
+            <td>
+              <strong class="font-18">€
+                <%= @cart.order_total_price %></strong></td>
+          </tr>
+        </table>
+      </div>
       <% end %>
       <a href="<%= url_for(:back) %>" class="general-back-link">
-          <i class="fa fa-long-arrow-left mr-15"></i>Back</a>
+        <i class="fa fa-long-arrow-left mr-15"></i>Back</a>
       <button class="btn btn-default center-block mb-20" onclick="next_step('<%= next_wizard_path %>')">Continue</button>
     </div>
   </div>
   <script>
-      function next_step(path){
-        window.location.href = path;
-      }
+    function next_step(path) {
+      window.location.href = path;
+    }
   </script>
 </main>

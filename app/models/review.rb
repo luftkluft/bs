@@ -15,13 +15,5 @@ class Review < ApplicationRecord
   aasm column: 'state' do
     state :not_approved, initial: true
     state :approved
-
-    # event :approve do
-    #   transitions from: :not_approved, to: :approved
-    # end
   end
-
-  # def left_by_verified_reviewer?
-  #   user.bought_book?(book)
-  # end
 end
