@@ -14,6 +14,7 @@ class AddressService
     else @errors.push('Uknown type of address!')
     end
     return nil unless @errors.size.positive?
+
     @errors
   rescue StandardError
     @errors.push('Error save address!')

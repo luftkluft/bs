@@ -17,5 +17,4 @@ class CatalogController < ApplicationController
   def catalog_params
     params.permit(:category_type_of, :books_sorting, :page)
   end
-  
 end

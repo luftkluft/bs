@@ -27,11 +27,9 @@
                 <%= @last_three_books.last.author %>
               </p>
               <div class="general-align">
-                <% if user_signed_in? %>
+
                 <button onclick="show_book(<%= @last_three_books.last.id %>)" class="btn btn-primary">Buy Now</button>
-                <% else %>
-                <button class="disabled btn">Buy Now</button>
-                <% end %>
+
               </div>
             </div>
           </div>
@@ -59,11 +57,9 @@
                 <%= book.author %>
               </p>
               <div class="general-align">
-                <% if user_signed_in? %>
+
                 <button onclick="show_book(<%= book.id %>)" class="btn btn-primary">Buy Now</button>
-                <% else %>
-                <button class="disabled btn">Buy Now</button>
-                <% end %>
+
               </div>
             </div>
           </div>
@@ -102,10 +98,10 @@
               <div class="general-thumb-link-wrap">
                 <a href="/books/<%= book.id %>" class="thumb-hover-link">
                   <i aria-hidden="true" class="fa fa-eye thumb-icon"></i></a>
-                <% if user_signed_in? %>
+
                 <a id="start-link-add-to-cart" href="/add_item?add_item=<%= book.id %>" class="thumb-hover-link">
                   <i class="fa fa-shopping-cart thumb-icon"></i></a>
-                <% end %>
+
                 </div>
             </div>
           </div>

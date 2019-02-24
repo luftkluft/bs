@@ -39,12 +39,10 @@
               <i class="fa fa-plus line-height-40"></i></a></div>
         </div>
         <div class="col-xs-7 col-md-5">
-          <% if user_signed_in? %>
+
           <input id="book-input-book-id" type="hidden" value="<%= @book.id %>" />
           <button id="book-add-to-cart" class="btn btn-default pull-right general-position">Add to Cart</button>
-          <% else %>
-          <button class="disabled btn pull-right general-position">Add to Cart</button>
-          <% end %>
+
         </div>
       </div>
       <div class="general-info-wrap divider-lg">
