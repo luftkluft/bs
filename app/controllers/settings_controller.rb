@@ -1,33 +1,19 @@
 class SettingsController < ApplicationController
   before_action :authenticate_user!
   def show
-    @billing = Address.where(user_id: current_user.id, address_type: 'billing')
-    @shipping = Address.where(user_id: current_user.id, address_type: 'shipping')
+    addr = AddressService.new
+    @billing = addr.billing_address(current_user)
+    @shipping = addr.shipping_address(current_user)
   end
 
   def save
-    if params[:address_type] == 'billing'
-      billing_addr = Address.find_by(user_id: current_user, order_id: 0, address_type: 'billing')
-      billing_addr = Address.create(address_params) if billing_addr.nil?
-      if billing_addr.update(address_params)
-        flash[:notice] = 'Billing address saved!'
-        redirect_back(fallback_location: root_path)
-      else
-        flash[:alert] = 'Billing address not saved!'
-        redirect_back(fallback_location: root_path)
-      end
-    elsif params[:address_type] == 'shipping'
-      shipping_addr = Address.find_by(user_id: current_user, order_id: 0, address_type: 'shipping')
-      shipping_addr = Address.create(address_params) if shipping_addr.nil?
-      if shipping_addr.update(address_params)
-        flash[:notice] = 'Shipping address saved!'
-        redirect_back(fallback_location: root_path)
-      else
-        flash[:alert] = 'Shipping address not saved!'
-        redirect_back(fallback_location: root_path)
-      end
+    addr = AddressService.new
+    errors = addr.save(current_user, address_params)
+    if errors.nil?
+      flash[:notice] = 'Address saved!'
+      redirect_back(fallback_location: root_path)
     else
-      flash[:alert] = 'Wrong params!'
+      flash[:alert] = 'Address not saved!' + errors.to_s
       redirect_back(fallback_location: root_path)
     end
   end
@@ -35,6 +21,6 @@ class SettingsController < ApplicationController
   private
 
   def address_params
-    params.permit(:first_name, :last_name, :address, :city, :zip, :country, :phone, :address_type, :user_id)
+    params.permit(:first_name, :last_name, :address, :city, :zip, :country, :phone, :address_type, :user_id, :checkbox)
   end
 end
