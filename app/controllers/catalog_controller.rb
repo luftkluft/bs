@@ -3,6 +3,8 @@ class CatalogController < ApplicationController
     @all_books = Book.where(visible: true)
     sorter = Sorter.new
     sorted_books = sorter.sortable(sortable_data)
+    sort_by = sorter.view_books_params
+    sort_by.nil? ? @sort_by = 'Sort by' : @sort_by = sort_by
     @pagy, @books = pagy(sorted_books, items: 8)
   end
 

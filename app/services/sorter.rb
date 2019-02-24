@@ -1,10 +1,16 @@
 class Sorter
+  attr_accessor :view_books_params
+  def initialize
+    @view_books_params = ''
+  end
+
   def sortable(sortable_data)
     books = sortable_data[:books_for_sorting]
     books = sort_by_category(books, sortable_data[:by_category]) if sortable_data[:by_category]
     books = sort_by_books_params(books, sortable_data[:by_books_params])
     books
   end
+
 
   def sort_by_category(books, category)
     books = books.where(category_id: Category.find_by(type_of: category).id)
@@ -16,12 +22,17 @@ class Sorter
   def sort_by_books_params(books, books_params)
     books = case books_params
             when 'Popular first'
+              @view_books_params = books_params
               books.order(popularity: :desc)
             when 'Low to hight'
+              @view_books_params = books_params
               books.order(price: :asc)
             when 'Hight to low'
+              @view_books_params = books_params
               books.order(price: :desc)
-            else books.order(year: :desc)
+            else
+              @view_books_params = books_params
+              books.order(year: :desc)
             end
     books
   end
