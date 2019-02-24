@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_16_214434) do
+ActiveRecord::Schema.define(version: 2019_02_24_223159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,9 @@ ActiveRecord::Schema.define(version: 2019_02_16_214434) do
     t.boolean "visible", default: true
     t.bigint "category_id"
     t.integer "popularity", default: 0
+    t.string "image_1"
+    t.string "image_2"
+    t.string "image_3"
     t.index ["category_id"], name: "index_books_on_category_id"
   end
 

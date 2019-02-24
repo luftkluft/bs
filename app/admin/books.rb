@@ -1,7 +1,8 @@
 ActiveAdmin.register Book do
   permit_params :image, :title, :author, :category_id, :description, :year,
                 :in_stock, :type_of, :materials, :price,
-                :height, :width, :depth, :popularity, :visible
+                :height, :width, :depth, :popularity, :visible,
+                :image_1, :image_2, :image_3
 
   index do
     selectable_column
@@ -30,6 +31,9 @@ ActiveAdmin.register Book do
   form do |f|
     f.inputs do
       f.input :image
+      f.input :image_1
+      f.input :image_2
+      f.input :image_3
       f.input :title
       f.input :author
       f.input :category_id

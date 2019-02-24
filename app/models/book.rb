@@ -1,5 +1,8 @@
 class Book < ApplicationRecord
   mount_uploader :image, ImageUploader
+  mount_uploader :image_1, ImageUploader
+  mount_uploader :image_2, ImageUploader
+  mount_uploader :image_3, ImageUploader
   belongs_to :category
   has_many :reviews, dependent: :destroy
   has_many :items, dependent: :nullify
