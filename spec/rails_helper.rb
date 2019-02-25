@@ -24,11 +24,11 @@ end
 # brew install chromedriver
 # brew services start chromedriver
 # Capybara.default_driver = :selenium_chrome
-# Capybara.default_driver = :selenium_chrome_headless
+Capybara.default_driver = :selenium_chrome_headless
 
-Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
+# Capybara.register_driver :selenium do |app|
+#   Capybara::Selenium::Driver.new(app, browser: :chrome)
+# end
 Capybara.app_host = 'http://localhost:3001'
 Capybara.server_host = 'localhost'
 Capybara.server_port = '3001'

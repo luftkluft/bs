@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -77,12 +75,12 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name: Rails.application.credentials.production[:mailtrap][:user_name],
-    password: Rails.application.credentials.production[:mailtrap][:password],
-    address: Rails.application.credentials.production[:mailtrap][:address],
-    domain: Rails.application.credentials.production[:mailtrap][:domain],
-    port: Rails.application.credentials.production[:mailtrap][:port],
-    authentication: Rails.application.credentials.production[:mailtrap][:authentication],
+    user_name: Rails.application.credentials.production[:gmail][:user_name],
+    password: Rails.application.credentials.production[:gmail][:password],
+    address: Rails.application.credentials.production[:gmail][:address],
+    domain: Rails.application.credentials.production[:gmail][:domain],
+    port: Rails.application.credentials.production[:gmail][:port],
+    authentication: Rails.application.credentials.production[:gmail][:authentication],
     openssl_verify_mode: 'none'
   }
 

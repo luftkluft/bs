@@ -28,7 +28,7 @@
               </p>
               <div class="general-align">
 
-                <button onclick="show_book(<%= @last_three_books.last.id %>)" class="btn btn-primary"><%= I18n.t('home.buy_now') %></button>
+                <button id="btn_buy_now" onclick="show_book(<%= @last_three_books.last.id %>)" class="btn btn-primary"><%= I18n.t('home.buy_now') %></button>
 
               </div>
             </div>
@@ -82,7 +82,7 @@
     <div class="mb-res-50">
       <p><%= I18n.t('home.shop_description') %></p>
     </div>
-    <button id="btn_get_started" class="btn btn-default"><%= I18n.t('home.get_started') %></button>
+    <button type="button" id="btn_get_started" class="btn btn-default"><%= I18n.t('home.get_started') %></button>
   </div>
   <div class="mb-35">
     <h3><%= I18n.t('home.bestsellers') %></h3>
