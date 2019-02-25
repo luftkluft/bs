@@ -46,6 +46,7 @@ class UserStepsController < ApplicationController
         flash[:notice] = 'Card saved!'
       else
         flash[:alert] = 'Error save card! ' + errors.to_s
+        redirect_back(fallback_location: root_path) && return
       end
     when :checkout_complete
       @cart_service = cart_service
