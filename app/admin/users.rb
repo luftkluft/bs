@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :email, :password, :password_confirmation, :role, :name, :addresses, :order_id
+  permit_params :email, :password, :password_confirmation, :role, :name, :addresses, :order_id, :purchased_books
 
   index do
     selectable_column
@@ -16,6 +16,7 @@ ActiveAdmin.register User do
     column 'address_type' do |user|
       Address.where(user_id: user.id, order_id: 0).map(&:address_type)
     end
+    column :purchased_books
     actions
   end
 

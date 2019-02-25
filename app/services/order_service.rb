@@ -1,4 +1,5 @@
 class OrderService
+  attr_reader :order
   def initialize
     @errors = []
   end
@@ -25,8 +26,6 @@ class OrderService
     @errors
   end
 
-  attr_reader :order
-
   def add_delivery
     @order.delivery_id = @cart.delivery_id
     @order.save
@@ -46,9 +45,27 @@ class OrderService
         order_id: @order.id,
         quantity: item.quantity
       )
+      add_book_to_user(item)
+      add_popularity_to_book(item)
     end
   rescue StandardError
     @errors.push('Order: Items not added!')
+  end
+
+  def add_popularity_to_book(item)
+    book = find_book(item)
+    book.popularity += item.quantity
+    book.save
+  rescue StandardError
+    @errors.push('Order: Error added popularity!')
+  end
+
+  def add_book_to_user(item)
+    user = User.find_by(id: @order.user_id)
+    user.purchased_books.push(item.book_id) unless user.purchased_books.include?(item.book_id)
+    user.save
+  rescue StandardError
+    @errors.push('Order: Error added book to user!')
   end
 
   def invoice_order
