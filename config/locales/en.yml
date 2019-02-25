@@ -10,13 +10,18 @@ en:
     log_out: "Log Out"
     sign_up: "Sign Up"
   footer:
+    home_link: "Home"
+    shop_link: "Shop"
+    orders_link: "Orders"
+    settings_link: "Settings"
     support_url: "support@bookstore.com"
     support_phone: "(555)-555-5555"
   home:
     invitation: "Welcome to our amazing Bookstore!"
     shop_description: "We pore through hundreds of new books each month and select the five best we can find to share with our members."
     get_started: "Get started"
-    bestsellers: "Bestsellers | %{category_title}"
+    bestsellers: "Bestsellers"
+    buy_now: "Buy Now"
   category:
     catalog: "Сatalog"
     all: "All"

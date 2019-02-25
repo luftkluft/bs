@@ -6,8 +6,8 @@ class UserStepsController < ApplicationController
 
   def show
     @cart = cart
-    @billing = Address.where(user_id: current_user.id, address_type: 'billing')
-    @shipping = Address.where(user_id: current_user.id, address_type: 'shipping')
+    @billing = billing
+    @shipping = shipping
     case step
     when :checkout_delivery
       @deliveries = Delivery.all || []
@@ -21,8 +21,8 @@ class UserStepsController < ApplicationController
   def update
     @cart = cart
     @delivery = Delivery.find_by(id: cart.delivery_id)
-    @billing = Address.where(user_id: current_user.id, address_type: 'billing')
-    @shipping = Address.where(user_id: current_user.id, address_type: 'shipping')
+    @billing = billing
+    @shipping = shipping
     case step
     when :checkout_payment
       @cart_service = cart_service
@@ -74,6 +74,14 @@ class UserStepsController < ApplicationController
 
   def checkout_params
     params.permit! # TODO
+  end
+
+  def billing
+    Address.where(user_id: current_user.id, address_type: 'billing')
+  end
+
+  def shipping
+    Address.where(user_id: current_user.id, address_type: 'shipping')
   end
 
   def cart

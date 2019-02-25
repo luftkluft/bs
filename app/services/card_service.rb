@@ -41,7 +41,6 @@ class CardService
 
   def save_card_exp_date(card_exp_date)
     return @errors.push('Card_exp_date not valid!') unless card_exp_date_valid?(card_exp_date)
-    puts '**************************'
 
     @card.expiration_month_year = card_exp_date
     @card.save

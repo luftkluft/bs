@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span></button>
-      <a class="navbar-brand">Bookstore</a>
+      <a class="navbar-brand"><%= I18n.t('header.shop_title') %></a>
       <a href="#" class="shop-link pull-right visible-xs">
         <span class="shop-icon">
           <span class="shop-quantity">
@@ -22,9 +22,9 @@
           <span aria-hidden="true">&times;</span></button>
         <ul class="nav navbar-nav">
           <li>
-            <a href="/">Home</a></li>
+            <a href="/"><%= I18n.t('header.home_link') %></a></li>
           <li>
-            <a type="button" data-toggle="collapse" href="#menu" aria-expanded="false" aria-controls="menu">Shop</a>
+            <a type="button" data-toggle="collapse" href="#menu" aria-expanded="false" aria-controls="menu"><%= I18n.t('header.shop_link') %></a>
             <ul id="menu" aria-expanded="false" class="collapse list-unstyled pl-30 mb-10">
               <li>
                 <a id="header-cat-all" href="#">All categories</a></li>
@@ -41,7 +41,7 @@
               <%= current_user.email %></a>
             <ul class="dropdown-menu">
               <li>
-                <a href="<%= settings_path %>">Settings</a>
+                <a href="<%= settings_path %>"><%= I18n.t('header.settings_link') %></a>
               </li>
               <li>
                 <%= link_to t('devise.shared.links.account'), edit_user_registration_path %>
@@ -57,9 +57,9 @@
       <div class="hidden-xs">
         <ul class="nav navbar-nav">
           <li>
-            <a id="home" href="/">Home</a></li>
+            <a id="home" href="/"><%= I18n.t('header.home_link') %></a></li>
           <li class="dropdown">
-            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">Shop</a>
+            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><%= I18n.t('header.shop_link') %></a>
             <ul class="dropdown-menu">
               <li>
                 <a id="sm-header-cat-all" href="#">All categories</a></li>
@@ -76,7 +76,7 @@
               <%= current_user.email %></a>
             <ul class="dropdown-menu">
               <li>
-                <a href="<%= settings_path %>">Settings</a>
+                <a href="<%= settings_path %>"><%= I18n.t('header.settings_link') %></a>
               </li>
               <li>
                 <%= link_to t('devise.shared.links.account'), edit_user_registration_path %>
@@ -105,9 +105,9 @@
           <span aria-hidden="true">&times;</span></button>
         <ul class="nav navbar-nav">
           <li>
-            <a href="/">Home</a></li>
+            <a href="/"><%= I18n.t('header.home_link') %></a></li>
           <li>
-            <a type="button" data-toggle="collapse" href="#menu" aria-expanded="false" aria-controls="menu">Shop</a>
+            <a type="button" data-toggle="collapse" href="#menu" aria-expanded="false" aria-controls="menu"><%= I18n.t('header.shop_link') %></a>
             <ul id="menu" aria-expanded="false" class="collapse list-unstyled pl-30 mb-10">
               <li>
                 <a id="free-header-cat-all" href="#">All categories</a></li>
@@ -120,8 +120,7 @@
             </ul>
           </li>
           <li class="dropdown">
-            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">My
-              account</a>
+            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><%= I18n.t('header.my_account') %></a>
             <ul class="dropdown-menu">
               <li>
                 <a href="<%= new_user_registration_path %>">
@@ -136,9 +135,9 @@
       <div class="hidden-xs">
         <ul class="nav navbar-nav">
           <li>
-            <a id="home" href="/">Home</a></li>
+            <a id="home" href="/"><%= I18n.t('header.home_link') %></a></li>
           <li class="dropdown">
-            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">Shop</a>
+            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><%= I18n.t('header.shop_link') %></a>
             <ul class="dropdown-menu">
               <li>
                 <a id="sm-free-header-cat-all" href="#">All categories</a></li>
@@ -151,8 +150,7 @@
             </ul>
           </li>
           <li class="dropdown">
-            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">My
-              account</a>
+            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><%= I18n.t('header.my_account') %></a>
             <ul class="dropdown-menu">
               <li>
                 <a href="<%= new_user_registration_path %>">

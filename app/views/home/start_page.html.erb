@@ -28,7 +28,7 @@
               </p>
               <div class="general-align">
 
-                <button onclick="show_book(<%= @last_three_books.last.id %>)" class="btn btn-primary">Buy Now</button>
+                <button onclick="show_book(<%= @last_three_books.last.id %>)" class="btn btn-primary"><%= I18n.t('home.buy_now') %></button>
 
               </div>
             </div>
@@ -58,7 +58,7 @@
               </p>
               <div class="general-align">
 
-                <button onclick="show_book(<%= book.id %>)" class="btn btn-primary">Buy Now</button>
+                <button onclick="show_book(<%= book.id %>)" class="btn btn-primary"><%= I18n.t('home.buy_now') %></button>
 
               </div>
             </div>
@@ -78,15 +78,14 @@
 </main>
 <div class="container">
   <div class="jumbotron text-center mb-0">
-    <h2 class="h1">Welcome to our amazing Bookstore!</h2>
+    <h2 class="h1"><%= I18n.t('home.invitation') %></h2>
     <div class="mb-res-50">
-      <p>We pore through hundreds of new books each month and select the five best we can find to share with our
-        members.</p>
+      <p><%= I18n.t('home.shop_description') %></p>
     </div>
-    <button id="btn_get_started" class="btn btn-default">Get Started</button>
+    <button id="btn_get_started" class="btn btn-default"><%= I18n.t('home.get_started') %></button>
   </div>
   <div class="mb-35">
-    <h3>Best Sellers</h3>
+    <h3><%= I18n.t('home.bestsellers') %></h3>
     <div class="row">
       <% @bestsellers.each do |book| %>
       <div class="col-sm-6 col-md-3">
