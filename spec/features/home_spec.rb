@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Home Features', type: :feature, :js => true do
+# RSpec.feature 'Home Features', type: :feature do
   before(:each) do
     visit root_path
 end
@@ -18,5 +19,11 @@ end
   scenario 'click on button link `Shop`' do
     page.find('#header_shop_link').click
     expect(page).to have_content 'All categories'
+  end
+
+  scenario 'click on button `Buy now`' do
+    # page.find('#btn_buy_now').click
+    click_on 'Buy now'
+    expect(page).to have_content 'Сatalog'
   end
 end

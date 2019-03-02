@@ -28,12 +28,16 @@ gem 'wicked'
 group :development, :test do
   gem 'byebug'
   gem 'capybara', '~> 2.13.0'
+
+  gem 'capybara-selenium'
+  gem 'chromedriver-helper'
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false, group: :test
   gem 'database_cleaner'
   gem 'factory_bot_rails'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do
