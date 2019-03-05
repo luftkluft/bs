@@ -15,12 +15,26 @@ RSpec.configure do |config|
   # config.use_transactional_fixtures = false
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
-    DatabaseCleaner.strategy = :transaction
+    # puts 'clean before suite'
   end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+    # puts 'clean before each'
+  end
+
+  config.before(:each, :js => true) do
+    DatabaseCleaner.strategy = :truncation
+    # puts 'clean before each js'
+  end
+
   config.before(:each) do
     DatabaseCleaner.start
+    # puts 'clean before each start'
   end
+
   config.after(:each) do
     DatabaseCleaner.clean
+    # puts 'clean after each'
   end
 end

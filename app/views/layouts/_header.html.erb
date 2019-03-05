@@ -12,7 +12,7 @@
         <span class="shop-icon">
           <span class="shop-quantity">
             <%= @items_count %></span></span></a></div>
-    <a href="/carts/<%= current_user.id %>" class="shop-link pull-right hidden-xs">
+    <a id="link-catalog-cart" href="/carts/<%= current_user.id %>" class="shop-link pull-right hidden-xs">
       <span class="shop-icon">
         <span class="shop-quantity">
           <%= @items_count %></span></span></a>
@@ -48,7 +48,7 @@
               </li>
               <li role="separator" class="divider"></li>
               <li>
-                <%= link_to t('devise.shared.links.sign_out'), destroy_user_session_path, method: :delete %>
+                <%= link_to t('devise.shared.links.sign_out'), destroy_user_session_path, id: 'link-xs-sign-out', method: :delete %>
               </li>
             </ul>
           </li>
@@ -72,7 +72,7 @@
             </ul>
           </li>
           <li class="dropdown">
-            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+            <a id="account-dropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
               <%= current_user.email %></a>
             <ul class="dropdown-menu">
               <li>
@@ -83,7 +83,7 @@
               </li>
               <li role="separator" class="divider"></li>
               <li>
-                <%= link_to t('devise.shared.links.sign_out'), destroy_user_session_path, method: :delete %>
+                <%= link_to t('devise.shared.links.sign_out'), destroy_user_session_path, id: 'link-sign-out', method: :delete %>
               </li>
             </ul>
           </li>

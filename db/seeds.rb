@@ -32,6 +32,7 @@ if Rails.env.development?
       width: format('%0.1f', rand(4..9.0)),
       depth: format('%0.1f', rand(0.2..9.0)),
       in_stock: rand(0..25),
+      popularity: rand(0..50),
       materials: FFaker::Lorem.words(rand(1..5)).join(', ')
       # image: "/app/assets/images/default_book_image.png"
     }
