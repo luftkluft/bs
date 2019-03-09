@@ -7,7 +7,7 @@ ActiveAdmin.register Cart do
     column :user_id
     column :created_at
     column 'Items' do |cart|
-      Book.where(id: cart.items.map(&:book_id)) # .map(&:title)
+      Book.where(id: cart.items.map(&:book_id))
     end
     column 'Quantity' do |cart|
       cart.items.map(&:quantity)

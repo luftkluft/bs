@@ -11,7 +11,11 @@ class OrderService
 
   def load_copied_data
     @cart = Cart.find_by(user_id: @order.user_id)
-    @errors += 'Order: Cart not finded!' if @cart.nil?
+    @errors += I18n.t('services.order_cart_not_fined') if @cart.nil?
+  end
+
+  def order_shipping
+    Address.where(order_id: @order.id, address_type: I18n.t('services.shipping_type'))
   end
 
   def assembling_data
@@ -30,7 +34,7 @@ class OrderService
     @order.delivery_id = @cart.delivery_id
     @order.save
   rescue StandardError
-    @errors.push('Order: Delivery not added!')
+    @errors.push(I18n.t('services.order_error_add_delivery'))
   end
 
   def order_items
@@ -49,7 +53,7 @@ class OrderService
       add_popularity_to_book(item)
     end
   rescue StandardError
-    @errors.push('Order: Items not added!')
+    @errors.push(I18n.t('services.order_error_add_items'))
   end
 
   def add_popularity_to_book(item)
@@ -65,14 +69,14 @@ class OrderService
     user.purchased_books.push(item.book_id) unless user.purchased_books.include?(item.book_id)
     user.save
   rescue StandardError
-    @errors.push('Order: Error added book to user!')
+    @errors.push(I18n.t('services.order_error_add_book'))
   end
 
   def invoice_order
     @order.invoice = generate_invoice
     @order.save
   rescue StandardError
-    @errors.push('Order: Invoice not created!')
+    @errors.push(I18n.t('services.order_error_create_invoice'))
   end
 
   def add_prices
@@ -81,11 +85,11 @@ class OrderService
     @order.coupon = @cart.coupon
     @order.save
   rescue StandardError
-    @errors.push('Order: Prices not added!')
+    @errors.push(I18n.t('services.order_error_add_prices'))
   end
 
   def add_shipping_address
-    shipping_address = Address.where(user_id: @cart.user_id, address_type: 'shipping').first
+    shipping_address = Address.where(user_id: @cart.user_id, address_type: I18n.t('services.shipping_type')).first
     address = Address.create!(
       order_id: @order.id,
       user_id: @order.user_id,
@@ -99,11 +103,11 @@ class OrderService
       phone: shipping_address[:phone]
     )
   rescue StandardError
-    @errors.push('Order: Shipping address not added!')
+    @errors.push(I18n.t('services.order_error_add_shipping_address'))
   end
 
   def add_billing_address
-    billing_address = Address.where(user_id: @cart.user_id, address_type: 'billing').first
+    billing_address = Address.where(user_id: @cart.user_id, address_type: I18n.t('services.billing_type')).first
     address = Address.create!(
       order_id: @order.id,
       user_id: @order.user_id,
@@ -117,7 +121,7 @@ class OrderService
       phone: billing_address[:phone]
     )
   rescue StandardError
-    @errors.push('Order: Billing address not added!')
+    @errors.push(I18n.t('services. order_error_add_billing_address'))
   end
 
   def generate_invoice

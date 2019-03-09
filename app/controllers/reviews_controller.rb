@@ -2,10 +2,10 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.create(review_params)
     if @review
-      flash[:notice] = 'Thanks for review. It will be published as soon as Admin approve it!'
+      flash[:notice] = I18n.t('review.create.success')
       redirect_back(fallback_location: root_path)
     else
-      flash[:alert] = 'Review not created!'
+      flash[:alert] = I18n.t('review.create.failure')
       redirect_back(fallback_location: root_path)
     end
   end

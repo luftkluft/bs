@@ -1,17 +1,17 @@
 <main class="container general-main-wrap">
-  <h1 class="mt-0 mb-25">My Orders</h1>
+  <h1 class="mt-0 mb-25"><%= I18n.t('order.list_title') %></h1>
   <div class="mb-res-50">
     <table class="table table-hover">
       <thead>
         <tr>
           <th>
-            <span class="in-grey-600">Number</span></th>
+            <span class="in-grey-600"><%= I18n.t('order.number') %></span></th>
           <th>
-            <span class="in-grey-600">Completed at</span></th>
+            <span class="in-grey-600"><%= I18n.t('order.completed_at') %></span></th>
           <th>
-            <span class="in-grey-600">Status</span></th>
+            <span class="in-grey-600"><%= I18n.t('order.status') %></span></th>
           <th>
-            <span class="in-grey-600">Total</span></th>
+            <span class="in-grey-600"><%= I18n.t('order.total') %></span></th>
         </tr>
       </thead>
       <tbody>

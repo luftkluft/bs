@@ -1,48 +1,48 @@
 <main class="container general-main-wrap">
-  <h1 class="general-title-margin">Checkout</h1>
+  <h1 class="general-title-margin"><%= I18n.t('checkout.title') %></h1>
   <ul class="steps list-inline">
     <li class="step active">
       <span class="step-number">
         <i class="fa fa-check step-icon"></i></span>
-      <span class="step-text hidden-xs">Address</span></li>
+      <span class="step-text hidden-xs"><%= I18n.t('checkout.steps.address') %></span></li>
     <li class="step-divider"></li>
     <li class="step active">
       <span class="step-number">
         <i class="fa fa-check step-icon"></i></span>
-      <span class="step-text hidden-xs">Delivery</span></li>
+      <span class="step-text hidden-xs"><%= I18n.t('checkout.steps.delivery') %></span></li>
     <li class="step-divider"></li>
     <li class="step active">
       <span class="step-number">
         <i class="fa fa-check step-icon"></i></span>
-      <span class="step-text hidden-xs">Payment</span></li>
+      <span class="step-text hidden-xs"><%= I18n.t('checkout.steps.payment') %></span></li>
     <li class="step-divider"></li>
     <li class="step active">
       <span class="step-number">
         <i class="fa fa-check step-icon"></i></span>
-      <span class="step-text hidden-xs">Confirm</span></li>
+      <span class="step-text hidden-xs"><%= I18n.t('checkout.steps.confirm') %></span></li>
     <li class="step-divider"></li>
     <li class="step active">
       <span class="step-number">5</span>
-      <span class="step-text hidden-xs">Complete</span></li>
+      <span class="step-text hidden-xs"><%= I18n.t('checkout.steps.complete') %></span></li>
   </ul>
 
   <div class="text-center mb-40">
-    <h3 class="general-subtitle">Thank You for your Order!</h3>
-    <p class="fw-300">An order confirmation has been sent to
+    <h3 class="general-subtitle"><%= I18n.t('checkout.thanks_for_order') %></h3>
+    <p class="fw-300"><%= I18n.t('checkout.email_confirmation') %>
       <%= current_user.email %>
     </p>
   </div>
   <div class="row mb-20">
     <div class="col-sm-6">
       <div class="visible-xs">
-        <p class="general-order-number mb-0">Order
+        <p class="general-order-number mb-0"><%= I18n.t('order.title') %>
           <%= @order_service.order.invoice %>
         </p>
         <p class="general-address mb-30">
           <%= @order_service.order.created_at.strftime('%d-%m-%Y') %>
         </p>
       </div>
-      <h3 class="general-subtitle">Shipping Address</h3>
+      <h3 class="general-subtitle"><%= I18n.t('address.shipping') %></h3>
       <p class="general-address">
         <%= @order_shipping.map(&:first_name).first %>
         &nbsp
@@ -55,12 +55,12 @@
         <%= @order_shipping.map(&:zip).first %>
         <br />
         <%= @order_shipping.map(&:country).first %>
-        <br />Phone
+        <br /><%= I18n.t('address.attrs.phone_number.title') %>
         <%= @order_shipping.map(&:phone).first %>
       </p>
     </div>
     <div class="col-sm-6 hidden-xs text-right">
-      <p class="general-order-number mb-0">Order
+      <p class="general-order-number mb-0"><%= I18n.t('order.title') %>
         <%= @order_service.order.invoice %>
       </p>
       <p class="general-address mb-30">
@@ -74,14 +74,14 @@
       <thead>
         <tr>
           <th>
-            <span class="in-grey-600">Book</span></th>
+            <span class="in-grey-600"><%= I18n.t('shared.order_items.book') %></span></th>
           <th class="col-method"></th>
           <th>
-            <span class="in-grey-600">Price</span></th>
+            <span class="in-grey-600"><%= I18n.t('shared.order_items.price') %></span></th>
           <th>
-            <span class="in-grey-600">Quantity</span></th>
+            <span class="in-grey-600"><%= I18n.t('shared.order_items.quantity') %></span></th>
           <th>
-            <span class="in-grey-600">Total</span></th>
+            <span class="in-grey-600"><%= I18n.t('shared.order_items.total') %></span></th>
         </tr>
       </thead>
       <tbody>
@@ -115,11 +115,11 @@
     </table>
   </div>
   <div class="text-center general-text-right">
-    <p class="in-gold-500 font-18">Order Summary</p>
+    <p class="in-gold-500 font-18"><%= I18n.t('shared.order_summary.title') %></p>
     <table class="general-summary-table general-summary-table-right general-text-right">
       <tr>
         <td>
-          <p class="font-16">Subtotal:</p>
+          <p class="font-16"><%= I18n.t('shared.order_summary.subtotal') %></p>
         </td>
         <td>
           <p class="font-16">€
@@ -129,7 +129,7 @@
       </tr>
       <tr>
         <td>
-          <p class="font-16">Delivery:</p>
+          <p class="font-16"><%= I18n.t('shared.order_summary.delivery') %></p>
         </td>
         <td>
           <p class="font-16">€
@@ -139,7 +139,7 @@
       </tr>
       <tr>
         <td>
-          <p class="font-16">Coupon:</p>
+          <p class="font-16"><%= I18n.t('shared.order_summary.coupon_discount') %></p>
         </td>
         <td>
           <p class="font-16">€
@@ -149,7 +149,7 @@
       </tr>
       <tr>
         <td>
-          <strong class="font-18">Order Total:</strong></td>
+          <strong class="font-18"><%= I18n.t('shared.order_summary.order_total') %></strong></td>
         <td>
           <strong class="font-18">€
             <%= @order_service.order.order_total_price %></strong></td>
@@ -157,7 +157,7 @@
     </table>
   </div>
   <div class="text-center">
-    <button class="btn btn-default mb-20" onclick="home('<%= root_path %>')">Back to Store</button></div>
+    <button class="btn btn-default mb-20" onclick="home('<%= root_path %>')"><%= I18n.t('checkout.back_to_store_btn') %></button></div>
   <script>
     function home(path) {
       window.location.href = path;

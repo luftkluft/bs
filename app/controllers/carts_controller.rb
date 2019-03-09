@@ -11,7 +11,7 @@ class CartsController < ApplicationController
     if errors.nil?
       # TODO
     else
-      flash[:alert].now = 'Error increment quantity!' + errors.to_s
+      flash[:alert].now = I18n.t('order_item.error_increment_quantity')
     end
   end
 
@@ -22,7 +22,7 @@ class CartsController < ApplicationController
     if errors.nil?
       # TODO
     else
-      flash[:alert].now = 'Error decrement quantity!' + errors.to_s
+      flash[:alert].now = I18n.t('order_item.error_decrement_quantity')
     end
   end
 
@@ -31,9 +31,9 @@ class CartsController < ApplicationController
     @cart_service = cart_service
     errors = @cart_service.delete_item(param[:delete_item])
     if errors.nil?
-      flash[:notice] = 'Item was deleted!'
+      flash[:notice] = I18n.t('order_item.book_delete_success')
     else
-      flash[:alert] = 'Error delete item!' + errors.to_s
+      flash[:alert] = I18n.t('order_item.error_delete_book')
     end
     redirect_back(fallback_location: root_path)
   end
@@ -45,10 +45,10 @@ class CartsController < ApplicationController
     cart = Cart.find_by(user_id: current_user.id)
     coupon = Coupon.find_by(code: code).value
     cart.update(coupon: coupon)
-    flash[:notice] = 'Coupon added!'
+    flash[:notice] = I18n.t('cart.coupon.update.success')
     redirect_back(fallback_location: root_path)
   rescue StandardError
-    flash[:alert] = 'Wrong coupon code!'
+    flash[:alert] = I18n.t('cart.coupon.update.failure')
     redirect_back(fallback_location: root_path)
   end
 
@@ -56,9 +56,9 @@ class CartsController < ApplicationController
     @cart_service = cart_service
     errors = @cart_service.add_item(param[:add_item], param[:quantity])
     if errors.nil?
-      flash[:notice] = 'Item was added!'
+      flash[:notice] = I18n.t('order_item.book_add_success')
     else
-      flash[:alert] = 'Error add item!'
+      flash[:alert] = I18n.t('order_item.error_add_book')
     end
     redirect_back(fallback_location: root_path)
   end
@@ -69,7 +69,7 @@ class CartsController < ApplicationController
     if errors.nil?
       redirect_to user_steps_path
     else
-      flash[:alert] = 'Error checkout!' + errors.to_s
+      flash[:alert] = I18n.t('cart.error_payment')
       redirect_back(fallback_location: root_path)
     end
   end
@@ -96,11 +96,11 @@ class CartsController < ApplicationController
     cart_servise = cart_service
     result = cart_service.items.find(item_id)
     if result.nil?
-      flash[:alert] = 'Forbidden operation!'
+      flash[:alert] = I18n.t('shared.forbidden_operation')
       redirect_back(fallback_location: root_path)
     end
   rescue StandardError
-    flash[:alert] = 'Forbidden operation!'
+    flash[:alert] = I18n.t('shared.forbidden_operation')
     redirect_back(fallback_location: root_path)
   end
 end

@@ -1,5 +1,5 @@
 <main class="container">
-  <h1 class="general-title-margin">Сatalog</h1>
+  <h1 class="general-title-margin"><%= I18n.t('catalog.catalog') %></h1>
 
   <div class="hidden-xs clearfix">
     <div class="dropdowns pull-right">
@@ -8,20 +8,20 @@
           <i class="fa fa-angle-down dropdown-icon pull-right"></i></a>
         <ul class="dropdown-menu">
           <li>
-            <a id="newest-first" href="#">Newest first</a></li>
+            <a id="newest-first" href="#"><%= I18n.t('catalog.filters.by_date_desc') %></a></li>
           <li>
-            <a id="popular-first" href="#">Popular first</a></li>
+            <a id="popular-first" href="#"><%= I18n.t('catalog.filters.popular_first') %></a></li>
           <li>
-            <a id="low-to-hight" href="#">Price: Low to hight</a></li>
+            <a id="low-to-hight" href="#"><%= I18n.t('catalog.filters.by_price_asc') %></a></li>
           <li>
-            <a id="hight-to-low" href="#">Price: Hight to low</a></li>
+            <a id="hight-to-low" href="#"><%= I18n.t('catalog.filters.by_price_desc') %></a></li>
         </ul>
       </div>
     </div>
 
     <ul class="list-inline pt-10 mb-25 mr-240">
       <li class="mr-35">
-        <a id="catalog-cat-all" href="#" class="filter-link">All
+        <a id="catalog-cat-all" href="#" class="filter-link"><%= I18n.t('catalog.all') %>
           <span class="badge general-badge">
             <%= @all_books.count %>
           </span>
@@ -43,7 +43,7 @@
   </div>
   <!---->
   <div class="dropdowns mb-25 visible-xs">
-    <p class="lead small mb-10">Filter by category</p>
+    <p class="lead small mb-10"><%= I18n.t('catalog.filter_by_category') %></p>
     <div class="dropdown">
       <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle lead small">All
         <i class="fa fa-angle-down dropdown-icon pull-right">
@@ -64,7 +64,7 @@
       </ul>
     </div>
 
-    <p class="lead small mb-10">Sort by</p>
+    <p class="lead small mb-10"><%= I18n.t('catalog.sort_by') %></p>
     <div class="dropdown">
       <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle lead small"><%= @sort_by %>
         <i class="fa fa-angle-down dropdown-icon pull-right">
@@ -72,13 +72,13 @@
       </a>
       <ul class="dropdown-menu">
         <li>
-          <a id="sm-newest-first" href="#">Newest first</a></li>
+          <a id="sm-newest-first" href="#"><%= I18n.t('catalog.filters.by_date_desc') %></a></li>
         <li>
-          <a id="sm-popular-first" href="#">Popular first</a></li>
+          <a id="sm-popular-first" href="#"><%= I18n.t('catalog.filters.popular_first') %></a></li>
         <li>
-          <a id="sm-low-to-hight" href="#">Price: Low to hight</a></li>
+          <a id="sm-low-to-hight" href="#"><%= I18n.t('catalog.filters.by_price_asc') %></a></li>
         <li>
-          <a id="sm-hight-to-low" href="#">Price: Hight to low</a></li>
+          <a id="sm-hight-to-low" href="#"><%= I18n.t('catalog.filters.by_price_desc') %></a></li>
       </ul>
     </div>
   </div>

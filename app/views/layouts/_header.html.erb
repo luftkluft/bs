@@ -27,7 +27,7 @@
             <a type="button" data-toggle="collapse" href="#menu" aria-expanded="false" aria-controls="menu"><%= I18n.t('header.shop_link') %></a>
             <ul id="menu" aria-expanded="false" class="collapse list-unstyled pl-30 mb-10">
               <li>
-                <a id="header-cat-all" href="#">All categories</a></li>
+                <a id="header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
               <% @category.each do |cat| %>
               <li>
                 <a id="header-<%= cat.type_of.delete(' ') %>" href="#">
@@ -62,7 +62,7 @@
             <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><%= I18n.t('header.shop_link') %></a>
             <ul class="dropdown-menu">
               <li>
-                <a id="sm-header-cat-all" href="#">All categories</a></li>
+                <a id="sm-header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
               <% @category.each do |cat| %>
               <li>
                 <a id="sm-header-<%= cat.type_of.delete(' ') %>" href="#">
@@ -110,7 +110,7 @@
             <a type="button" data-toggle="collapse" href="#menu" aria-expanded="false" aria-controls="menu"><%= I18n.t('header.shop_link') %></a>
             <ul id="menu" aria-expanded="false" class="collapse list-unstyled pl-30 mb-10">
               <li>
-                <a id="free-header-cat-all" href="#">All categories</a></li>
+                <a id="free-header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
               <% @category.each do |cat| %>
               <li>
                 <a id="free-header-<%= cat.type_of.delete(' ') %>">
@@ -140,7 +140,7 @@
             <a href="#" id="header_shop_link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><%= I18n.t('header.shop_link') %></a>
             <ul class="dropdown-menu">
               <li>
-                <a id="sm-free-header-cat-all" href="#">All categories</a></li>
+                <a id="sm-free-header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
               <% @category.each do |cat| %>
               <li>
                 <a id="sm-free-header-<%= cat.type_of.delete(' ') %>">

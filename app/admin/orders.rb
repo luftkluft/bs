@@ -11,7 +11,9 @@ ActiveAdmin.register Order do
     column :item_total_price
     column :coupon
     column :order_total_price
-    column :delivery_id
+    column 'Delivery' do |order|
+      Delivery.find_by(id: order.delivery_id).method
+    end
     column :state
     column 'Address' do |order|
       Address.where(order_id: order.id)
@@ -28,11 +30,11 @@ ActiveAdmin.register Order do
     f.inputs do
       f.input :user_id
       f.input :state
-      f.input :state, as: :select, collection: %w[not_confirmed
-                                                  waiting_for_processing
-                                                  in_progress
-                                                  in_delivery
-                                                  delivered]
+      f.input :state, as: :select, collection: ['not_confirmed',
+                                                'waiting_for_processing',
+                                                'in_progress',
+                                                'in_delivery',
+                                                'delivered']
     end
     f.actions
   end

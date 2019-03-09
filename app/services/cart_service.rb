@@ -16,6 +16,10 @@ class CartService
     @cart.coupon || 0.0
   end
 
+  def delivery
+    Delivery.find_by(id: @cart.delivery_id)
+  end
+
   ############################## TODO
   def image(item_id)
     book = find_book(item_id)
@@ -68,7 +72,7 @@ class CartService
     end
     nil
   rescue StandardError
-    @errors.push('Cart: Error increment quantity!')
+    @errors.push(I18n.t('services.cart_error_increment_quantity'))
   end
 
   def decrement_quantity(item_id)
@@ -79,7 +83,7 @@ class CartService
     end
     nil
   rescue StandardError
-    @errors.push('Cart: Error decrement quantity!')
+    @errors.push(I18n.t('services.cart_error_decrement_quantity'))
   end
 
   def delete_item(item_id)
@@ -87,7 +91,7 @@ class CartService
     item.delete
     nil
   rescue StandardError
-    @errors.push('Cart: Error delete item!')
+    @errors.push(I18n.t('services.cart_error_delete_item'))
   end
 
   def add_item(book_id, quantity)
@@ -95,7 +99,7 @@ class CartService
     Item.create(book_id: book_id, cart_id: @cart.id, quantity: quantity)
     nil
   rescue StandardError
-    @errors.push('Cart: Error add item')
+    @errors.push(I18n.t('services.cart_error_add_item'))
   end
 
   def payment
@@ -108,16 +112,16 @@ class CartService
     @cart.save
     nil
   rescue StandardError
-    @errors.push('Cart: Error payment!')
+    @errors.push(I18n.t('services.cart_error_payment'))
   end
 
   def choose_delivery(delivery_id)
-    @errors += 'Cart: Delivery is nil!' if delivery_id.nil?
+    @errors += I18n.t('services.cart_delivery_nil') if delivery_id.nil?
     @cart.delivery_id = delivery_id
     @cart.save
     nil
   rescue StandardError
-    @errors.push('Cart: Error choose delivery!')
+    @errors.push(I18n.t('services.cart_error_choose_delivery'))
   end
 
   def delivery_price
@@ -137,6 +141,6 @@ class CartService
     @cart.save
     nil
   rescue StandardError
-    @errors.push('Cart: Error clean cart')
+    @errors.push(I18n.t('services.cart_error_clean_cart'))
   end
 end
