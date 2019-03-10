@@ -299,6 +299,22 @@ en:
               After should contain country code of chosen country in Country list
               Consist of 0-9 only no special symbols.
               Must be 15 characters or less."
+    card_number: "Should not be empty,
+              Can start with 
+              Consist of 0-9 only,
+              format: 0000 0000 0000 0000"
+    card_name: "Should not be not empty,
+              Consist of a-z, A-Z, no special symbols,
+              Can contain spaces,
+              Must be less than 50 characters."
+    card_exp_date: "Should not be empty,
+              Has a month on the left of a slash /, the year on the right.
+              Month value can be from 01 to 12."
+    card_cvv: "Should not be empty,
+              Should be masked.
+              Min Length is 3 digits, or
+              Min Length is 4 digits."
+
   services:
     billing_type: "billing"
     shipping_type: "shipping"

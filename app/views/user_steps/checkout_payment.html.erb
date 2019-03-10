@@ -28,39 +28,30 @@
   <div>
     <label for="cardNumber" class="control-label input-label"><%= I18n.t('credit_card.attrs.number.title') %></label>
     <input id="cardNumber" type="text" name="card_number" placeholder="<%= I18n.t('credit_card.attrs.number.placeholder') %>" class="form-control" required
-      pattern="^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$" maxlength="19" title="Should not be empty,
-        Can start with 
-        Consist of 0-9 only,
-        format: 0000 0000 0000 0000" />
+      pattern="^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$" maxlength="19" 
+      title="<%= I18n.t('hints.card_number') %>" />
   </div>
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
         <label for="cardName" class="control-label input-label"><%= I18n.t('credit_card.attrs.name.title') %></label>
         <input id="cardName" type="text" name="card_name" placeholder="<%= I18n.t('credit_card.attrs.name.placeholder') %>" class="form-control" required
-          pattern="^[a-zA-Z\s]+$" maxlength="50" title="Should not be not empty,
-            Consist of a-z, A-Z, no special symbols,
-            Can contain spaces,
-            Must be less than 50 characters." />
+          pattern="^[a-zA-Z\s]+$" maxlength="50" title="<%= I18n.t('hints.card_name') %>" />
       </div>
     </div>
     <div class="col-sm-3">
       <div class="form-group">
         <label for="firstName" class="control-label input-label"><%= I18n.t('credit_card.attrs.expiration_date.title') %></label>
-        <input id="firstName" name="exp_date" type="text" placeholder="<%= I18n.t('credit_card.attrs.expiration_date.placeholder') %>" class="form-control" required pattern="^(0[1-9]|1[0-2])[/][1][0-9]$"
-          maxlength="5" title="Should not be empty,
-          Has a month on the left of a slash /, the year on the right.
-          Month value can be from 01 to 12." />
+        <input id="firstName" name="exp_date" type="text" placeholder="<%= I18n.t('credit_card.attrs.expiration_date.placeholder') %>" class="form-control"
+          required pattern="^(0[1-9]|1[0-2])[/][1][0-9]$"
+          maxlength="5" title="<%= I18n.t('hints.card_exp_date') %>" />
       </div>
     </div>
     <div class="col-sm-3">
       <div class="form-group relative">
         <label for="firstName" class="control-label input-label"><%= I18n.t('credit_card.attrs.cvv.title') %></label>
         <input id="firstName" name="cvv" type="password" placeholder="<%= I18n.t('credit_card.attrs.cvv.placeholder') %>" class="form-control" required pattern="^\d{3,4}$"
-          maxlength="4" title="Should not be empty,
-            Should be masked.
-            Min Length is 3 digits, or
-            Min Length is 4 digits." />
+          maxlength="4" title="<%= I18n.t('hints.card_cvv') %>" />
       </div>
     </div>
 
