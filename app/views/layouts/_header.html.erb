@@ -30,8 +30,8 @@
                 <a id="header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
               <% @category.each do |cat| %>
               <li>
-                <a id="header-<%= cat.type_of.delete(' ') %>" href="#">
-                  <%= cat.type_of %></a></li>
+                <a id="header-<%= cat.category_type.delete(' ') %>" href="#">
+                  <%= cat.category_type %></a></li>
               <li>
                 <% end %>
             </ul>
@@ -65,8 +65,8 @@
                 <a id="sm-header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
               <% @category.each do |cat| %>
               <li>
-                <a id="sm-header-<%= cat.type_of.delete(' ') %>" href="#">
-                  <%= cat.type_of %></a></li>
+                <a id="sm-header-<%= cat.category_type.delete(' ') %>" href="#">
+                  <%= cat.category_type %></a></li>
               <li>
                 <% end %>
             </ul>
@@ -113,8 +113,8 @@
                 <a id="free-header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
               <% @category.each do |cat| %>
               <li>
-                <a id="free-header-<%= cat.type_of.delete(' ') %>">
-                  <%= cat.type_of %></a></li>
+                <a id="free-header-<%= cat.category_type.delete(' ') %>">
+                  <%= cat.category_type %></a></li>
               <li>
                 <% end %>
             </ul>
@@ -143,8 +143,8 @@
                 <a id="sm-free-header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
               <% @category.each do |cat| %>
               <li>
-                <a id="sm-free-header-<%= cat.type_of.delete(' ') %>">
-                  <%= cat.type_of %></a></li>
+                <a id="sm-free-header-<%= cat.category_type.delete(' ') %>">
+                  <%= cat.category_type %></a></li>
               <li>
                 <% end %>
             </ul>

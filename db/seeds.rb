@@ -12,11 +12,11 @@ if Rails.env.development?
                password: 'password',
                password_confirmation: 'password')
 
-  type_of = ['Web design',
+  category_type = ['Web design',
              'Mobile development',
              'Databases',
              'Web development']
-  type_of.each { |type| Category.create!(type_of: type) }
+  category_type.each { |type| Category.create!(category_type: type) }
 
   books = []
 
@@ -59,11 +59,11 @@ if Rails.env.production?
   #              password: 'password',
   #              password_confirmation: 'password')
 
-  type_of = ['Web design',
+  category_type = ['Web design',
              'Mobile development',
              'Databases',
              'Web development']
-  type_of.each { |type| Category.create!(type_of: type) }
+  category_type.each { |type| Category.create!(category_type: type) }
 
   books = []
 

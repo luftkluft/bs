@@ -30,8 +30,8 @@
 
       <% @category.each do |cat| %>
       <li>
-        <a id="catalog-<%= cat.type_of.delete(' ') %>" href="#" class="filter-link" data-remote="true">
-          <%= cat.type_of %>
+        <a id="catalog-<%= cat.category_type.delete(' ') %>" href="#" class="filter-link" data-remote="true">
+          <%= cat.category_type %>
           <span class="badge general-badge">
             <%= Book.where(category_id: cat.id).count %>
           </span>
@@ -52,8 +52,8 @@
       <ul class="dropdown-menu">
         <% @category.each do |cat| %>
         <li>
-          <a id="sm-catalog-<%= cat.type_of.delete(' ') %>" href="#" class="filter-link" data-remote="true">
-            <%= cat.type_of %>
+          <a id="sm-catalog-<%= cat.category_type.delete(' ') %>" href="#" class="filter-link" data-remote="true">
+            <%= cat.category_type %>
             <span class="badge general-badge">
               <%= Book.where(category_id: cat.id).count %>
             </span>

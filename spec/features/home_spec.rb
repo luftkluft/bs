@@ -1,9 +1,9 @@
 require 'rails_helper'
 RSpec.feature 'Home Features', type: :feature, :js => true do
-  let!(:category1) { create(:category, id: 1, type_of: 'Web design')}
-  let!(:category2) { create(:category, id: 2, type_of: 'Mobile development')}
-  let!(:category3) { create(:category, id: 3, type_of: 'Databases')}
-  let!(:category4) { create(:category, id: 4, type_of: 'Web development')}
+  let!(:category1) { create(:category, id: 1, category_type: 'Web design')}
+  let!(:category2) { create(:category, id: 2, category_type: 'Mobile development')}
+  let!(:category3) { create(:category, id: 3, category_type: 'Databases')}
+  let!(:category4) { create(:category, id: 4, category_type: 'Web development')}
   let!(:books) { create_list(:book, 10 )}
   def sign_up
     visit '/users/sign_in'

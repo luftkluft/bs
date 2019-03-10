@@ -4,19 +4,19 @@ $(document).ready(function () {
   });
 
   $('#catalog-Webdesign').on('click', function () {
-    window.location.href = '/catalog?category_type_of=Web design';
+    window.location.href = '/catalog?category_category_type=Web design';
   });
 
   $('#catalog-Mobiledevelopment').on('click', function () {
-    window.location.href = '/catalog?category_type_of=Mobile development';
+    window.location.href = '/catalog?category_category_type=Mobile development';
   });
 
   $('#catalog-Databases').on('click', function () {
-    window.location.href = '/catalog?category_type_of=Databases';
+    window.location.href = '/catalog?category_category_type=Databases';
   });
 
   $('#catalog-Webdevelopment').on('click', function () {
-    window.location.href = '/catalog?category_type_of=Web development';
+    window.location.href = '/catalog?category_category_type=Web development';
   });
 
   $('#newest-first').on('click', function () {
@@ -40,19 +40,19 @@ $(document).ready(function () {
   });
 
   $('#sm-catalog-Webdesign').on('click', function () {
-    window.location.href = '/catalog?category_type_of=Web design';
+    window.location.href = '/catalog?category_category_type=Web design';
   });
 
   $('#sm-catalog-Mobiledevelopment').on('click', function () {
-    window.location.href = '/catalog?category_type_of=Mobile development';
+    window.location.href = '/catalog?category_category_type=Mobile development';
   });
 
   $('#sm-catalog-Databases').on('click', function () {
-    window.location.href = '/catalog?category_type_of=Databases';
+    window.location.href = '/catalog?category_category_type=Databases';
   });
 
   $('#sm-catalog-Webdevelopment').on('click', function () {
-    window.location.href = '/catalog?category_type_of=Web development';
+    window.location.href = '/catalog?category_category_type=Web development';
   });
 
   $('#sm-newest-first').on('click', function () {

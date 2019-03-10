@@ -13,7 +13,7 @@ class Sorter
 
 
   def sort_by_category(books, category)
-    books = books.where(category_id: Category.find_by(type_of: category).id)
+    books = books.where(category_id: Category.find_by(category_type: category).id)
     books
   rescue StandardError
     books

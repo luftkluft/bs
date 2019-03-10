@@ -61,11 +61,11 @@ class AddressService
   end
 
   def billing_address(user)
-    Address.find_by(user_id: user.id, order_id: 0, address_type: I18n.t('services.billing_type'))
+    Address.find_by(user_id: user.id, order_id: 0, address_type: I18n.t('services.billing_type')) || Address.new
   end
 
   def shipping_address(user)
     
-    Address.find_by(user_id: user.id, order_id: 0, address_type: I18n.t('services.shipping_type'))
+    Address.find_by(user_id: user.id, order_id: 0, address_type: I18n.t('services.shipping_type')) || Address.new
   end
 end

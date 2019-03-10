@@ -12,11 +12,11 @@ class CatalogController < ApplicationController
 
   def sortable_data
     { books_for_sorting: @all_books,
-      by_category: catalog_params[:category_type_of],
+      by_category: catalog_params[:category_category_type],
       by_books_params: catalog_params[:books_sorting] }
   end
 
   def catalog_params
-    params.permit(:category_type_of, :books_sorting, :page)
+    params.permit(:category_category_type, :books_sorting, :page)
   end
 end
