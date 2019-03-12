@@ -13,9 +13,10 @@ class ApplicationController < ActionController::Base
     @categories = Category.all
     @items_count = 0
     if current_user
-      return unless Cart.find_by(user_id: current_user.id)
+      cart = Cart.find_by(user_id: current_user.id)
+      return unless cart
 
-      @items_count = Cart.find_by(user_id: current_user.id).items.count
+      @items_count = cart.items.count
     end
   end
 end
