@@ -7,8 +7,7 @@ class SettingsController < ApplicationController
   end
 
   def save
-    addr = AddressService.new
-    errors = addr.save(current_user, address_params)
+    errors = AdressServise.new.save(current_use, address_params)
     if errors.nil?
       flash[:notice] = I18n.t('address.save_success')
       redirect_back(fallback_location: root_path)

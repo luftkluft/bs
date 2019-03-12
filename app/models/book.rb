@@ -30,7 +30,7 @@ class Book < ApplicationRecord
                                           only_integer: true }
 
   validates :year, numericality: { greater_than_or_equal_to: 1800,
-                                   less_than_or_equal_to: Time.now.year,
+                                   less_than_or_equal_to: Time.zone.now.year,
                                    only_integer: true }
 
   validates :popularity, numericality: { greater_than_or_equal_to: 0,

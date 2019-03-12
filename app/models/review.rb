@@ -7,7 +7,7 @@ class Review < ApplicationRecord
                                               greater_than_or_equal_to: 1,
                                               less_than_or_equal_to: 5 }
   validates :body,            presence: true,
-                              length: { in: 5..1000 }
+                              length: { in: 1..500 }
   aasm column: 'state' do
     state :not_approved, initial: true
     state :approved
