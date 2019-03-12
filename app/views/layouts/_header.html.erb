@@ -28,7 +28,7 @@
             <ul id="menu" aria-expanded="false" class="collapse list-unstyled pl-30 mb-10">
               <li>
                 <a id="header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
-              <% @category.each do |cat| %>
+              <% @categories.each do |cat| %>
               <li>
                 <a id="header-<%= cat.category_type.delete(' ') %>" href="#">
                   <%= cat.category_type %></a></li>
@@ -63,7 +63,7 @@
             <ul class="dropdown-menu">
               <li>
                 <a id="sm-header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
-              <% @category.each do |cat| %>
+              <% @categories.each do |cat| %>
               <li>
                 <a id="sm-header-<%= cat.category_type.delete(' ') %>" href="#">
                   <%= cat.category_type %></a></li>
@@ -111,7 +111,7 @@
             <ul id="menu" aria-expanded="false" class="collapse list-unstyled pl-30 mb-10">
               <li>
                 <a id="free-header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
-              <% @category.each do |cat| %>
+              <% @categories.each do |cat| %>
               <li>
                 <a id="free-header-<%= cat.category_type.delete(' ') %>">
                   <%= cat.category_type %></a></li>
@@ -141,7 +141,7 @@
             <ul class="dropdown-menu">
               <li>
                 <a id="sm-free-header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
-              <% @category.each do |cat| %>
+              <% @categories.each do |cat| %>
               <li>
                 <a id="sm-free-header-<%= cat.category_type.delete(' ') %>">
                   <%= cat.category_type %></a></li>

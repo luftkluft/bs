@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_header_variables
-    @category = Category.all
+    @categories = Category.all
     @items_count = 0
     if current_user
       return unless Cart.find_by(user_id: current_user.id)

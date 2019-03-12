@@ -28,7 +28,7 @@
         </a>
       </li>
 
-      <% @category.each do |cat| %>
+      <% @categories.each do |cat| %>
       <li>
         <a id="catalog-<%= cat.category_type.delete(' ') %>" href="#" class="filter-link" data-remote="true">
           <%= cat.category_type %>
@@ -50,7 +50,7 @@
         </i>
       </a>
       <ul class="dropdown-menu">
-        <% @category.each do |cat| %>
+        <% @categories.each do |cat| %>
         <li>
           <a id="sm-catalog-<%= cat.category_type.delete(' ') %>" href="#" class="filter-link" data-remote="true">
             <%= cat.category_type %>
