@@ -9,6 +9,6 @@ class HomeController < ApplicationController
   private
 
   def home_params
-    params.permit! # TODO
+    params.permit!
   end
 end

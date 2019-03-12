@@ -20,7 +20,6 @@ class CartService
     Delivery.find_by(id: @cart.delivery_id)
   end
 
-  ############################## TODO
   def image(item_id)
     book = find_book(item_id)
     book.image.url(:size400x300)
@@ -46,7 +45,6 @@ class CartService
     Book.find_by(id: item.book_id)
   end
 
-  ##################################### TODO
   def subtotal(value = 0)
     @subtotal += value
   end

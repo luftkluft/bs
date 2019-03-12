@@ -17,7 +17,6 @@ class Book < ApplicationRecord
   validates :author, presence: true,
                      length: { in: 1..1000 }
 
-  # validates :image,       presence: true
   validates :materials,   presence: true
   validates :price,       numericality: { greater_than_or_equal_to: 0.01 }
   validates :height,      numericality: { greater_than_or_equal_to: 1.0 }

@@ -1,7 +1,6 @@
 class SettingsController < ApplicationController
   before_action :authenticate_user!
   def show
-    
     addr = AddressService.new
     @billing = addr.billing_address(current_user)
     @shipping = addr.shipping_address(current_user)

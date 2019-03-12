@@ -1,10 +1,8 @@
 require 'rails_helper'
-RSpec.feature 'Auth Features', type: :feature, :js => true do
+RSpec.feature 'Auth Features', type: :feature, js: true do
   def sign_up
     visit '/users/sign_in'
-    # click_on 'Sign Up'
     page.find('#new-sessions-sign-up').click
-    # save_page
     fill_in 'user[email]', with: 'user@example.com'
     fill_in 'user[name]', with: 'Name'
     fill_in 'user[password]', with: 'password'
@@ -13,7 +11,6 @@ RSpec.feature 'Auth Features', type: :feature, :js => true do
   end
 
   def sign_out
-    # click_on 'Sign Out'
     page.find('#account-dropdown').click
     page.find('#link-sign-out').click
   end

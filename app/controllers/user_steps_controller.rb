@@ -7,20 +7,15 @@ class UserStepsController < ApplicationController
   def show
     @cart = cart
     @cart_service = cart_service
-    # @delivery = Delivery.find_by(id: cart.delivery_id)
     @delivery = @cart_service.delivery
     @delivery_price = @cart_service.delivery_price
     addr = AddressService.new
     @billing = addr.billing_address(current_user)
     @shipping = addr.shipping_address(current_user)
-    # @billing = billing
-    # @shipping = shipping
     case step
     when :checkout_delivery
       @deliveries = deliveries
     when :checkout_confirm
-      ## @cart_service = cart_service
-      ## @delivery = Delivery.find_by(id: cart.delivery_id)
       @card_number = card.card_number
       @exp_date = card.expiration_month_year
     end
@@ -31,15 +26,11 @@ class UserStepsController < ApplicationController
     @cart = cart
     @cart_service = cart_service
     @delivery = @cart_service.delivery
-    # @delivery = Delivery.find_by(id: cart.delivery_id)
-    # @billing = billing
-    # @shipping = shipping
     addr = AddressService.new
     @billing = addr.billing_address(current_user)
     @shipping = addr.shipping_address(current_user)
     case step
     when :checkout_payment
-      ## @cart_service = cart_service
       errors = @cart_service.choose_delivery(checkout_params[:delivery])
       if errors.nil?
         @cart_service.payment
@@ -50,25 +41,21 @@ class UserStepsController < ApplicationController
         redirect_back(fallback_location: root_path) && return
       end
     when :checkout_confirm
-      ## @cart_service = cart_service
-      errors = card_service.save_card(param = checkout_params)
+      errors = card_service.save_card(checkout_params)
       if errors.nil?
         @cart_service.payment
         @delivery_price = @cart_service.delivery_price
         @card_number = card.card_number
         @exp_date = card.expiration_month_year
-        # flash[:notice] = 'Card saved!'
       else
-        flash[:alert] =  I18n.t('checkout.card_error')
+        flash[:alert] = I18n.t('checkout.card_error')
         redirect_back(fallback_location: root_path) && return
       end
     when :checkout_complete
-      ## @cart_service = cart_service
       redirect_to_finish_wizard && return if @cart_service.items.count.zero?
       @order_service = order_service
       errors = @order_service.assembling_data
       if errors.nil?
-        # @order_shipping = Address.where(order_id: @order_service.order.id, address_type: 'shipping')
         @order_shipping = @order_service.order_shipping
         errors = @cart_service.clean_cart
         if errors.nil?
@@ -88,16 +75,8 @@ class UserStepsController < ApplicationController
   private
 
   def checkout_params
-    params.permit! # TODO
+    params.permit!
   end
-
-  # def billing
-  #   Address.where(user_id: current_user.id, address_type: 'billing')
-  # end
-
-  # def shipping
-  #   Address.where(user_id: current_user.id, address_type: 'shipping')
-  # end
 
   def deliveries
     Delivery.all || []

@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   def show
-    @book = Book.find(params[:id])
+    @book = Book.find(book_params[:id])
     @approved_reviews = @book.reviews.approved || []
     @review = Review.new
   end
@@ -8,6 +8,6 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.permit! # TODO
+    params.permit!
   end
 end

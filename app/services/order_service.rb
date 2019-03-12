@@ -90,7 +90,7 @@ class OrderService
 
   def add_shipping_address
     shipping_address = Address.where(user_id: @cart.user_id, address_type: I18n.t('services.shipping_type')).first
-    address = Address.create!(
+    Address.create!(
       order_id: @order.id,
       user_id: @order.user_id,
       address_type: shipping_address[:address_type],
@@ -108,7 +108,7 @@ class OrderService
 
   def add_billing_address
     billing_address = Address.where(user_id: @cart.user_id, address_type: I18n.t('services.billing_type')).first
-    address = Address.create!(
+    Address.create!(
       order_id: @order.id,
       user_id: @order.user_id,
       address_type: billing_address[:address_type],

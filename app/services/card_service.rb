@@ -1,5 +1,4 @@
 class CardService
-  # require 'date'
   def initialize
     @errors = []
   end

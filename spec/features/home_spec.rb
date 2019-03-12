@@ -1,10 +1,10 @@
 require 'rails_helper'
-RSpec.feature 'Home Features', type: :feature, :js => true do
-  let!(:category1) { create(:category, id: 1, category_type: 'Web design')}
-  let!(:category2) { create(:category, id: 2, category_type: 'Mobile development')}
-  let!(:category3) { create(:category, id: 3, category_type: 'Databases')}
-  let!(:category4) { create(:category, id: 4, category_type: 'Web development')}
-  let!(:books) { create_list(:book, 10 )}
+RSpec.feature 'Home Features', type: :feature, js: true do
+  let!(:category1) { create(:category, id: 1, category_type: 'Web design') }
+  let!(:category2) { create(:category, id: 2, category_type: 'Mobile development') }
+  let!(:category3) { create(:category, id: 3, category_type: 'Databases') }
+  let!(:category4) { create(:category, id: 4, category_type: 'Web development') }
+  let!(:books) { create_list(:book, 10) }
   def sign_up
     visit '/users/sign_in'
     click_on 'Sign up'
@@ -17,8 +17,6 @@ RSpec.feature 'Home Features', type: :feature, :js => true do
     visit root_path
   end
   scenario 'visit home page' do
-    # sleep(5)
-    # puts Category.all.inspect
     expect(page).to have_content I18n.t('header.shop_title')
     expect(page).to have_content I18n.t('home.invitation')
     expect(page).to have_content I18n.t('footer.shop_link')
@@ -26,7 +24,6 @@ RSpec.feature 'Home Features', type: :feature, :js => true do
   end
 
   scenario 'click on button `Get Started` and redirect to `/catalog`' do
-    # puts Category.all.inspect
     page.find('#btn_get_started').click
     expect(page).to have_content 'Сatalog'
   end

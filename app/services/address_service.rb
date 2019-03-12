@@ -65,7 +65,6 @@ class AddressService
   end
 
   def shipping_address(user)
-    
     Address.find_by(user_id: user.id, order_id: 0, address_type: I18n.t('services.shipping_type')) || Address.new
   end
 end

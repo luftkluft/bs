@@ -13,9 +13,9 @@ if Rails.env.development?
                password_confirmation: 'password')
 
   category_type = ['Web design',
-             'Mobile development',
-             'Databases',
-             'Web development']
+                   'Mobile development',
+                   'Databases',
+                   'Web development']
   category_type.each { |type| Category.create!(category_type: type) }
 
   books = []
@@ -60,9 +60,9 @@ if Rails.env.production?
   #              password_confirmation: 'password')
 
   category_type = ['Web design',
-             'Mobile development',
-             'Databases',
-             'Web development']
+                   'Mobile development',
+                   'Databases',
+                   'Web development']
   category_type.each { |type| Category.create!(category_type: type) }
 
   books = []
