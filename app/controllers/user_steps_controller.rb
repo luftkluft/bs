@@ -1,17 +1,12 @@
 class UserStepsController < ApplicationController
   before_action :authenticate_user!
+  before_action :prepare_data
   include Wicked::Wizard
   steps :checkout_address, :checkout_delivery, :checkout_payment,
         :checkout_confirm, :checkout_complete
 
   def show
-    @cart = cart
-    @cart_service = cart_service
-    @delivery = @cart_service.delivery
     @delivery_price = @cart_service.delivery_price
-    addr = AddressService.new
-    @billing = addr.billing_address(current_user)
-    @shipping = addr.shipping_address(current_user)
     case step
     when :checkout_delivery
       @deliveries = deliveries
@@ -23,12 +18,6 @@ class UserStepsController < ApplicationController
   end
 
   def update
-    @cart = cart
-    @cart_service = cart_service
-    @delivery = @cart_service.delivery
-    addr = AddressService.new
-    @billing = addr.billing_address(current_user)
-    @shipping = addr.shipping_address(current_user)
     case step
     when :checkout_payment
       errors = @cart_service.choose_delivery(checkout_params[:delivery])
@@ -73,6 +62,15 @@ class UserStepsController < ApplicationController
   end
 
   private
+
+  def prepare_data
+    @cart = cart
+    @cart_service = cart_service
+    @delivery = @cart_service.delivery
+    addr = AddressService.new
+    @billing = addr.billing_address(current_user)
+    @shipping = addr.shipping_address(current_user)
+  end
 
   def checkout_params
     params.permit!
