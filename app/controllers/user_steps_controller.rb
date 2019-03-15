@@ -20,51 +20,70 @@ class UserStepsController < ApplicationController
   def update
     case step
     when :checkout_payment
-      errors = @cart_service.choose_delivery(checkout_params[:delivery])
-      if errors.nil?
-        @cart_service.payment
-        @delivery_price = @cart_service.delivery_price
-        flash[:notice] = I18n.t('checkout.delivery_added_success')
-      else
-        flash[:alert] = I18n.t('checkout.delivery_added_fall')
-        redirect_back(fallback_location: root_path) && return
-      end
+      choose_delivery
     when :checkout_confirm
-      errors = card_service.save_card(checkout_params)
-      if errors.nil?
-        @cart_service.payment
-        @delivery_price = @cart_service.delivery_price
-        @card_number = card.card_number
-        @exp_date = card.expiration_month_year
-      else
-        flash[:alert] = I18n.t('checkout.card_error')
-        redirect_back(fallback_location: root_path) && return
-      end
+      apply_card
     when :checkout_complete
       redirect_to_finish_wizard && return if @cart_service.items.count.zero?
-      @order_service = order_service
-      errors = @order_service.assembling_data
-      if errors.nil?
-        @order_shipping = @order_service.order_shipping
-        errors = @cart_service.clean_cart
-        if errors.nil?
-          @delivery_price = @order_service.delivery_price
-          UserMailer.order_email(current_user).deliver_later
-          flash[:notice] = I18n.t('order.created_success')
-        else
-          flash[:alert] = I18n.t('order.created_fall')
-        end
-      else
-        flash[:alert] = I18n.t('order.created_fall')
-      end
+      create_order
+      render_wizard
     end
-    render_wizard
   end
 
   private
 
+  def choose_delivery
+    errors = @cart_service.choose_delivery(checkout_params[:delivery])
+    if errors.nil?
+      @cart_service.payment
+      @delivery_price = @cart_service.delivery_price
+      flash[:notice] = I18n.t('checkout.delivery_added_success')
+      render_wizard
+    else
+      flash[:alert] = I18n.t('checkout.delivery_added_fall')
+      redirect_back(fallback_location: root_path) && return
+    end
+  end
+
+  def apply_card
+    errors = card_service.save_card(checkout_params)
+    if errors.nil?
+      @cart_service.payment
+      @delivery_price = @cart_service.delivery_price
+      @card_number = card.card_number
+      @exp_date = card.expiration_month_year
+      render_wizard
+    else
+      flash[:alert] = I18n.t('checkout.card_error')
+      redirect_back(fallback_location: root_path) && return
+    end
+  end
+
+  def create_order
+    @order_service = order_service
+    errors = @order_service.assembling_data
+    if errors.nil?
+      @order_shipping = @order_service.order_shipping
+      clean_cart
+    else
+      flash[:alert] = I18n.t('order.created_fall')
+    end
+  end
+
+  def clean_cart
+    errors = @cart_service.clean_cart
+    if errors.nil?
+      @delivery_price = @order_service.delivery_price
+      UserMailer.order_email(current_user).deliver_later
+      flash[:notice] = I18n.t('order.created_success')
+    else
+      flash[:alert] = I18n.t('order.created_fall')
+    end
+  end
+
   def prepare_data
     @cart = cart
+    @card_number = []
     @cart_service = cart_service
     @delivery = @cart_service.delivery
     addr = AddressService.new
