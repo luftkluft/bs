@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_25_022048) do
+ActiveRecord::Schema.define(version: 2019_03_19_202726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,11 @@ ActiveRecord::Schema.define(version: 2019_02_25_022048) do
     t.string "category_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "checkout_states", force: :cascade do |t|
+    t.string "message", default: ""
+    t.string "state"
   end
 
   create_table "coupons", force: :cascade do |t|

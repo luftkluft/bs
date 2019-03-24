@@ -1,29 +1,51 @@
 class UserStepsController < ApplicationController
   before_action :authenticate_user!
   before_action :prepare_data
+  before_action :set_state
+
   include Wicked::Wizard
   steps :checkout_address, :checkout_delivery, :checkout_payment,
         :checkout_confirm, :checkout_complete
 
   def show
+    @deliveries = deliveries
     @delivery_price = @cart_service.delivery_price
     case step
+    when :checkout_address
+      if Item.count.positive?
+        set_checkout_step(step)
+      else
+        flash[:alert] = I18n.t('checkout.steps.empty_cart')
+        redirect_back(fallback_location: root_path) && return
+      end
     when :checkout_delivery
-      @deliveries = deliveries
+      set_checkout_step(step)
+    when :checkout_payment
+      set_checkout_step(step)
     when :checkout_confirm
+      set_checkout_step(step)
       @card_number = card.card_number
       @exp_date = card.expiration_month_year
+    when :checkout_complete
+      set_checkout_step(step)
     end
     render_wizard
   end
 
   def update
     case step
+    when :checkout_address
+      set_checkout_step(step)
+    when :checkout_delivery
+      set_checkout_step(step)
     when :checkout_payment
+      set_checkout_step(step)
       choose_delivery
     when :checkout_confirm
+      set_checkout_step(step)
       apply_card
     when :checkout_complete
+      set_checkout_step(step)
       redirect_to_finish_wizard && return if @cart_service.items.count.zero?
       create_order
       render_wizard
@@ -31,6 +53,11 @@ class UserStepsController < ApplicationController
   end
 
   private
+
+  def set_checkout_step(step)
+    @checkout_state.state = step
+    @checkout_state.save
+  end
 
   def choose_delivery
     errors = @cart_service.choose_delivery(checkout_params[:delivery])
@@ -132,5 +159,10 @@ class UserStepsController < ApplicationController
 
   def redirect_to_finish_wizard
     redirect_to root_path, notice: I18n.t('order.thank_you')
+  end
+
+  def set_state
+    @checkout_state = CheckoutState.last
+    @checkout_state = CheckoutState.new unless @checkout_state
   end
 end
