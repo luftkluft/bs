@@ -1,18 +1,18 @@
 ActiveAdmin.register Category do
-  permit_params :category_type
+  permit_params :type_of
 
   index do
     selectable_column
     id_column
-    column 'Category', &:category_type
+    column 'Category', &:type_of
     actions
   end
 
-  filter :category_type
+  filter :type_of
 
   form do |f|
     f.inputs do
-      f.input :category_type
+      f.input :type_of
     end
     f.actions
   end

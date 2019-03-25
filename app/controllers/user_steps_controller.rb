@@ -27,7 +27,13 @@ class UserStepsController < ApplicationController
       @card_number = card.card_number
       @exp_date = card.expiration_month_year
     when :checkout_complete
-      set_checkout_step(step)
+      if current_state == 'checkout_confirm'
+        set_checkout_step(step)
+        redirect_to_finish_wizard && return if @cart_service.items.count.zero?
+      else
+        flash[:alert] = I18n.t('checkout.steps.skip_step')
+        redirect_back(fallback_location: root_path) && return
+      end
     end
     render_wizard
   end
@@ -35,7 +41,12 @@ class UserStepsController < ApplicationController
   def update
     case step
     when :checkout_address
-      set_checkout_step(step)
+      if Item.count.positive?
+        set_checkout_step(step)
+      else
+        flash[:alert] = I18n.t('checkout.steps.empty_cart')
+        redirect_back(fallback_location: root_path) && return
+      end
     when :checkout_delivery
       set_checkout_step(step)
     when :checkout_payment
@@ -45,18 +56,28 @@ class UserStepsController < ApplicationController
       set_checkout_step(step)
       apply_card
     when :checkout_complete
-      set_checkout_step(step)
-      redirect_to_finish_wizard && return if @cart_service.items.count.zero?
-      create_order
-      render_wizard
+      if current_state == 'checkout_confirm'
+        set_checkout_step(step)
+        redirect_to_finish_wizard && return if @cart_service.items.count.zero?
+        create_order
+        render_wizard
+      else
+        flash[:alert] = I18n.t('checkout.steps.skip_step')
+        redirect_back(fallback_location: root_path) && return
+      end
     end
   end
 
   private
 
+  def current_state
+    @checkout_state.aasm.current_state
+  end
+
   def set_checkout_step(step)
-    @checkout_state.state = step
-    @checkout_state.save
+    puts 'def set_checkout_step(step)'
+    puts  @checkout_state.aasm.inspect
+    @checkout_state.aasm.current_state = step
   end
 
   def choose_delivery
@@ -162,7 +183,6 @@ class UserStepsController < ApplicationController
   end
 
   def set_state
-    @checkout_state = CheckoutState.last
-    @checkout_state = CheckoutState.new unless @checkout_state
+    @checkout_state ||= CheckoutState.new
   end
 end

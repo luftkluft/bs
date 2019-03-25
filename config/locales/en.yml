@@ -181,7 +181,7 @@ en:
       payment: "Payment"
       confirm: "Confirm"
       complete: "Complete"
-      skip_step: "Sorry, it seems that you jumped over %{step} step"
+      skip_step: "Sorry, it seems that you jumped over step"
       empty_cart: "Sorry, but before checkout you need purchase some books"
     update:
       failure: "An errors occurred while saving your data"
