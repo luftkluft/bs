@@ -94,7 +94,7 @@
           </td>
           <td>
             <strong class="font-18">€
-              <%= @cart.order_total_price %></strong>
+              <%= @cart.item_total_price + @delivery_price - @cart.coupon %></strong>
           </td>
         </tr>
       </table>

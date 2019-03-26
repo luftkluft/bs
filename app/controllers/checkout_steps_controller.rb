@@ -6,12 +6,7 @@ class CheckoutStepsController < ApplicationController
   steps :checkout_address, :checkout_delivery, :checkout_payment,
         :checkout_confirm, :checkout_complete
 
-  def index
-    set_state
-  end
-
   def show
-    @deliveries = deliveries
     @delivery_price = @cart_service.delivery_price
     case step
     when :checkout_address
@@ -24,19 +19,19 @@ class CheckoutStepsController < ApplicationController
     when :checkout_delivery
       set_checkout_step(step)
     when :checkout_payment
+      if current_state == 'checkout_address'
+        flash[:alert] = I18n.t('checkout.steps.skip_step')
+        redirect_back(fallback_location: root_path) && return
+      end
       set_checkout_step(step)
     when :checkout_confirm
+      redirect_to_finish_wizard && return if current_state == 'checkout_complete'
       set_checkout_step(step)
       @card_number = card.card_number
       @exp_date = card.expiration_month_year
     when :checkout_complete
-      if current_state == 'checkout_confirm'
-        set_checkout_step(step)
-        redirect_to_finish_wizard && return if @cart_service.items.count.zero?
-      else
-        flash[:alert] = I18n.t('checkout.steps.skip_step')
-        redirect_back(fallback_location: root_path) && return
-      end
+      set_checkout_step('')
+      redirect_to_finish_wizard && return
     end
     render_wizard
   end
@@ -59,8 +54,6 @@ class CheckoutStepsController < ApplicationController
       set_checkout_step(step)
       apply_card
     when :checkout_complete
-      puts '====checkout_complete update method===' # TODO remove
-      puts current_state # TODO remove
       if current_state == 'checkout_confirm'
         set_checkout_step(step)
         redirect_to_finish_wizard && return if @cart_service.items.count.zero?
@@ -76,15 +69,15 @@ class CheckoutStepsController < ApplicationController
   private
 
   def current_state
-    index # TODO
-    @checkout_state.aasm.current_state
+    @cart.checkout_step
   end
 
   def set_checkout_step(step)
-    index # TODO
-    puts '====set_checkout_step(step) method===' # TODO remove
-    puts  @checkout_state.aasm.inspect # TODO remove
-    @checkout_state.aasm.current_state = step
+    @cart.checkout_step = step
+    @cart.save
+  rescue
+    flash[:alert] = I18n.t('checkout.steps.error_save_state')
+    redirect_back(fallback_location: root_path) && return
   end
 
   def choose_delivery
@@ -92,7 +85,6 @@ class CheckoutStepsController < ApplicationController
     if errors.nil?
       @cart_service.payment
       @delivery_price = @cart_service.delivery_price
-      flash[:notice] = I18n.t('checkout.delivery_added_success')
       render_wizard
     else
       flash[:alert] = I18n.t('checkout.delivery_added_fall')
@@ -140,6 +132,7 @@ class CheckoutStepsController < ApplicationController
     @cart = cart
     @card_number = []
     @cart_service = cart_service
+    @deliveries = deliveries
     @delivery = @cart_service.delivery
     addr = AddressService.new
     @billing = addr.billing_address(current_user)
@@ -187,9 +180,5 @@ class CheckoutStepsController < ApplicationController
 
   def redirect_to_finish_wizard
     redirect_to root_path, notice: I18n.t('order.thank_you')
-  end
-
-  def set_state
-    @checkout_state ||= CheckoutState.new
   end
 end

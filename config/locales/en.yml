@@ -183,6 +183,7 @@ en:
       complete: "Complete"
       skip_step: "Sorry, it seems that you jumped over step"
       empty_cart: "Sorry, but before checkout you need purchase some books"
+      error_save_state: "Error save checkout state"
     update:
       failure: "An errors occurred while saving your data"
   address:

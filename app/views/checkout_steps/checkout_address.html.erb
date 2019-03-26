@@ -181,7 +181,7 @@
               <strong class="font-18"><%= I18n.t('shared.order_summary.order_total') %></strong></td>
             <td>
               <strong class="font-18">€
-                <%= @cart.order_total_price %></strong></td>
+                <%= @cart.item_total_price - @cart.coupon %></strong></td>
           </tr>
         </table>
       </div>

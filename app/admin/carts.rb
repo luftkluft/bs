@@ -1,5 +1,5 @@
 ActiveAdmin.register Cart do
-  permit_params :user_id, :created_at, :order_total_price, :coupon, :delivery_id
+  permit_params :user_id, :created_at, :order_total_price, :coupon, :delivery_id, :checkout_step
 
   index do
     selectable_column
@@ -21,6 +21,7 @@ ActiveAdmin.register Cart do
 
       delivery.duration
     end
+    column :checkout_step
     actions
   end
 

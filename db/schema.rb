@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_25_022048) do
+ActiveRecord::Schema.define(version: 2019_03_26_131637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 2019_02_25_022048) do
     t.decimal "coupon", default: "0.0"
     t.decimal "item_total_price", precision: 8, scale: 2, default: "0.0"
     t.integer "delivery_id"
+    t.string "checkout_step", default: ""
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
