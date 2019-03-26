@@ -1,13 +1,14 @@
-class UserStepsController < ApplicationController
+class CheckoutStepsController < ApplicationController
   before_action :authenticate_user!
   before_action :prepare_data
-  before_action :set_state
+  # before_action :set_state
 
   include Wicked::Wizard
   steps :checkout_address, :checkout_delivery, :checkout_payment,
         :checkout_confirm, :checkout_complete
 
   def show
+    # set_state
     @deliveries = deliveries
     @delivery_price = @cart_service.delivery_price
     case step
@@ -39,6 +40,7 @@ class UserStepsController < ApplicationController
   end
 
   def update
+    # set_state
     case step
     when :checkout_address
       if Item.count.positive?
@@ -56,6 +58,8 @@ class UserStepsController < ApplicationController
       set_checkout_step(step)
       apply_card
     when :checkout_complete
+      puts '====checkout_complete update method===' # TODO remove
+      puts current_state # TODO remove
       if current_state == 'checkout_confirm'
         set_checkout_step(step)
         redirect_to_finish_wizard && return if @cart_service.items.count.zero?
@@ -71,12 +75,14 @@ class UserStepsController < ApplicationController
   private
 
   def current_state
+    set_state
     @checkout_state.aasm.current_state
   end
 
   def set_checkout_step(step)
-    puts 'def set_checkout_step(step)'
-    puts  @checkout_state.aasm.inspect
+    set_state
+    puts '====set_checkout_step(step) method===' # TODO remove
+    puts  @checkout_state.aasm.inspect # TODO remove
     @checkout_state.aasm.current_state = step
   end
 

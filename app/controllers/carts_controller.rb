@@ -67,7 +67,7 @@ class CartsController < ApplicationController
     @cart_service = cart_service
     errors = @cart_service.payment
     if errors.nil?
-      redirect_to user_steps_path
+      redirect_to checkout_steps_path
     else
       flash[:alert] = I18n.t('cart.error_payment')
       redirect_back(fallback_location: root_path)

@@ -23,7 +23,7 @@
   </ul>
   <div class="tab-content">
     <% if @cart_service.delivery_price.positive? %>
-      <a href="/user_steps/checkout_confirm" class="general-back-link">
+      <a href="/checkout_steps/checkout_confirm" class="general-back-link">
       <i class="fa fa-long-arrow-left mr-15"></i><%= I18n.t('checkout.back_to_confirm') %></a>
     <% end %>
 
