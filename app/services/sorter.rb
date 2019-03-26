@@ -46,13 +46,13 @@ class Sorter
   def bestsellers(books)
     return books if books.nil?
 
-    books = best_from_category(books)
+    books = best_from_categories(books)
     books
   end
 
   private
 
-  def best_from_category(books)
+  def best_from_categories(books)
     best_books = []
     Category.all.each do |cat|
       book = books.where(category_id: cat.id).order(popularity: :desc).first
