@@ -15,31 +15,64 @@ RSpec.feature 'Catalog Features', type: :feature, js: true do
     click_on 'Sign up'
   end
 
-  scenario 'visit catalog page' do
+  before do
+    sign_up
     visit '/catalog'
-    expect(page).to have_content 'Сatalog'
-    expect(page).not_to have_link('link-catalog-cart')
   end
 
   scenario 'sign up and visit catalog page' do
-    sign_up
-    visit '/catalog'
     expect(page).to have_content 'Сatalog'
     expect(page).to have_link('link-catalog-cart')
   end
 
   scenario 'choose book' do
-    sign_up
-    visit '/catalog'
     page.all('.thumb-hover-link')[1].click # TODO
     expect(page).to have_content 'Book was added' # TODO
   end
 
   scenario 'click on cart link' do
-    sign_up
-    visit '/catalog'
     page.all('.thumb-hover-link')[1].click # TODO
     page.find('#link-catalog-cart').click
     expect(page).to have_content 'Cart'
+  end
+
+  scenario 'sort by newest first' do
+    page.find('#sort_dropdown').click
+    page.find('#newest-first').click
+    expect(page).to have_content I18n.t('catalog.filters.by_date_desc')
+  end
+
+  scenario 'sort by popular first' do
+    page.find('#sort_dropdown').click
+    page.find('#popular-first').click
+    expect(page).to have_content I18n.t('catalog.filters.popular_first')
+  end
+
+  scenario 'sort by low-to-hight' do
+    page.find('#sort_dropdown').click
+    page.find('#low-to-hight').click
+    expect(page).to have_content I18n.t('catalog.filters.by_price_asc')
+  end
+
+  scenario 'sort by hight-to-low' do
+    page.find('#sort_dropdown').click
+    page.find('#hight-to-low').click
+    expect(page).to have_content I18n.t('catalog.filters.by_price_desc')
+  end
+
+  scenario 'view Web design books' do
+    page.find('#catalog-Webdesign').click
+  end
+
+  scenario 'view Mobile development books' do
+    page.find('#catalog-Mobiledevelopment').click
+  end
+
+  scenario 'view Databases books' do
+    page.find('#catalog-Databases').click
+  end
+
+  scenario 'view Web development books' do
+    page.find('#catalog-Webdevelopment').click
   end
 end

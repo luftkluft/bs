@@ -10,7 +10,7 @@
       <a class="navbar-brand"><%= I18n.t('header.shop_title') %></a>
       <a href="#" class="shop-link pull-right visible-xs">
         <span class="shop-icon">
-          <span class="shop-quantity">
+          <span id="shop_item_quantity" class="shop-quantity">
             <%= @items_count %></span></span></a></div>
     <a id="link-catalog-cart" href="/carts/<%= current_user.id %>" class="shop-link pull-right hidden-xs">
       <span class="shop-icon">

@@ -61,8 +61,10 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="input-group general-input-group">
-          <label class="input-label"><%= I18n.t('cart.coupon.title') %></label>
-          <input id="cart-input-coupon-code" type="text" placeholder="<%= I18n.t('cart.coupon.placeholder') %>" class="form-control mb-30" />
+          <label class="input-label" for="cart-input-coupon-code"><%= I18n.t('cart.coupon.title') %></label>
+          <input id="cart-input-coupon-code"
+            type="text" placeholder="<%= I18n.t('cart.coupon.placeholder') %>"
+            class="form-control mb-30" />
           <div>
             <button id="cart-btn-coupon" class="btn btn-primary mr-5 mb-15"><%= I18n.t('cart.update_btn') %></button></div>
         </div>
@@ -86,7 +88,7 @@
                 <p class="font-16"><%= I18n.t('cart.order_summary.coupon') %></p>
               </td>
               <td>
-                <p class="font-16">€
+                <p id="coupon_value" class="font-16">€
                   <%= @cart_service.coupon %>
                 </p>
               </td>

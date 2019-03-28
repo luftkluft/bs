@@ -7,8 +7,9 @@ RSpec.feature 'Home Features', type: :feature, js: true do
   let!(:books) { create_list(:book, 10) }
   def sign_up
     visit '/users/sign_in'
-    click_on 'Sign up'
+    page.find('#new-sessions-sign-up').click
     fill_in 'user[email]', with: 'user@example.com'
+    fill_in 'user[name]', with: 'Name'
     fill_in 'user[password]', with: 'password'
     fill_in 'user[password_confirmation]', with: 'password'
     click_on 'Sign up'
@@ -47,5 +48,11 @@ RSpec.feature 'Home Features', type: :feature, js: true do
   scenario 'click on link `Add to cart` and redirect to `/users/sign_in`' do # TODO
     page.all('.thumb-hover-link')[1].click
     expect(page).to have_content 'You need to sign in or sign up before continuing'
+  end
+
+  scenario 'click on settings link' do
+    sign_up
+    page.find('#footer_settings').click
+    expect(page).to have_content I18n.t('address.billing')
   end
 end

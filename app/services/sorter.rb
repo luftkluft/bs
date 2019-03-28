@@ -19,18 +19,15 @@ class Sorter
   end
 
   def sort_by_books_params(books, books_params)
+    @view_books_params = books_params
     books = case books_params
             when I18n.t('services.sorter_popular_first')
-              @view_books_params = books_params
               books.order(popularity: :desc)
             when I18n.t('services.sorter_low_to_hight')
-              @view_books_params = books_params
               books.order(price: :asc)
             when I18n.t('services.sorter_hight_to_low')
-              @view_books_params = books_params
               books.order(price: :desc)
             else
-              @view_books_params = books_params
               books.order(year: :desc)
             end
     books

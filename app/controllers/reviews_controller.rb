@@ -3,11 +3,10 @@ class ReviewsController < ApplicationController
     @review = Review.create(review_params)
     if @review
       flash[:notice] = I18n.t('review.create.success')
-      redirect_back(fallback_location: root_path)
     else
       flash[:alert] = I18n.t('review.create.failure')
-      redirect_back(fallback_location: root_path)
     end
+    redirect_back(fallback_location: root_path)
   end
 
   private

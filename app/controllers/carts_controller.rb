@@ -93,7 +93,6 @@ class CartsController < ApplicationController
   end
 
   def item_owner(item_id)
-    cart_servise = cart_service
     result = cart_service.items.find(item_id)
     if result.nil?
       flash[:alert] = I18n.t('shared.forbidden_operation')

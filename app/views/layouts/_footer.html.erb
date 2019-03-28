@@ -9,9 +9,9 @@
             <a href="/catalog" class="nav-link"><%= I18n.t('footer.shop_link') %></a></li>
           <% if user_signed_in? %>
           <li>
-            <a href="/orders" class="nav-link"><%= I18n.t('footer.orders_link') %></a></li>
+            <a id="footer_orders" href="/orders" class="nav-link"><%= I18n.t('footer.orders_link') %></a></li>
           <li>
-            <a href="/settings" class="nav-link"><%= I18n.t('footer.settings_link') %></a></li>
+            <a id="footer_settings" href="/settings" class="nav-link"><%= I18n.t('footer.settings_link') %></a></li>
           <% end %>
         </ul>
       </div>

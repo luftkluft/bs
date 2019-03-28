@@ -25,7 +25,7 @@
       <span class="step-number">5</span>
       <span class="step-text hidden-xs"><%= I18n.t('checkout.steps.complete') %></span></li>
   </ul>
-
+  <% if @order_service && @order_shipping %>
   <div class="text-center mb-40">
     <h3 class="general-subtitle"><%= I18n.t('checkout.thanks_for_order') %></h3>
     <p class="fw-300"><%= I18n.t('checkout.email_confirmation') %>
@@ -155,9 +155,10 @@
             <%= @order_service.order.order_total_price %></strong></td>
       </tr>
     </table>
+  <% end %>
   </div>
   <div class="text-center">
-    <button class="btn btn-default mb-20" onclick="home('<%= root_path %>')"><%= I18n.t('checkout.back_to_store_btn') %></button></div>
+    <button id="btn_home" class="btn btn-default mb-20" onclick="home('<%= root_path %>')"><%= I18n.t('checkout.back_to_store_btn') %></button></div>
   <script>
     function home(path) {
       window.location.href = path;

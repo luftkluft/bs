@@ -75,7 +75,7 @@ class CheckoutStepsController < ApplicationController
   def set_checkout_step(step)
     @cart.checkout_step = step
     @cart.save
-  rescue
+  rescue StandardError
     flash[:alert] = I18n.t('checkout.steps.error_save_state')
     redirect_back(fallback_location: root_path) && return
   end

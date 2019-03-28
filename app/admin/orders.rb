@@ -30,11 +30,11 @@ ActiveAdmin.register Order do
     f.inputs do
       f.input :user_id
       f.input :state
-      f.input :state, as: :select, collection: ['not_confirmed',
-                                                'waiting_for_processing',
-                                                'in_progress',
-                                                'in_delivery',
-                                                'delivered']
+      f.input :state, as: :select, collection: %w[not_confirmed
+                                                  waiting_for_processing
+                                                  in_progress
+                                                  in_delivery
+                                                  delivered]
     end
     f.actions
   end
