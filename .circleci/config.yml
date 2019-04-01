@@ -32,3 +32,4 @@ jobs:
             bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java
             bundle exec rake db:create db:schema:load --trace
             bundle exec rake db:migrate
+            bundle exec rake db:seed
