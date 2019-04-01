@@ -5,10 +5,4 @@ class HomeController < ApplicationController
     @last_three_books = sorter.last_three_books(@all_books)
     @bestsellers = sorter.bestsellers(@all_books)
   end
-
-  private
-
-  def home_params
-    params.permit!
-  end
 end

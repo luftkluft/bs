@@ -4,6 +4,8 @@ RSpec.feature 'Checkout_address Features', type: :feature, js: true do
   let!(:category3) { create(:category, id: 3, category_type: 'Databases') }
   let!(:category4) { create(:category, id: 4, category_type: 'Web development') }
   let!(:books) { create_list(:book, 10) }
+  let!(:billing_address) { create(:billing_address) }
+  let!(:shipping_address) { create(:shipping_address, first_name: 'Name') }
   let(:first_name) { 'FirstName' }
   let(:last_name) { 'LastName' }
   let(:address) { 'Address' }
@@ -48,7 +50,7 @@ RSpec.feature 'Checkout_address Features', type: :feature, js: true do
     expect(page).to have_content I18n.t('address.save_success')
   end
 
-  xscenario 'fill shipping address with checkbox' do
+  scenario 'fill shipping address with checkbox' do
     page.find('#b_firstName').set(first_name)
     page.find('#b_lastName').set(last_name)
     page.find('#b_address').set(address)
@@ -56,7 +58,8 @@ RSpec.feature 'Checkout_address Features', type: :feature, js: true do
     page.find('#b_zip').set(zip)
     page.find('#b_phone').set(phone)
     page.find('#b_commit').click
-    page.find('#checkbox').set(true)
+    billing_address.user_id = User.first.id
+    page.find('#checkbox_icon').click
     page.find('#sh_commit').click
     expect(page).to have_content I18n.t('address.save_success')
     expect(page.find('#sh_firstName').value).to eq(first_name)

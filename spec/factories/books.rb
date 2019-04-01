@@ -15,4 +15,21 @@ FactoryBot.define do
     visible { true }
     image { '/app/assets/images/default_book_image.png' }
   end
+
+  factory :test_book, class: Book do
+    title { 'Test title' }
+    author { 'Test Author' }
+    category_id { 1 }
+    price { 10.0 }
+    description { 'Description' }
+    year { 2019 }
+    height { 3 }
+    width { 2 }
+    depth { 1 }
+    in_stock { 10 }
+    popularity { 5 }
+    materials { 'Papear' }
+    visible { true }
+    image { '/app/assets/images/default_book_image.png' }
+  end
 end

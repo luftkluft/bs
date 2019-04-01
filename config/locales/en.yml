@@ -1,4 +1,7 @@
 en:
+  facebook:
+    auth_ok: "Successfully authenticated from Facebook account"
+    sign_out: "Sign Out"
   header:
     shop_title: "Bookstore"
     home_link: "Home"
@@ -104,7 +107,7 @@ en:
     coupon:
       update:
         success: "Your coupon was successfully applied"
-        failure: "An errors occurred while saving your coupon"
+        failure: "Your coupon not be applied"
       info: "You have already applied coupon. Your discount is %{discount}%"
       placeholder: "Enter your coupon code"
       title: "Enter your coupon code"

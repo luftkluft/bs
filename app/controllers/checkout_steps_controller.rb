@@ -38,15 +38,6 @@ class CheckoutStepsController < ApplicationController
 
   def update
     case step
-    when :checkout_address
-      if Item.count.positive?
-        set_checkout_step(step)
-      else
-        flash[:alert] = I18n.t('checkout.steps.empty_cart')
-        redirect_back(fallback_location: root_path) && return
-      end
-    when :checkout_delivery
-      set_checkout_step(step)
     when :checkout_payment
       set_checkout_step(step)
       choose_delivery

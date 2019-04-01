@@ -8,22 +8,14 @@ class CartsController < ApplicationController
     item_owner(param[:increment])
     @cart_service = cart_service
     errors = @cart_service.increment_quantity(param[:increment])
-    if errors.nil?
-      # TODO
-    else
-      flash[:alert].now = I18n.t('order_item.error_increment_quantity')
-    end
+    flash[:alert].now = I18n.t('order_item.error_increment_quantity') unless errors.nil?
   end
 
   def decrememt_quantity(param = cart_params)
     item_owner(param[:decrement])
     @cart_service = cart_service
     errors = @cart_service.decrement_quantity(param[:decrement])
-    if errors.nil?
-      # TODO
-    else
-      flash[:alert].now = I18n.t('order_item.error_decrement_quantity')
-    end
+    flash[:alert].now = I18n.t('order_item.error_increment_quantity') unless errors.nil?
   end
 
   def delete_item(param = cart_params)
