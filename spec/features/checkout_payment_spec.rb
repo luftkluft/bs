@@ -1,7 +1,7 @@
 RSpec.feature 'Checkout_payment Features', type: :feature, js: true do
   let(:card_number) { '0000 1111 2222 3333' }
   let(:card_name) { 'master' }
-  let(:card_exp) { '05/19' }
+  let(:card_exp) { '09/19' }
   let(:card_cvv) { '123' }
   let(:card_mask) { '** ** **' }
   def sign_up
