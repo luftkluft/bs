@@ -6,12 +6,12 @@ class Sorter
 
   def sortable(sortable_data)
     books = sortable_data[:books_for_sorting]
-    books = sort_by_category(books, sortable_data[:by_category]) if sortable_data[:by_category]
+    books = filter_by_category(books, sortable_data[:by_category]) if sortable_data[:by_category]
     books = sort_by_books_params(books, sortable_data[:by_books_params])
     books
   end
 
-  def sort_by_category(books, category)
+  def filter_by_category(books, category)
     books = books.where(category_id: Category.find_by(category_type: category).id)
     books
   rescue StandardError
