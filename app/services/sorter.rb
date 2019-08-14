@@ -31,16 +31,12 @@ class Sorter
   end
 
   def last_three_books(books)
-    return books if books.nil?
-
-    books = books.order(created_at: :desc).limit(3)
+    books = books.order(created_at: :desc).limit(3) if books
     books
   end
 
   def bestsellers(books)
-    return books if books.nil?
-
-    books = best_from_categories(books)
+    books = best_from_categories(books) if books
     books
   end
 
