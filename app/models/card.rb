@@ -3,7 +3,6 @@ class Card < ApplicationRecord
   REGULAR_EXPESSION = {
     card_number: /\A[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}\z/,
     name: /\A[a-zA-Z]+\z/,
-    # expiration_month_year: /\A(0[1-9]|1[0-2])[/][1][0-9]\z/#,
     cvv: /\A\d{3,4}\z/
   }.freeze
 
