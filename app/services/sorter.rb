@@ -12,10 +12,10 @@ class Sorter
   end
 
   def filter_by_category(books, category)
-    books = books.where(category_id: Category.find_by(category_type: category).id)
+    books = books.where(category_id: Category.find_by(category_type: category).id) if category
     books
-  rescue StandardError
-    books
+  # rescue StandardError
+  #   books
   end
 
   def sort_by_books_params(books, books_params)
