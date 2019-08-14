@@ -39,9 +39,9 @@ jobs:
           - run:
               name: Create DB
               command: bundle exec rake db:drop
-              command: bundle exec rake db:create
-              command: bundle exec rake db:migrate
-              command: bundle exec rake db:seed
+                       bundle exec rake db:create
+                       bundle exec rake db:migrate
+                       bundle exec rake db:seed
               # command: bundle exec rake db:create db:schema:load --trace
           - run:
               name: Run Tests
