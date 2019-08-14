@@ -24,6 +24,7 @@ gem 'therubyracer'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'wicked'
+gem 'pundit'
 
 group :development, :test do
   gem 'byebug'
@@ -38,6 +39,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'pundit-matchers', '~> 1.6.0', group: :test
 end
 
 group :development do
