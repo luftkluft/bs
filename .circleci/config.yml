@@ -32,7 +32,12 @@ jobs:
               paths:
                 - ./vendor/bundle
               key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-            
+
+          - run:
+              name: Set up DB
+              command: |
+                bundle exec rake db:create db:schema:load --trace
+                bundle exec rake db:migrate
           - run:
               name: run tests
               command: |
@@ -47,5 +52,4 @@ jobs:
               path: /tmp/test-results
           - store_artifacts:
               path: /tmp/test-results
-              destination: test-results
-
+    destination: test-results
