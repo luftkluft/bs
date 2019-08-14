@@ -44,4 +44,4 @@ jobs:
               # command: bundle exec rake db:create db:schema:load --trace
           - run:
               name: Run Tests
-              command: bundle exec rspec --drb --colour --order rand
+              command: bundle exec rspec .
