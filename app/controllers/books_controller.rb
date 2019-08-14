@@ -8,6 +8,6 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.permit!
+    params.permit(:controller, :action, :id)
   end
 end
