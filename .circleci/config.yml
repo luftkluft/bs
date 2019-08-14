@@ -42,12 +42,12 @@ jobs:
                   dockerize -wait tcp://localhost:5432 -timeout 1m
 
             # Database setup
-            - run:
-              name: Set up DB
-              command: |
-                bundle install
-                bundle exec rake db:create db:schema:load --trace
-                bundle exec rake db:migrate
-            - run:
-                name: Run Tests
-                command: bundle exec rspec .
+          - run:
+            name: Set up DB
+            command: |
+              bundle install
+              bundle exec rake db:create db:schema:load --trace
+              bundle exec rake db:migrate
+          - run:
+              name: Run Tests
+              command: bundle exec rspec .
