@@ -137,7 +137,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def cart
-    cart = Cart.find_by(user_id: current_user.id)
+    cart ||= Cart.find_by(user_id: current_user.id)
     cart = Cart.create(user_id: current_user.id) if cart.blank?
     authorize cart
     cart
@@ -152,19 +152,19 @@ class CheckoutStepsController < ApplicationController
   end
 
   def card
-    card = Card.find_by(user_id: current_user.id)
+    card ||= Card.find_by(user_id: current_user.id)
     card = Card.create(user_id: current_user.id) if card.blank?
     card
   end
 
   def card_service
-    card_service = CardService.new
+    card_service ||= CardService.new
     card_service.load(card)
     card_service
   end
 
   def order_service
-    order = Order.create(user_id: current_user.id)
+    order ||= Order.create(user_id: current_user.id)
     order_service = OrderService.new
     order_service.load(order)
     order_service
