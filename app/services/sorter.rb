@@ -28,17 +28,6 @@ class Sorter
     else
       books.order(year: :desc)
     end
-    # books = case books_params
-    #         when I18n.t('services.sorter_popular_first')
-    #           books.order(popularity: :desc)
-    #         when I18n.t('services.sorter_low_to_hight')
-    #           books.order(price: :asc)
-    #         when I18n.t('services.sorter_hight_to_low')
-    #           books.order(price: :desc)
-    #         else
-    #           books.order(year: :desc)
-    #         end
-    # books
   end
 
   def last_three_books(books)
