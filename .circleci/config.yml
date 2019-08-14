@@ -17,30 +17,22 @@ jobs:
 steps:
       - checkout
 
-      # Restore bundle cache
-      - restore_cache:
-          keys:
-            - rails-demo-{{ checksum "Gemfile.lock" }}
-            - rails-demo-
+      # Download and cache dependencies
+          - restore_cache:
+              keys:
+              - v1-dependencies-{{ checksum "Gemfile.lock" }}
+              # fallback to using the latest cache if no exact match is found
+              - v1-dependencies-
 
-      # Bundle install dependencies
-      - run:
-          name: Install dependencies
-          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
+          - run:
+              name: install dependencies
+              command: |
+                bundle install --jobs=4 --retry=3 --path vendor/bundle
 
-      - run: sudo apt install -y postgresql-client || true
-
-      # Store bundle cache
-      - save_cache:
-          key: rails-demo-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-
-      - run:
-          name: Database Setup
-          command: |
-            bundle exec rake db:create db:schema:load --trace
-            bundle exec rake db:migrate
+          - save_cache:
+              paths:
+                - ./vendor/bundle
+              key: v1-dependencies-{{ checksum "Gemfile.lock" }}
       - run:
           name: run tests
           command: |
