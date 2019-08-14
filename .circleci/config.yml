@@ -14,47 +14,38 @@ jobs:
 
     working_directory: ~/repo
 
-    steps:
-          - checkout
-         # Download and cache dependencies
-          - restore_cache:
-              keys:
-              - v1-dependencies-{{ checksum "Gemfile.lock" }}
-              # fallback to using the latest cache if no exact match is found
-              - v1-dependencies-
-          - run:
-              name: install dependencies
-              command: |
-                bundle install --jobs=4 --retry=3 --path vendor/bundle
-          - save_cache:
-              paths:
-                - ./vendor/bundle
-              key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-          - run:
-              name: Wait for db
-              command: |
-                dockerize -wait tcp://localhost:5432 -timeout 1m
-          - run:
-              name: Set up DB
-              command: |
-                bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java
-                bundle install
-                bundle exec rake db:create 
-                bundle exec rake db:schema:load --trace
-                bundle exec rake db:migrate
-                bundle exec rake db:seed
-          - run:
-              name: run tests
-              command: |
-                mkdir /tmp/test-results
-                TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-                bundle exec rspec --format progress \
-                                --out /tmp/test-results/rspec.xml \
-                                --format progress \
-                                $TEST_FILES
-          # collect reports
-          - store_test_results:
-              path: /tmp/test-results
-          - store_artifacts:
-              path: /tmp/test-results
-              destination: test-results
+steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+        
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+            bundle exec rspec --format progress \
+                            --out /tmp/test-results/rspec.xml \
+                            --format progress \
+                            $TEST_FILES
+      # collect reports
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+
