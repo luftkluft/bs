@@ -33,16 +33,16 @@ steps:
               paths:
                 - ./vendor/bundle
               key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-      - run:
-          name: run tests
-          command: |
-            mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-            
-            bundle exec rspec \
-                            --out /tmp/test-results/rspec.xml \
-                            --format progress \
-                            $TEST_FILES
+          - run:
+              name: run tests
+              command: |
+                mkdir /tmp/test-results
+                TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+                
+                bundle exec rspec \
+                                --out /tmp/test-results/rspec.xml \
+                                --format progress \
+                                $TEST_FILES
       # Undercover
       - run:
           name: Check coverage
