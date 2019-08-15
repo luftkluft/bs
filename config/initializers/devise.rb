@@ -287,6 +287,5 @@ Devise.setup do |config|
   # end
   config.secret_key = '-- secret key --'
   #ID first, secret second
-  ## config.omniauth :facebook, Rails.application.credentials.facebook[:id],
-  ##  Rails.application.credentials.facebook[:secret]
+  config.omniauth :facebook, Rails.application.credentials.facebook[:id], Rails.application.credentials.facebook[:secret]
 end
