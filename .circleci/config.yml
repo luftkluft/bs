@@ -41,7 +41,7 @@ jobs:
               command: |
                 bundle exec rake db:create db:schema:load --trace
                 bundle exec rake db:migrate
-                bundle exec rake rspec .
+                rspec .
           - run:
               name: run tests
               command: |
