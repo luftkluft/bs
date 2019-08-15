@@ -77,10 +77,10 @@
               title="<%= I18n.t('hints.zip') %>" />
           </div>
           <div class="form-group">
-            <label for="b_сountry" class="control-label input-label"><%= I18n.t('address.attrs.country.title') %></label>
+            <label for="b_сountry" class="control-label input-label"><%= I18n.t('address.attrs.country.title') %> <%= @billing.country %></label>
             <select id="b_country" name="country" placeholder="<%= I18n.t('address.attrs.country.title') %>" class="form-control" required pattern="^[A-Za-z]+$"
               maxlength="50" title="<%= I18n.t('hints.country') %>"
-              <%=country_select :country, @billing.country %>
+              <%= country_select :country, @billing.country %>
             </select></div>
           <div class="form-group mb-60">
             <label for="b_phone" class="control-label input-label"><%= I18n.t('address.attrs.phone_number.title') %></label>
@@ -131,7 +131,7 @@
               title="<%= I18n.t('hints.zip') %>" />
           </div>
           <div class="form-group">
-            <label for="sh_сountry" class="control-label input-label"><%= I18n.t('address.attrs.country.title') %></label>
+            <label for="sh_сountry" class="control-label input-label"><%= I18n.t('address.attrs.country.title') %> <%= @shipping.country %></label>
             <select id="sh_country" name="country" placeholder="<%= I18n.t('address.attrs.country.title') %>" class="form-control" pattern="^[A-Za-z]+$"
               maxlength="50" title="<%= I18n.t('hints.country') %>"
               <%= country_select :country, @shipping.country %>
