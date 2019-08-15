@@ -42,6 +42,11 @@ jobs:
                 bundle exec rake db:create db:schema:load --trace
                 bundle exec rake db:migrate
           - run:
+              name: Update Chromedriver
+              command: |
+                sudo apt-get update
+                sudo apt-get install google-chrome-stable
+          - run:
               name: run tests
               command: |
                 mkdir /tmp/test-results
