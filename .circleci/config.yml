@@ -41,8 +41,8 @@ jobs:
               command: |
                 bundle exec rake db:create db:schema:load --trace
                 bundle exec rake db:migrate
-          - test:
-              pre:
+          - run:
+              pre: |
                 - sudo apt-get update && sudo apt-get install --only-upgrade google-chrome-stable
           - run:
               name: run tests
