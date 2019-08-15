@@ -89,6 +89,7 @@ class CheckoutStepsController < ApplicationController
       @cart_service.payment
       @card_number = card.card_number
       @exp_date = card.expiration_month_year
+      @delivery_price = @cart_service.delivery_price
       render_wizard
     else
       flash[:alert] = I18n.t('checkout.card_error')
