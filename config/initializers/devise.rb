@@ -285,6 +285,7 @@ Devise.setup do |config|
   # ActiveSupport.on_load(:devise_failure_app) do
   #   include Turbolinks::Controller
   # end
+  config.secret_key = '-- secret key --'
   #ID first, secret second
   config.omniauth :facebook, Rails.application.credentials.facebook[:id],
     Rails.application.credentials.facebook[:secret]
