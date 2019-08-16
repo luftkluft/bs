@@ -38,6 +38,11 @@ ActiveAdmin.register Book do
       f.input :author
       f.input :category_id
       f.input :description
+      f.input :materials
+      f.input :price
+      f.input :height
+      f.input :width
+      f.input :depth
       f.input :year
       f.input :in_stock
       f.input :popularity
