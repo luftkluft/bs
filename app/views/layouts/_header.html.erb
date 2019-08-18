@@ -1,0 +1,174 @@
+<header class="navbar navbar-default">
+  <div class="container">
+    <% if user_signed_in? %>
+    <div class="navbar-header">
+      <button type="button" data-toggle="collapse" data-target="#navbar" class="navbar-toggle pull-left">
+        <span class="sr-only"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span></button>
+      <a class="navbar-brand"><%= I18n.t('header.shop_title') %></a>
+      <a href="#" class="shop-link pull-right visible-xs">
+        <span class="shop-icon">
+          <span id="shop_item_quantity" class="shop-quantity">
+            <%= @items_count %></span></span></a></div>
+    <a id="link-catalog-cart" href="/carts/<%= current_user.id %>" class="shop-link pull-right hidden-xs">
+      <span class="shop-icon">
+        <span class="shop-quantity">
+          <%= @items_count %></span></span></a>
+    <div id="navbar" aria-expanded="false" class="navbar-collapse collapse pl-30">
+      <div class="visible-xs">
+        <button type="button" aria-label="Close" class="close">
+          <span aria-hidden="true">&times;</span></button>
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="/"><%= I18n.t('header.home_link') %></a></li>
+          <li>
+            <a type="button" data-toggle="collapse" href="#menu" aria-expanded="false" aria-controls="menu"><%= I18n.t('header.shop_link') %></a>
+            <ul id="menu" aria-expanded="false" class="collapse list-unstyled pl-30 mb-10">
+              <li>
+                <a id="header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
+              <% @categories.each do |cat| %>
+              <li>
+                <a id="header-<%= cat.category_type.delete(' ') %>" href="#">
+                  <%= cat.category_type %></a></li>
+              <li>
+                <% end %>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+              <%= current_user.email %></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="<%= settings_path %>"><%= I18n.t('header.settings_link') %></a>
+              </li>
+              <li>
+                <%= link_to t('devise.shared.links.account'), edit_user_registration_path %>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li>
+                <%= link_to t('devise.shared.links.sign_out'), destroy_user_session_path, id: 'link-xs-sign-out', method: :delete %>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="hidden-xs">
+        <ul class="nav navbar-nav">
+          <li>
+            <a id="home" href="/"><%= I18n.t('header.home_link') %></a></li>
+          <li class="dropdown">
+            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><%= I18n.t('header.shop_link') %></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a id="sm-header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
+              <% @categories.each do |cat| %>
+              <li>
+                <a id="sm-header-<%= cat.category_type.delete(' ') %>" href="#">
+                  <%= cat.category_type %></a></li>
+              <li>
+                <% end %>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a id="account-dropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+              <%= current_user.email %></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="<%= settings_path %>"><%= I18n.t('header.settings_link') %></a>
+              </li>
+              <li>
+                <%= link_to t('devise.shared.links.account'), edit_user_registration_path %>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li>
+                <%= link_to t('devise.shared.links.sign_out'), destroy_user_session_path, id: 'link-sign-out', method: :delete %>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <% else %>
+    <div class="navbar-header">
+      <button type="button" data-toggle="collapse" data-target="#navbar" class="navbar-toggle pull-left">
+        <span class="sr-only"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span></button>
+      <a class="navbar-brand">Bookstore</a>
+    </div>
+    <div id="navbar" aria-expanded="false" class="navbar-collapse collapse pl-30">
+      <div class="visible-xs">
+        <button type="button" aria-label="Close" class="close">
+          <span aria-hidden="true">&times;</span></button>
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="/"><%= I18n.t('header.home_link') %></a></li>
+          <li>
+            <a type="button" data-toggle="collapse" href="#menu" aria-expanded="false" aria-controls="menu"><%= I18n.t('header.shop_link') %></a>
+            <ul id="menu" aria-expanded="false" class="collapse list-unstyled pl-30 mb-10">
+              <li>
+                <a id="free-header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
+              <% @categories.each do |cat| %>
+              <li>
+                <a id="free-header-<%= cat.category_type.delete(' ') %>">
+                  <%= cat.category_type %></a></li>
+              <li>
+                <% end %>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><%= I18n.t('header.my_account') %></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="<%= new_user_registration_path %>">
+                  <%= t('devise.registrations.new.sign_up') %></a></li>
+              <li>
+                <a href="<%= new_user_session_path %>">
+                  <%= t('devise.shared.links.sign_in') %></a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="hidden-xs">
+        <ul class="nav navbar-nav">
+          <li>
+            <a id="home" href="/"><%= I18n.t('header.home_link') %></a></li>
+          <li class="dropdown">
+            <a href="#" id="header_shop_link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><%= I18n.t('header.shop_link') %></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a id="sm-free-header-cat-all" href="#"><%= I18n.t('header.all_categories') %></a></li>
+              <% @categories.each do |cat| %>
+              <li>
+                <a id="sm-free-header-<%= cat.category_type.delete(' ') %>">
+                  <%= cat.category_type %></a></li>
+              <li>
+                <% end %>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><%= I18n.t('header.my_account') %></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="<%= new_user_registration_path %>">
+                  <%= t('devise.registrations.new.sign_up') %></a></li>
+              <li>
+                <a href="<%= new_user_session_path %>">
+                  <%= t('devise.shared.links.sign_in') %></a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <p class="notice">
+    <%= notice %>
+  </p>
+  <p class="alert">
+    <%= alert %>
+  </p>
+</header>

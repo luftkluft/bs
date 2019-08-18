@@ -2,47 +2,64 @@ version: 2
 jobs:
   build:
     docker:
-       - image: circleci/ruby:2.5.3-node-browsers
-         enviroment:
-          RAILS_ENV: test
+      # specify the version you desire here
+       - image: circleci/ruby:2.5.3-node-browsers-legacy
+         environment:
+           - RAILS_ENV=test
+           - DATABASE_URL=postgres://username@localhost:5432/bookstore_test
+       - image: circleci/postgres:11
+         environment:
+           - POSTGRES_USER=username
+           - POSTGRES_DB=bookstore_test
 
     working_directory: ~/repo
 
     steps:
-      - checkout
+          - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          # Download and cache dependencies
+          - restore_cache:
+              keys:
+              - v1-dependencies-{{ checksum "Gemfile.lock" }}
+              # fallback to using the latest cache if no exact match is found
+              - v1-dependencies-
 
-      - run:
-          name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-      # run tests!
-      - run:
-          name: run tests
-          command: |
-            mkdir /tmp/test-results
-
-            bundle exec rspec --format progress \
-                            --format RspecJunitFormatter \
-                            --out /tmp/test-results/rspec.xml \
-                            --format progress \
-                            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-
-      # collect reports
-      - store_test_results:
-          path: /tmp/test-results
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+          - run:
+              name: install dependencies
+              command: |
+                bundle install --jobs=4 --retry=3 --path vendor/bundle
+          - save_cache:
+              paths:
+                - ./vendor/bundle
+              key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          - run:
+              name: Wait for db
+              command: |
+                dockerize -wait tcp://localhost:5432 -timeout 1m
+          - run:
+              name: Set up DB
+              command: |
+                bundle exec rake db:create db:schema:load --trace
+                bundle exec rake db:migrate
+          - run:
+              name: Install Chrome
+              command: |
+                wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+                sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+                sudo apt-get update
+                sudo apt-get install google-chrome-stable
+          - run:
+              name: run tests
+              command: |
+                mkdir /tmp/test-results
+                TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+                bundle exec rspec --format progress \
+                                --out /tmp/test-results/rspec.xml \
+                                --format progress \
+                                $TEST_FILES
+          # collect reports
+          - store_test_results:
+              path: /tmp/test-results
+          - store_artifacts:
+              path: /tmp/test-results
+    destination: test-results

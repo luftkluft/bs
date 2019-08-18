@@ -1,0 +1,17 @@
+AllCops:
+  Exclude:
+    - config/initializers/secret_token.rb
+    - config/initializers/devise.rb
+    - bin/*
+    - Gemfile
+    - db/schema.rb
+    - db/migrate/*
+
+Metrics/LineLength:
+  Max: 120
+
+Documentation:
+  Enabled: false
+
+FrozenStringLiteralComment:
+  Enabled: false

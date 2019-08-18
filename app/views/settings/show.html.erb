@@ -1,0 +1,125 @@
+<main class="container">
+  <h1 class="general-title-margin"><%= I18n.t('settings.title') %></h1>
+  <div class="tab-content">
+    <div id="address" role="tabpanel" class="tab-pane fade in active general-main-wrap">
+      <div class="hidden-xs hidden-sm">
+        <div class="row">
+          <div class="col-md-5">
+            <h3 class="general-subtitle mt-0"><%= I18n.t('address.billing') %></h3>
+          </div>
+          <div class="col-md-5 col-md-offset-1">
+            <h3 class="general-subtitle mt-0"><%= I18n.t('address.shipping') %></h3>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <%= form_tag('/settings', method: :post) do %>
+        <input type="hidden" name="address_type" value="billing">
+        <input type="hidden" name="user_id" value="<%= current_user.id %>">
+        <div class="col-md-5 mb-40">
+          <div class="visible-xs visible-sm">
+            <h3 class="general-subtitle mt-0"><%= I18n.t('address.billing') %></h3>
+          </div>
+          <div class="form-group">
+            <label for="firstName" class="control-label input-label"><%= I18n.t('address.attrs.first_name.title') %></label>
+            <input value="<%= @billing.first_name %>" id="firstName" name="first_name"
+              type="text" placeholder="<%= I18n.t('address.attrs.first_name.placeholder') %>" class="form-control" required pattern="^[a-zA-Z]+$" maxlength="50"
+              title="<%= I18n.t('hints.first_name') %>" />
+          </div>
+          <div class="form-group">
+            <label for="lastName" class="control-label input-label"><%= I18n.t('address.attrs.last_name.title') %></label>
+            <input value="<%= @billing.last_name %>" id="lastName" name="last_name"
+              type="text" placeholder="<%= I18n.t('address.attrs.last_name.placeholder') %>" class="form-control" required pattern="^[A-Za-z]+$" maxlength="50"
+              title="<%= I18n.t('hints.last_name') %>" />
+          </div>
+          <div class="form-group">
+            <label for="address" class="control-label input-label"><%= I18n.t('address.attrs.address.title') %></label>
+            <input value="<%= @billing.address %>" id="address" name="address" type="text"
+              placeholder="<%= I18n.t('address.attrs.address.placeholder') %>" class="form-control" required pattern="^[a-zA-Z0-9\s,-]+$" maxlength="50"
+              title="<%= I18n.t('hints.address') %>" />
+          </div>
+          <div class="form-group">
+            <label for="city" class="control-label input-label"><%= I18n.t('address.attrs.city.title') %></label>
+            <input value="<%= @billing.city %>" id="city" name="city" type="text"
+              placeholder="<%= I18n.t('address.attrs.city.placeholder') %>" class="form-control" required pattern="^[a-zA-Z]+$" maxlength="50"
+              title="<%= I18n.t('hints.city') %>" />
+          </div>
+          <div class="form-group">
+            <label for="zip" class="control-label input-label"><%= I18n.t('address.attrs.zip_code.title') %></label>
+            <input value="<%= @billing.zip %>" id="zip" name="zip" type="text"
+              placeholder="<%= I18n.t('address.attrs.zip_code.placeholder') %>" class="form-control" required pattern="^[0-9-]+$" maxlength="8"
+              title="<%= I18n.t('hints.zip') %>" />
+          </div>
+          <div class="form-group">
+            <label for="сountry" class="control-label input-label"><%= I18n.t('address.attrs.country.title') %> <%= @billing.country %></label>
+            <select id="country" name="country" placeholder="<%= I18n.t('address.attrs.country.title') %>" class="form-control" required pattern="^[A-Za-z]+$"
+              maxlength="50" title="<%= I18n.t('hints.country') %>"
+              <%= country_select :country, @billing.country %>
+            </select></div>
+          <div class="form-group mb-60">
+            <label for="phone" class="control-label input-label"><%= I18n.t('address.attrs.phone_number.title') %></label>
+            <input value="<%= @billing.phone %>" id="phone" name="phone" type="tel"
+              placeholder="<%= I18n.t('address.attrs.phone_number.placeholder') %>" class="form-control" required pattern="^\+\d{3,15}$" maxlength="15"
+              title="<%= I18n.t('hints.phone') %>" />
+          </div>
+          <div class="text-center general-text-align">
+            <button type="submit" class="btn btn-default mb-20" name="commit" value="Save"><%= I18n.t('settings.save_btn') %></button></div>
+        </div>
+        <% end %>
+
+        <%= form_tag('/settings', method: :post) do %>
+        <input type="hidden" name="address_type" value="shipping">
+        <input type="hidden" name="user_id" value="<%= current_user.id %>">
+        <div class="col-md-5 col-md-offset-1 mb-25">
+          <div class="visible-xs visible-sm">
+            <h3 class="general-subtitle mt-0"><%= I18n.t('address.shipping') %></h3>
+          </div>
+          <div class="form-group">
+            <label for="firstName" class="control-label input-label"><%= I18n.t('address.attrs.first_name.title') %></label>
+            <input value="<%= @shipping.first_name %>" id="firstName" name="first_name"
+              type="text" placeholder="<%= I18n.t('address.attrs.first_name.placeholder') %>" class="form-control" required pattern="^[a-zA-Z]+$" maxlength="50"
+              title="<%= I18n.t('hints.first_name') %>" />
+          </div>
+          <div class="form-group">
+            <label for="lastName" class="control-label input-label"><%= I18n.t('address.attrs.last_name.title') %></label>
+            <input value="<%= @shipping.last_name %>" id="lastName" name="last_name"
+              type="text" placeholder="<%= I18n.t('address.attrs.last_name.placeholder') %>" class="form-control" required pattern="^[A-Za-z]+$" maxlength="50"
+              title="<%= I18n.t('hints.last_name') %>" />
+          </div>
+          <div class="form-group">
+            <label for="address" class="control-label input-label"><%= I18n.t('address.attrs.address.title') %></label>
+            <input value="<%= @shipping.address %>" id="address" name="address" type="text"
+              placeholder="<%= I18n.t('address.attrs.address.placeholder') %>" class="form-control" required pattern="^[a-zA-Z0-9\s,-]+$" maxlength="50"
+              title="<%= I18n.t('hints.address') %>" />
+          </div>
+          <div class="form-group">
+            <label for="city" class="control-label input-label"><%= I18n.t('address.attrs.city.title') %></label>
+            <input value="<%= @shipping.city %>" id="city" name="city" type="text"
+              placeholder="<%= I18n.t('address.attrs.city.placeholder') %>" class="form-control" required pattern="^[a-zA-Z]+$" maxlength="50"
+              title="<%= I18n.t('hints.city') %>" />
+          </div>
+          <div class="form-group">
+            <label for="zip" class="control-label input-label"><%= I18n.t('address.attrs.zip_code.title') %></label>
+            <input value="<%= @shipping.zip %>" id="zip" name="zip" type="text"
+              placeholder="<%= I18n.t('address.attrs.zip_code.placeholder') %>" class="form-control" required pattern="^[0-9-]+$" maxlength="8"
+              title="<%= I18n.t('hints.zip') %>" />
+          </div>
+          <div class="form-group">
+            <label for="сountry" class="control-label input-label"><%= I18n.t('address.attrs.country.title') %> <%= @shipping.country %></label>
+            <select id="country" name="country" placeholder="<%= I18n.t('address.attrs.country.title') %>" class="form-control" required pattern="^[A-Za-z]+$"
+              maxlength="50" title="<%= I18n.t('hints.country') %>"
+              <%= country_select :country, @shipping.country %>
+            </select></div>
+          <div class="form-group mb-60">
+            <label for="phone" class="control-label input-label"><%= I18n.t('address.attrs.phone_number.title') %></label>
+            <input value="<%= @shipping.phone %>" id="phone" name="phone" type="tel"
+              placeholder="<%= I18n.t('address.attrs.phone_number.placeholder') %>" class="form-control" required pattern="^\+\d{3,15}$" maxlength="15"
+              title="<%= I18n.t('hints.phone') %>" />
+          </div>
+          <div class="text-center general-text-align">
+            <button type="submit" class="btn btn-default mb-20" name="commit" value="Save"><%= I18n.t('settings.save_btn') %></button></div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+</main>

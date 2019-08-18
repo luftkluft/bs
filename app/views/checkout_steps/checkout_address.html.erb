@@ -1,0 +1,199 @@
+<main class="container">
+  <h1 class="general-title-margin"><%= I18n.t('checkout.title') %></h1>
+  <ul class="steps list-inline">
+    <li class="step active">
+      <span class="step-number">1</span>
+      <span class="step-text hidden-xs"><%= I18n.t('checkout.steps.address') %></span></li>
+    <li class="step-divider"></li>
+    <li class="step">
+      <span class="step-number">2</span>
+      <span class="step-text hidden-xs"><%= I18n.t('checkout.steps.delivery') %></span></li>
+    <li class="step-divider"></li>
+    <li class="step">
+      <span class="step-number">3</span>
+      <span class="step-text hidden-xs"><%= I18n.t('checkout.steps.payment') %></span></li>
+    <li class="step-divider"></li>
+    <li class="step">
+      <span class="step-number">4</span>
+      <span class="step-text hidden-xs"><%= I18n.t('checkout.steps.confirm') %></span></li>
+    <li class="step-divider"></li>
+    <li class="step">
+      <span class="step-number">5</span>
+      <span class="step-text hidden-xs"><%= I18n.t('checkout.steps.complete') %></span></li>
+  </ul>
+  <div class="tab-content">
+    <% if @cart_service.delivery_price.positive? %>
+      <a href="/checkout_steps/checkout_confirm" class="general-back-link">
+      <i class="fa fa-long-arrow-left mr-15"></i><%= I18n.t('checkout.back_to_confirm') %></a>
+    <% end %>
+
+    <div id="address" role="tabpanel" class="tab-pane fade in active general-main-wrap">
+      <div class="hidden-xs hidden-sm">
+        <div class="row">
+          <div class="col-md-5">
+            <h3 class="general-subtitle mt-0"><%= I18n.t('address.billing') %></h3>
+          </div>
+          <div class="col-md-5 col-md-offset-1">
+            <h3 class="general-subtitle mt-0"><%= I18n.t('address.shipping') %></h3>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <%= form_tag('/settings', method: :post) do %>
+        <input type="hidden" name="address_type" value="billing">
+        <input type="hidden" name="user_id" value="<%= current_user.id %>">
+        <div class="col-md-5 mb-40">
+          <div class="visible-xs visible-sm">
+            <h3 class="general-subtitle mt-0"><%= I18n.t('address.billing') %></h3>
+          </div>
+          <div class="form-group">
+            <label for="b_firstName" class="control-label input-label"><%= I18n.t('address.attrs.first_name.title') %></label>
+            <input value="<%= @billing.first_name %>" id="b_firstName" name="first_name"
+              type="text" placeholder="<%= I18n.t('address.attrs.first_name.placeholder') %>" class="form-control" required pattern="^[a-zA-Z]+$" maxlength="50"
+              title="<%= I18n.t('hints.first_name') %>" />
+          </div>
+          <div class="form-group">
+            <label for="b_lastName" class="control-label input-label"><%= I18n.t('address.attrs.last_name.title') %></label>
+            <input value="<%= @billing.last_name %>" id="b_lastName" name="last_name"
+              type="text" placeholder="<%= I18n.t('address.attrs.last_name.placeholder') %>" class="form-control" required pattern="^[A-Za-z]+$" maxlength="50"
+              title="<%= I18n.t('hints.last_name') %>" />
+          </div>
+          <div class="form-group">
+            <label for="b_address" class="control-label input-label"><%= I18n.t('address.attrs.address.title') %></label>
+            <input value="<%= @billing.address %>" id="b_address" name="address" type="text"
+              placeholder="<%= I18n.t('address.attrs.address.placeholder') %>" class="form-control" required pattern="^[a-zA-Z0-9\s,-]+$" maxlength="50"
+              title="<%= I18n.t('hints.address') %>" />
+          </div>
+          <div class="form-group">
+            <label for="b_city" class="control-label input-label"><%= I18n.t('address.attrs.city.title') %></label>
+            <input value="<%= @billing.city %>" id="b_city" name="city" type="text"
+              placeholder="<%= I18n.t('address.attrs.city.placeholder') %>" class="form-control" required pattern="^[a-zA-Z]+$" maxlength="50"
+              title="<%= I18n.t('hints.city') %>" />
+          </div>
+          <div class="form-group">
+            <label for="b_zip" class="control-label input-label"><%= I18n.t('address.attrs.zip_code.title') %></label>
+            <input value="<%= @billing.zip %>" id="b_zip" name="zip" type="text"
+              placeholder="<%= I18n.t('address.attrs.zip_code.placeholder') %>" class="form-control" required pattern="^[0-9-]+$" maxlength="8"
+              title="<%= I18n.t('hints.zip') %>" />
+          </div>
+          <div class="form-group">
+            <label for="b_сountry" class="control-label input-label"><%= I18n.t('address.attrs.country.title') %> <%= @billing.country %></label>
+            <select id="b_country" name="country" placeholder="<%= I18n.t('address.attrs.country.title') %>" class="form-control" required pattern="^[A-Za-z]+$"
+              maxlength="50" title="<%= I18n.t('hints.country') %>"
+              <%= country_select :country, @billing.country %>
+            </select></div>
+          <div class="form-group mb-60">
+            <label for="b_phone" class="control-label input-label"><%= I18n.t('address.attrs.phone_number.title') %></label>
+            <input value="<%= @billing.phone %>" id="b_phone" name="phone" type="tel"
+              placeholder="<%= I18n.t('address.attrs.phone_number.placeholder') %>" class="form-control" required pattern="^\+\d{3,15}$" maxlength="15"
+              title="<%= I18n.t('hints.phone') %>" />
+          </div>
+          <div class="text-center general-text-align">
+            <button id="b_commit" type="submit" class="btn btn-default mb-20" name="commit" value="Save"><%= I18n.t('checkout.save_btn') %></button></div>
+        </div>
+        <% end %>
+
+        <%= form_tag('/settings', method: :post) do %>
+        <input type="hidden" name="address_type" value="shipping">
+        <input type="hidden" name="user_id" value="<%= current_user.id %>">
+        <div class="col-md-5 col-md-offset-1 mb-25">
+          <div class="visible-xs visible-sm">
+            <h3 class="general-subtitle mt-0"><%= I18n.t('address.shipping') %></h3>
+          </div>
+          <div class="form-group">
+            <label for="sh_firstName" class="control-label input-label"><%= I18n.t('address.attrs.first_name.title') %></label>
+            <input value="<%= @shipping.first_name %>" id="sh_firstName" name="first_name"
+              type="text" placeholder="<%= I18n.t('address.attrs.first_name.placeholder') %>" class="form-control" pattern="^[a-zA-Z]+$" maxlength="50"
+              title="<%= I18n.t('hints.first_name') %>" />
+          </div>
+          <div class="form-group">
+            <label for="sh_lastName" class="control-label input-label"><%= I18n.t('address.attrs.last_name.title') %></label>
+            <input value="<%= @shipping.last_name %>" id="sh_lastName" name="last_name"
+              type="text" placeholder="<%= I18n.t('address.attrs.last_name.placeholder') %>" class="form-control" pattern="^[A-Za-z]+$" maxlength="50"
+              title="<%= I18n.t('hints.last_name') %>" />
+          </div>
+          <div class="form-group">
+            <label for="sh_address" class="control-label input-label"><%= I18n.t('address.attrs.address.title') %></label>
+            <input value="<%= @shipping.address %>" id="sh_address" name="address" type="text"
+              placeholder="<%= I18n.t('address.attrs.address.placeholder') %>" class="form-control" pattern="^[a-zA-Z0-9\s,-]+$" maxlength="50"
+              title="<%= I18n.t('hints.address') %>" />
+          </div>
+          <div class="form-group">
+            <label for="sh_city" class="control-label input-label"><%= I18n.t('address.attrs.city.title') %></label>
+            <input value="<%= @shipping.city %>" id="sh_city" name="city" type="text"
+              placeholder="<%= I18n.t('address.attrs.city.placeholder') %>" class="form-control" pattern="^[a-zA-Z]+$" maxlength="50"
+              title="<%= I18n.t('hints.city') %>" />
+          </div>
+          <div class="form-group">
+            <label for="sh_zip" class="control-label input-label"><%= I18n.t('address.attrs.zip_code.title') %></label>
+            <input value="<%= @shipping.zip %>" id="sh_zip" name="zip" type="text"
+              placeholder="<%= I18n.t('address.attrs.zip_code.placeholder') %>" class="form-control" pattern="^[0-9-]+$" maxlength="8"
+              title="<%= I18n.t('hints.zip') %>" />
+          </div>
+          <div class="form-group">
+            <label for="sh_сountry" class="control-label input-label"><%= I18n.t('address.attrs.country.title') %> <%= @shipping.country %></label>
+            <select id="sh_country" name="country" placeholder="<%= I18n.t('address.attrs.country.title') %>" class="form-control" pattern="^[A-Za-z]+$"
+              maxlength="50" title="<%= I18n.t('hints.country') %>"
+              <%= country_select :country, @shipping.country %>
+            </select></div>
+          <div class="form-group mb-60">
+            <label for="sh_phone" class="control-label input-label"><%= I18n.t('address.attrs.phone_number.title') %></label>
+            <input value="<%= @shipping.phone %>" id="sh_phone" name="phone" type="tel"
+              placeholder="<%= I18n.t('address.attrs.phone_number.placeholder') %>" class="form-control" pattern="^\+\d{3,15}$" maxlength="15"
+              title="<%= I18n.t('hints.phone') %>" />
+          </div>
+
+          <div class="form-group checkbox">
+            <label class="checkbox-label">
+              <input id="checkbox" type="checkbox" hidden="true" class="checkbox-input" name="checkbox"/>
+                <span id="checkbox_icon"class="checkbox-icon"><i class="fa fa-check"></i></span>
+                <span class="checkbox-text"><%= I18n.t('address.use_billing_address') %></span>
+            </label>
+            <button id="sh_commit" type="submit" class="btn btn-default mb-20" name="commit" value="Save"><%= I18n.t('checkout.save_btn') %></button>
+          </div>
+        </div>
+      </div>
+      <div class="general-text-align mb-60">
+        <p class="in-gold-500 font-18"><%= I18n.t('shared.order_summary.title') %></p>
+        <table class="general-summary-table">
+          <tr>
+            <td>
+              <p class="font-16"><%= I18n.t('shared.order_summary.subtotal') %></p>
+            </td>
+            <td>
+              <p class="font-16">€
+                <%= @cart.item_total_price %>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="font-16"><%= I18n.t('shared.order_summary.coupon_discount') %></p>
+            </td>
+            <td>
+              <p class="font-16">€
+                <%= @cart.coupon %>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong class="font-18"><%= I18n.t('shared.order_summary.order_total') %></strong></td>
+            <td>
+              <strong class="font-18">€
+                <%= @cart.item_total_price - @cart.coupon %></strong></td>
+          </tr>
+        </table>
+      </div>
+      <% end %>
+      <a href="<%= url_for(:back) %>" class="general-back-link">
+        <i class="fa fa-long-arrow-left mr-15"></i><%= I18n.t('checkout.back') %></a>
+      <button id="btn_continue" class="btn btn-default center-block mb-20" onclick="next_step('<%= next_wizard_path %>')"><%= I18n.t('checkout.continue_btn') %></button>
+    </div>
+  </div>
+  <script>
+    function next_step(path) {
+      window.location.href = path;
+    }
+  </script>
+</main>

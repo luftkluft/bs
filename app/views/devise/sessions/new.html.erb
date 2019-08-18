@@ -1,0 +1,37 @@
+<main class="container general-main-wrap">
+  <div class="text-center">
+    <h3 class="general-login-title">Log In</h3>
+    <a href="<%= user_facebook_omniauth_authorize_path %>" class="general-login-icon">
+      <i class="fa fa-facebook-official"></i></a>
+    <p class="general-login-text">or</p>
+  </div>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'general-form'} ) do |f| %>
+  <div class="form-group mb-30">
+    <label for="email" class="control-label input-label">Enter Email</label>
+    <input id="email" name="user[email]" type="email" placeholder="Email" class="form-control" , autofocus="true" />
+  </div>
+
+  <div class="form-group mb-30">
+    <label for="password" class="control-label input-label">Password</label>
+    <input id="password" name="user[password]" type="password" placeholder="Password" class="form-control" />
+    <a href="/users/password/new" class="help-block in-gold-500">Forgot password?</a>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+  <div class="form-group mb-30">
+    <%= f.check_box :remember_me %>
+    <%= f.label :remember_me, class: 'control-label input-label' %>
+  </div>
+  <% end -%>
+
+  <div class="text-center">
+    <button type="submit" class="btn btn-default mb-20" name="commit" value="Log in">Log in</button>
+  </div>
+  <% end %>
+
+  <p class="general-sign-text text-center">Don’t have an Account?
+    <a id="new-sessions-sign-up" href="/users/sign_up" class="in-gold-500">Sign Up</a></p>
+  <p class="general-sign-text text-center">Don’t want to login?
+    <a href="/" class="in-gold-500">Back to Store</a></p>
+</main>

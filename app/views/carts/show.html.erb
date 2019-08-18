@@ -1,0 +1,110 @@
+<main class="container general-main-wrap">
+  <h1 class="general-title-margin"><%= I18n.t('cart.title') %></h1>
+  <div>
+    <table class="table table-hover">
+      <tr class="no-hover">
+        <th class="col-pic pl-0">
+          <span class="in-grey-600"><%= I18n.t('cart.product') %></span></th>
+        <th class="col-title"></th>
+        <th class="col-price">
+          <span class="in-grey-600"><%= I18n.t('cart.price') %></span></th>
+        <th class="col-quantity">
+          <span class="in-grey-600"><%= I18n.t('cart.quantity') %></span></th>
+        <th class="col-total">
+          <span class="in-grey-600"><%= I18n.t('cart.subtotal') %></span></th>
+        <th class="col-close"></th>
+      </tr>
+      <% @cart_service.items.each do |item| %>
+      <tr>
+        <td>
+          <div class="general-img-wrap-table">
+            <%= image_tag @cart_service.image(item.id) %>
+          </div>
+        </td>
+        <td>
+          <p class="title">
+            <%= @cart_service.book_title(item.id) %>
+          </p>
+        </td>
+        <td>
+          <span class="font-16 in-gold-500">€
+            <%= @cart_service.book_price(item.id) %></span>
+        </td>
+        <td>
+          <div class="input-group">
+            <a id="cart-minus-item-<%= item.id %>" href="#" class="input-link" onclick="change_quantity(id, <%= item.id %>)"
+              data-remote="true">
+              <i class="fa fa-minus line-hight-40"></i></a>
+            <input id="cart-input-item-<%= item.id %>" type="text" class="form-control quantity-input" min="1" max="15"
+              value="<%= @cart_service.item_quantity(item.id) %>" />
+            <a id="cart-plus-item-<%= item.id %>" href="#" class="input-link" onclick="change_quantity(id, <%= item.id %>)"
+              data-remote="true">
+              <i class="fa fa-plus line-hight-40"></i></a></div>
+        </td>
+        <td>
+          <% item_subtotal = @cart_service.item_subtotal(item.id) %>
+          <span class="font-16 in-gold-500">€
+            <%= item_subtotal %></span>
+          <% @cart_service.subtotal(item_subtotal) %>
+        </td>
+        <td>
+          <button id="delete-item-<%= item.id %>" type="button" aria-label="Close" class="close general-cart-close"
+            onclick="delete_item(<%= item.id %>)">
+            <span aria-hidden="true">&times;</span></button>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div class="general-order-wrap">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="input-group general-input-group">
+          <label class="input-label" for="cart-input-coupon-code"><%= I18n.t('cart.coupon.title') %></label>
+          <input id="cart-input-coupon-code"
+            type="text" placeholder="<%= I18n.t('cart.coupon.placeholder') %>"
+            class="form-control mb-30" />
+          <div>
+            <button id="cart-btn-coupon" class="btn btn-primary mr-5 mb-15"><%= I18n.t('cart.update_btn') %></button></div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <div class="res-mr-200 text-center general-text-right">
+          <p class="in-gold-500 font-18"><%= I18n.t('cart.order_summary.title') %></p>
+          <table class="general-summary-table general-summary-table-right general-text-right">
+            <tr>
+              <td>
+                <p class="font-16"><%= I18n.t('cart.order_summary.subtotal') %></p>
+              </td>
+              <td>
+                <p class="font-16">€
+                  <%= @cart_service.subtotal %>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p class="font-16"><%= I18n.t('cart.order_summary.coupon') %></p>
+              </td>
+              <td>
+                <p id="coupon_value" class="font-16">€
+                  <%= @cart_service.coupon %>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong class="font-18"><%= I18n.t('cart.order_summary.order_total') %></strong></td>
+              <td>
+                <strong class="font-18">€
+                  <%= @cart_service.subtotal - @cart_service.coupon %></strong></td>
+            </tr>
+          </table>
+          <button class="btn btn-default mb-20 visible-xs-inline-block"><%= I18n.t('cart.checkout_btn') %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button id="cart-btn-checkout" class="btn btn-default mb-20 hidden-xs center-block"><%= I18n.t('cart.checkout_btn') %></button>
+</main>

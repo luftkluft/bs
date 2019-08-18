@@ -1,0 +1,38 @@
+<footer class="navbar-inverse">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9">
+        <ul class="list-inline general-align mb-25">
+          <li>
+            <a href="/" class="nav-link"><%= I18n.t('footer.home_link') %></a></li>
+          <li>
+            <a href="/catalog" class="nav-link"><%= I18n.t('footer.shop_link') %></a></li>
+          <% if user_signed_in? %>
+          <li>
+            <a id="footer_orders" href="/orders" class="nav-link"><%= I18n.t('footer.orders_link') %></a></li>
+          <li>
+            <a id="footer_settings" href="/settings" class="nav-link"><%= I18n.t('footer.settings_link') %></a></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="col-sm-3">
+        <p class="general-nav-mail"><%= I18n.t('footer.support_url') %></p>
+        <p class="general-nav-number"><%= I18n.t('footer.support_phone') %></p>
+        <ul class="list-inline general-align">
+          <li>
+            <a href="#" class="nav-link">
+              <i aria-hidden="true" class="fa fa-facebook"></i></a></li>
+          <li>
+            <a href="#" class="nav-link">
+              <i aria-hidden="true" class="fa fa-twitter"></i></a></li>
+          <li>
+            <a href="#" class="nav-link">
+              <i aria-hidden="true" class="fa fa-google-plus"></i></a></li>
+          <li>
+            <a href="#" class="nav-link">
+              <i aria-hidden="true" class="fa fa-instagram"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
