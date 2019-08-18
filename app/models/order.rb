@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   include AASM
   has_many :addresses, as: :addressable
+  has_many :deliveries, as: :deliveryable
   has_many :order_items, dependent: :destroy
 
   aasm column: 'state' do
